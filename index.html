@@ -32,7 +32,7 @@
             text-transform: uppercase;
         }
         header h1 {
-            font-size: 1.1rem;
+            font-size: 1.5rem;
             font-weight: normal;
             margin: 0;
             display: flex;
@@ -55,7 +55,7 @@
             color: #fff;
             text-decoration: none;
             font-weight: normal;
-            font-size: 0.75rem;
+            font-size: 0.875rem;
             transition: color 0.3s;
             padding: 0.5rem 1rem;
             border-radius: 4px;
@@ -75,7 +75,7 @@
         footer {
             background: #111;
             color: #fff;
-            text-align: right;
+            text-align: center;
             padding: 0.5rem;
             box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
             margin-top: auto;
@@ -83,12 +83,12 @@
             justify-content: flex-start; /* Align icons to the left */
             align-items: center;
             gap: 0.5rem;
-            height: 30px; /* Reduced height */
+            height: 40px; /* Reduced height */
         }
         footer a {
             color: #fff;
             text-decoration: none;
-            font-size: 0.5rem;
+            font-size: 0.75rem;
             padding: 0.25rem 0.5rem;
         }
         footer a:hover {
@@ -101,15 +101,16 @@
         .social-icons img {
             width: 20px;
             height: 20px;
-            border-radius: 20%;
-            background-color:#111;
-            padding: 2px;
+            border-radius: 50%;
+            background-color: #fff;
+            padding: 5px;
             box-sizing: content-box;
+            vertical-align: middle; /* Align icons vertically */
+            margin-top: -2px; /* Adjust margin to move the icon upwards */
         }
         @media (min-width: 768px) {
             header h1 {
-                font-size: 1rem;
-                padding: 0.2rem;
+                font-size: 2rem;
             }
             nav a {
                 font-size: 1rem;
@@ -120,9 +121,9 @@
 </head>
 <body>
     <header>
-        <h1><span>Alberto </span> <span>Fachechi</span></h1>
+        <h1><span>Alberto</span> <span>Fachechi</span></h1>
         <nav>
-            <a href="index.html">Overview</a>
+            <a href="overview.html">Overview</a>
             <a href="cv.html">CV</a>
             <a href="publications.html">Publications</a>
             <a href="teaching.html">Teaching</a>
@@ -138,15 +139,13 @@
     </div>
     <footer>
         <div class="social-icons">
-            <a href="https://scholar.google.it/citations?user=e2d-anoAAAAJ&hl=it"><img src="icons8-google-scholar-50.png" alt="Google"></a>
+            <a href="#"><img src="https://img.icons8.com/ios-filled/50/ffffff/google-logo.png" alt="Google"></a>
             <a href="#"><img src="https://elenakorchmina.com/images/rg.png" alt="ResearchGate"></a>
-            <a href="https://x.com/albertofachechi"><img src="https://img.icons8.com/ios-filled/50/ffffff/x.png" alt="X"></a>
-            <a href="https://www.facebook.com/alberto.fachechi"><img src="https://img.icons8.com/ios-filled/50/ffffff/facebook-new.png" alt="Facebook"></a>
-            <a href="https://www.instagram.com/albertofachechi/"><img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" alt="Instagram"></a>
+            <a href="#"><img src="https://img.icons8.com/ios-filled/50/ffffff/x.png" alt="X"></a>
+            <a href="#"><img src="https://img.icons8.com/ios-filled/50/ffffff/facebook-new.png" alt="Facebook"></a>
+            <a href="#"><img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" alt="Instagram"></a>
         </div>
         <p>&copy; 2024 Alberto Fachechi. All rights reserved.</p>
     </footer>
 </body>
 </html>
-
-
