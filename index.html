@@ -11,6 +11,7 @@
             padding: 0;
             background-color: #f2f2f2; /* Soft neutral color */
             color: #333;
+            font-size: 16px; /* Reduced global font size */
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -34,9 +35,14 @@
             font-size: 1.5rem;
             font-weight: normal;
             margin: 0;
+            display: flex;
+            align-items: center;
         }
         header h1 span:first-letter {
-            font-size: 1.25rem;
+            font-size: 1.25rem; /* Larger size for first letter of first name */
+        }
+        header h1 span:last-word:first-letter {
+            font-size: 1.25rem; /* Larger size for first letter of last name */
         }
         nav {
             display: flex;
@@ -131,10 +137,10 @@
     </div>
     <footer>
         <div class="social-icons">
-            <a href="#"><img src="https://via.placeholder.com/20/ffffff/000000?text=G" alt="Google"></a>
-            <a href="#"><img src="https://via.placeholder.com/20/ffffff/000000?text=X" alt="X"></a>
-            <a href="#"><img src="https://via.placeholder.com/20/ffffff/000000?text=F" alt="Facebook"></a>
-            <a href="#"><img src="https://via.placeholder.com/20/ffffff/000000?text=I" alt="Instagram"></a>
+            <a href="#"><img src="https://img.icons8.com/ios-filled/50/ffffff/google-logo.png" alt="Google"></a>
+            <a href="#"><img src="https://img.icons8.com/ios-filled/50/ffffff/x.png" alt="X"></a>
+            <a href="#"><img src="https://img.icons8.com/ios-filled/50/ffffff/facebook-new.png" alt="Facebook"></a>
+            <a href="#"><img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" alt="Instagram"></a>
         </div>
         <p>&copy; 2024 Alberto Fachechi. All rights reserved.</p>
     </footer>
