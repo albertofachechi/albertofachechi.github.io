@@ -34,15 +34,9 @@
             font-size: 1.5rem;
             font-weight: normal;
             margin: 0;
-            display: flex;
-            align-items: center;
         }
-        header h1 span:first-child {
+        header h1 span:first-letter {
             font-size: 1.25rem;
-            font-weight: bold;
-        }
-        header h1 span:last-child {
-            font-size: 0.75rem;
         }
         nav {
             display: flex;
@@ -52,7 +46,7 @@
             text-transform: uppercase;
         }
         nav a {
-            color: #333;
+            color: #fff;
             text-decoration: none;
             font-weight: normal;
             font-size: 0.875rem;
@@ -62,7 +56,6 @@
             display: inline-block;
         }
         nav a:hover {
-            color: #fff;
             background-color: #555; /* Darker background on hover */
         }
         .container {
@@ -81,11 +74,10 @@
             box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
             margin-top: auto;
             display: flex;
-            justify-content: center;
+            justify-content: flex-start; /* Align icons to the left */
             align-items: center;
-            flex-wrap: wrap;
             gap: 0.5rem;
-            height: 50px; /* Reduced height */
+            height: 40px; /* Reduced height */
         }
         footer a {
             color: #fff;
@@ -121,9 +113,7 @@
 </head>
 <body>
     <header>
-        <h1>
-            <span>Alberto</span> <span>Fachechi</span>
-        </h1>
+        <h1>Alberto Fachechi</h1>
         <nav>
             <a href="overview.html">Overview</a>
             <a href="cv.html">CV</a>
@@ -140,13 +130,13 @@
         </section>
     </div>
     <footer>
-        <p>&copy; 2024 Alberto Fachechi. All rights reserved.</p>
         <div class="social-icons">
-            <a href="#"><img src="https://via.placeholder.com/20" alt="Google"></a>
-            <a href="#"><img src="https://via.placeholder.com/20" alt="X"></a>
-            <a href="#"><img src="https://via.placeholder.com/20" alt="Facebook"></a>
-            <a href="#"><img src="https://via.placeholder.com/20" alt="Instagram"></a>
+            <a href="#"><img src="https://via.placeholder.com/20/ffffff/000000?text=G" alt="Google"></a>
+            <a href="#"><img src="https://via.placeholder.com/20/ffffff/000000?text=X" alt="X"></a>
+            <a href="#"><img src="https://via.placeholder.com/20/ffffff/000000?text=F" alt="Facebook"></a>
+            <a href="#"><img src="https://via.placeholder.com/20/ffffff/000000?text=I" alt="Instagram"></a>
         </div>
+        <p>&copy; 2024 Alberto Fachechi. All rights reserved.</p>
     </footer>
 </body>
 </html>
