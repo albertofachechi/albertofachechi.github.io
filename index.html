@@ -28,17 +28,28 @@
             left: 0;
             z-index: 1000;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-transform: uppercase;
         }
         header h1 {
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             font-weight: normal;
             margin: 0;
+            display: flex;
+            align-items: center;
+        }
+        header h1 span:first-child {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+        header h1 span:last-child {
+            font-size: 0.75rem;
         }
         nav {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
             margin-right: 20px;
+            text-transform: uppercase;
         }
         nav a {
             color: #333;
@@ -48,6 +59,7 @@
             transition: color 0.3s;
             padding: 0.5rem 1rem;
             border-radius: 4px;
+            display: inline-block;
         }
         nav a:hover {
             color: #fff;
@@ -65,17 +77,36 @@
             background: #111;
             color: #fff;
             text-align: center;
-            padding: 1rem;
+            padding: 0.5rem;
             box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
             margin-top: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            height: 50px; /* Reduced height */
         }
-        h2 {
-            font-weight: bold;
-            font-size: 1.5rem;
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
         }
-        p {
-            font-size: 0.875rem;
-            line-height: 1.6;
+        footer a:hover {
+            text-decoration: underline;
+        }
+        .social-icons {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .social-icons img {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #fff;
+            padding: 5px;
+            box-sizing: content-box;
         }
         @media (min-width: 768px) {
             header h1 {
@@ -90,10 +121,12 @@
 </head>
 <body>
     <header>
-        <h1>Alberto Fachechi</h1>
+        <h1>
+            <span>Alberto</span> <span>Fachechi</span>
+        </h1>
         <nav>
             <a href="overview.html">Overview</a>
-            <a href="cv.html">Curriculum Vitae</a>
+            <a href="cv.html">CV</a>
             <a href="publications.html">Publications</a>
             <a href="teaching.html">Teaching</a>
             <a href="coworkers.html">Co-workers</a>
@@ -108,6 +141,12 @@
     </div>
     <footer>
         <p>&copy; 2024 Alberto Fachechi. All rights reserved.</p>
+        <div class="social-icons">
+            <a href="#"><img src="https://via.placeholder.com/20" alt="Google"></a>
+            <a href="#"><img src="https://via.placeholder.com/20" alt="X"></a>
+            <a href="#"><img src="https://via.placeholder.com/20" alt="Facebook"></a>
+            <a href="#"><img src="https://via.placeholder.com/20" alt="Instagram"></a>
+        </div>
     </footer>
 </body>
 </html>
