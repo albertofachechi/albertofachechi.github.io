@@ -129,26 +129,21 @@
             padding-top: 80px; /* Adjusted to accommodate header */
             display: flex;
             flex-wrap: nowrap;
+            justify-content: space-between;
             width: 85%;
+            /*max-width: 2500px;  Maximum width of content */
             margin: 0 auto; /* Center content horizontally */
-            padding-left: 20px;
+            padding: 20px;
         }
         .main-content {
-            flex: 1; /* Allow it to take remaining space */
-            margin-left: 250px; /* Align with sidebar width */
+            flex: 4; /* 5/6 of the width */
+            margin-right: 25px; /* Gap between sections */
             padding-right: 40px; /* Padding inside main content */
             border-right: 2px solid #ddd; /* Right border as separator */
         }
         .sidebar {
-            position: fixed; /* Fixed position for sidebar */
-            top: 80px; /* Align with header height */
-            right: 0;
-            width: 250px; /* Width of sidebar */
-            padding: 20px;
-            background: #fff;
-            /*box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);*/
-            height: calc(100vh - 80px); /* Full height minus header height */
-            overflow-y: auto; /* Enables scrolling if content exceeds height */
+            flex: 1.0; /* 1/6 of the width */
+            padding-left: 20px; /* Padding inside sidebar */
         }
         .sidebar img {
             width: 100%; /* Ensure image fills its container */
