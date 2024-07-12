@@ -16,6 +16,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            transition: padding-top 0.3s;
         }
         header {
             background: #111;
@@ -37,22 +38,39 @@
             font-weight: normal;
             margin: 0;
         }
+        .menu-icon {
+            width: 30px;
+            height: 30px;
+            background-color: #fff;
+            border: none;
+            cursor: pointer;
+            position: relative;
+        }
+        .menu-icon:focus {
+            outline: none;
+        }
         nav {
-            display: flex;
-            gap: 0.5rem;
-            margin-left: auto; /* Keeps menu on the right */
+            display: none; /* Initially hidden */
+            flex-direction: column;
+            position: absolute;
+            top: 40px; /* Adjust based on header height */
+            right: 20px;
+            background-color: #111;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            z-index: 1001;
         }
         nav a {
             color: #fff;
             text-decoration: none;
-            font-weight: normal;
-            font-size: 0.875rem; /* Adjusted size */
-            transition: color 0.3s;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
+            padding: 10px;
+            transition: background 0.3s;
         }
         nav a:hover {
             background-color: #555; /* Darker background on hover */
+        }
+        .show {
+            display: flex; /* Show the menu */
         }
         section {
             margin-bottom: 2rem;
@@ -156,7 +174,10 @@
 <body>
     <header id="header">
         <h1><span>Alberto Fachechi</span></h1>
-        <nav>
+        <button class="menu-icon" onclick="toggleMenu()">
+            &#9776; <!-- Hamburger icon -->
+        </button>
+        <nav id="nav">
             <a href="https://albertofachechi.github.io/">Overview</a>
             <a href="cv.html">CV</a>
             <a href="publications.html">Publications</a>
@@ -165,7 +186,7 @@
             <a href="contacts.html">Contacts</a>
         </nav>
     </header>
-    <div class="container">
+    <div class="container" id="container">
         <div class="content-section" id="overview">
             <h2>Overview</h2>
             <p>Welcome to my personal web-page! Here you can find some informations about me and my research interests. (UNDER CONSTRUCTION)</p>
@@ -189,8 +210,7 @@
                 In particular, the technology adopted falls in the fields of <u>Guerra's interpolation</u> schemes, <u>PDE</u> theory (in particular, Hamilton-Jacobi), <u>probability</u> and <u>random matrix theory</u>.</li>
                 <li><b>Other interests:</b> I also dealt with statistical inference for biological problems, in particular concerning non-linear analysis for <u>heart rate variability</u> and in vitro
                     diffusion experiments quantifying the effects of chemioterapic drugs on mutual <u>stroma-cancer cells interaction</u> for different pancreatic lines with 
-                    a composite approach of maximum entropy principle methods and <u>biological fluid dynamics</u>. I developed a stochastic mathematical approach
-                    in the study of <u>single-cell microfluidic based PCR</u>.</li>
+                    a composite approach of maximum entropy principle, graph theory and (multi-layer feed-forward) neural networks design.</li>
             </ul>
         </div>
         <div class="content-section" id="news">
@@ -211,5 +231,14 @@
         </div>
         <p>© 2023 Alberto Fachechi. All rights reserved.</p>
     </footer>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById("nav");
+            const container = document.getElementById("container");
+            nav.classList.toggle("show");
+            container.style.paddingTop = nav.classList.contains("show") ? "150px" : "70px"; // Adjust padding based on menu state
+        }
+    </script>
 </body>
 </html>
