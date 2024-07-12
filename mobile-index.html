@@ -73,6 +73,8 @@
         .container {
             padding-top: 70px;
             margin-top: 20px; /* Fixed distance */
+            padding-left: 10px; /* Left padding for container */
+            padding-right: 10px; /* Right padding for container */
             transition: margin-top 0.3s; /* Smooth transition */
         }
         .menu-open .container {
@@ -128,6 +130,8 @@
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
             text-align: justify;
             margin-bottom: 20px;
+            padding-left: 15px; /* Left padding for content sections */
+            padding-right: 15px; /* Right padding for content sections */
         }
         .content-section h2 {
             margin-top: 3px;
@@ -216,15 +220,12 @@
         </div>
     </div>
     <footer>
-        <p>Contact: <a href="mailto:alberto.fachechi@uniroma1.it">alberto.fachechi@uniroma1.it</a></p>
         <div class="social-icons">
-            <a href="https://github.com/albertofachechi">
-                <img src="github.png" alt="GitHub">
-            </a>
-            <a href="https://twitter.com/albertofachechi">
-                <img src="twitter.png" alt="Twitter">
-            </a>
+            <a href="https://github.com/albertofachechi"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub"></a>
+            <a href="https://orcid.org/0000-0003-4913-1592"><img src="https://upload.wikimedia.org/wikipedia/commons/0/06/ORCID_iD.svg" alt="ORCID"></a>
+            <a href="https://inspirehep.net/authors/1990612"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Inspirehep.svg" alt="INSPIRE-HEP"></a>
         </div>
+        <p>© 2023 Alberto Fachechi. All rights reserved.</p>
     </footer>
     <script>
         const toggleMenu = document.getElementById('toggleMenu');
