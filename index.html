@@ -86,8 +86,10 @@
         footer {
             background: #111;
             color: #fff;
-            text-align: center;
-            padding: 0.5rem;
+            display: flex; /* Use flexbox for layout */
+            justify-content: space-between; /* Space between items */
+            align-items: center; /* Center vertically */
+            padding: 0.5rem 20px; /* Reduced padding */
             position: fixed;
             width: 100%;
             bottom: 0;
@@ -96,7 +98,6 @@
         }
         .social-icons {
             display: flex;
-            justify-content: center; /* Center social icons */
             gap: 0.5rem;
         }
         .social-icons img {
@@ -105,6 +106,10 @@
             border-radius: 100%;
             background-color: #111;
             padding: 5px;
+        }
+        .footer-text {
+            margin-left: auto; /* Pushes text to the right */
+            font-size: 0.875rem; /* Smaller font size for footer text */
         }
         .box {
             background-color: #f3f3f3; /* Light background for boxes */
