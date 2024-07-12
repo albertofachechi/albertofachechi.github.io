@@ -88,7 +88,12 @@
             font-size: 0.875rem;
             line-height: 1.6;
         }
-
+        .profile-image {
+            width: 100%; /* Ensure image fills its container */
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
         footer {
             background: #111;
             color: #fff;
@@ -147,7 +152,7 @@
             <p>Welcome to my personal web-page! Here you can find some information about me and my research interests. (UNDER CONSTRUCTION)</p>
         </div>
         <div class="content-section">
-            <img src="me.jpg" alt="Profile Image">
+            <img src="me.jpg" alt="Profile Image" class="profile-image">
         </div>
         <div class="content-section" id="current-position">
             <h2>My current position</h2>
