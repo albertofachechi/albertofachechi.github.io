@@ -142,9 +142,15 @@
             border-right: 2px solid #ddd; /* Right border as separator */
         }
         .sidebar {
-            position: fixed;
-            flex: 1.0; /* 1/6 of the width */
-            padding-left: 20px; /* Padding inside sidebar */
+            position: fixed; /* Fixed position for sidebar */
+            top: 80px; /* Align with header height */
+            right: 0;
+            width: 250px; /* Width of sidebar */
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            height: calc(100vh - 80px); /* Full height minus header height */
+            overflow-y: auto; /* Enables scrolling if content exceeds height */
         }
         .sidebar img {
             width: 100%; /* Ensure image fills its container */
