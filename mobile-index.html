@@ -47,24 +47,39 @@
             font-size: 1.25rem; /* Larger size for first letter of Fachechi */
         }
         nav {
-            display: flex;
-            flex-wrap: wrap;
+            display: none; /* Hide nav by default */
+            flex-direction: column;
             gap: 0.5rem;
-            margin-right: 20px;
             text-transform: uppercase;
+            background-color: #111;
+            position: absolute;
+            top: 50px; /* Position below the header */
+            left: 0;
+            width: 100%;
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         nav a {
             color: #fff;
             text-decoration: none;
             font-weight: normal;
-            font-size: 0.875rem;
+            font-size: 1rem;
             transition: color 0.3s;
             padding: 0.5rem 1rem;
             border-radius: 4px;
-            display: inline-block;
+            display: block; /* Full-width links */
         }
         nav a:hover {
             background-color: #555; /* Darker background on hover */
+        }
+        .menu-toggle {
+            font-size: 1.25rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        .menu-toggle span {
+            margin-left: 10px;
         }
         section {
             margin-bottom: 2rem;
@@ -167,15 +182,19 @@
 <body>
     <header id="header">
         <h1><span>Alberto Fachechi</span></h1>
-        <nav>
-            <a href="https://albertofachechi.github.io/">Overview</a>
-            <a href="cv.html">CV</a>
-            <a href="publications.html">Publications</a>
-            <a href="teaching.html">Teaching</a>
-            <a href="coworkers.html">Co-workers</a>
-            <a href="contacts.html">Contacts</a>
-        </nav>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b2/Hamburger_icon.svg" alt="Menu" width="30" height="30">
+            <span>Menu</span>
+        </div>
     </header>
+    <nav id="nav">
+        <a href="https://albertofachechi.github.io/">Overview</a>
+        <a href="cv.html">CV</a>
+        <a href="publications.html">Publications</a>
+        <a href="teaching.html">Teaching</a>
+        <a href="coworkers.html">Co-workers</a>
+        <a href="contacts.html">Contacts</a>
+    </nav>
     <div class="container">
         <div class="content-section" id="overview">
             <h2>Overview</h2>
@@ -187,8 +206,8 @@
         <div class="content-section" id="current-position">
             <h2>My current position</h2>
             <p><b>Researcher</b> (RTD-A)<br>
-            Department of Mathematics "Guido Castelnuovo"<br>Sapienza Università di Roma.<br>
-            Mathematical Physics.</p>
+            Department of Mathematics "Guido Castelnuovo"<br>Sapienza Università di Roma<br>
+            Mathematical Physics</p>
         </div>
         <div class="content-section" id="research-interests">
             <h2>My research interests</h2>
@@ -198,10 +217,9 @@
                     as the <u>Restricted Boltzmann Machines</u>, with the aim of developing an interpretable spin-glass theory depicting their working regimes. </li>
                 <li><b>Methods:</b> a crucial point of my research is the development of <u>rigorous techniques</u> towards a solid-grounded mathematical theory of Artificial Intelligence and Machine Learning.
                 In particular, the technology adopted falls in the fields of <u>Guerra's interpolation</u> schemes, <u>PDE</u> theory (in particular, Hamilton-Jacobi), <u>probability</u> and <u>random matrix theory</u>.</li>
-                <li><b>Other interests:</b> I also dealt with statistical inference for biological problems, in particular concerning non-linear analysis for <u>heart rate variability</u> and in vitro
+                <li><b>Other interests:</b>  I also dealt with statistical inference for biological problems, in particular concerning non-linear analysis for <u>heart rate variability</u> and in vitro
                     diffusion experiments quantifying the effects of chemioterapic drugs on mutual <u>stroma-cancer cells interaction</u> for different pancreatic lines with 
-                    a composite approach of maximum entropy principle methods and <u>biological fluid dynamics</u>. I developed a stochastic mathematical approach
-                    in the study of <u>single-cell microfluidic based PCR</u>.</li>
+                    a composite approach of maximum entropy principle, graph theory and (multi-layer feed-forward) neural networks design.</li>
             </ul>
         </div>
         <div class="content-section" id="news">
@@ -216,11 +234,19 @@
     </div>
     <footer>
         <div class="social-icons">
-            <a href="https://github.com/albertofachechi"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub"></a>
-            <a href="https://orcid.org/0000-0003-4913-1592"><img src="https://upload.wikimedia.org/wikipedia/commons/0/06/ORCID_iD.svg" alt="ORCID"></a>
-            <a href="https://inspirehep.net/authors/1990612"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Inspirehep.svg" alt="INSPIRE-HEP"></a>
+            <a href="https://scholar.google.it/citations?user=e2d-anoAAAAJ&hl=it"><img src="https://img.icons8.com/ios-filled/50/ffffff/google-logo.png" alt="Google"></a>
+            <a href="https://www.researchgate.net/profile/Alberto-Fachechi?ev=hdr_xprf&_tp=eyJjb250ZXh0Ijp7ImZpcnN0UGFnZSI6ImhvbWUiLCJwYWdlIjoiaG9tZSIsInBvc2l0aW9uIjoiZ2xvYmFsSGVhZGVyIn19"><img src="pngimg.com - letter_r_PNG93911.png" alt="ResearchGate"></a>
+            <a href="https://x.com/albertofachechi"><img src="https://img.icons8.com/ios-filled/50/ffffff/x.png" alt="X"></a>
+            <a href="https://www.facebook.com/alberto.fachechi"><img src="https://img.icons8.com/ios-filled/50/ffffff/facebook-new.png" alt="Facebook"></a>
+            <a href="https://www.instagram.com/albertofachechi/"><img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" alt="Instagram"></a>
         </div>
         <p>© 2023 Alberto Fachechi. All rights reserved.</p>
     </footer>
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById('nav');
+            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+        }
+    </script>
 </body>
 </html>
