@@ -121,7 +121,7 @@
         .container {
             padding-top: 80px; /* Adjusted to accommodate header */
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
             justify-content: space-between;
             width: 85%;
             /*max-width: 2500px;  Maximum width of content */
@@ -130,10 +130,13 @@
         }
         .main-content {
             flex: 4; /* 5/6 of the width */
-            margin-right: 55px; /* Gap between sections */
+            margin-right: 25px; /* Gap between sections */
+            padding-right: 20px; /* Padding inside main content */
+            border-right: 2px solid #ddd; /* Right border as separator */
         }
         .sidebar {
             flex: 1.1; /* 1/6 of the width */
+            padding-left: 20px; /* Padding inside sidebar */
         }
         .sidebar img {
             width: 100%; /* Ensure image fills its container */
