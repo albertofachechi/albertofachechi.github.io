@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alberto Fachechi</title>
+    <title>Alberto Fachechi - Mobile</title>
     <link rel="icon" href="" type="image/x-icon">
     <style>
         body {
@@ -45,6 +45,7 @@
             border: none;
             cursor: pointer;
             position: relative;
+            align-self: flex-start;
         }
         .menu-icon:focus {
             outline: none;
@@ -71,51 +72,6 @@
         }
         .show {
             display: flex; /* Show the menu */
-        }
-        section {
-            margin-bottom: 2rem;
-        }
-        footer {
-            background: #111;
-            color: #fff;
-            text-align: center;
-            padding: 0.5rem;
-            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-            margin-top: auto;
-            display: flex;
-            justify-content: flex-start; /* Align icons to the left */
-            align-items: center;
-            gap: 0.5rem;
-            height: 40px; /* Reduced height */
-        }
-        footer a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 0.25rem;
-            padding: 0.25rem 0.5rem;
-        }
-        footer p {
-            font-size: 0.7rem; /* Adjust this value to change the size */
-            margin: 0; /* Remove default margin for better alignment */
-            text-align: right; /* Align text to the right */
-            flex: 1; /* Allow the paragraph to grow and occupy space */
-        }
-        footer a:hover {
-            text-decoration: underline;
-        }
-        .social-icons {
-            display: flex;
-            gap: 0.1rem;
-        }
-        .social-icons img {
-            width: 20px;
-            height: 20px;
-            border-radius: 100%;
-            background-color: #111;
-            padding: 5px;
-            box-sizing: content-box;
-            vertical-align: middle; /* Align icons vertically */
-            margin-top: -2px; /* Adjust margin to move the icon upwards */
         }
         .container {
             padding-top: 70px; /* Adjusted for header height */
@@ -162,6 +118,48 @@
             color: #292929; /* Example color for the date text */
             margin: 2px 0; /* Reduced margin */
             font-weight: bold;
+        }
+        footer {
+            background: #111;
+            color: #fff;
+            text-align: center;
+            padding: 0.5rem;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: auto;
+            display: flex;
+            justify-content: flex-start; /* Align icons to the left */
+            align-items: center;
+            gap: 0.5rem;
+            height: 40px; /* Reduced height */
+        }
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.25rem;
+            padding: 0.25rem 0.5rem;
+        }
+        footer p {
+            font-size: 0.7rem; /* Adjust this value to change the size */
+            margin: 0; /* Remove default margin for better alignment */
+            text-align: right; /* Align text to the right */
+            flex: 1; /* Allow the paragraph to grow and occupy space */
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        .social-icons {
+            display: flex;
+            gap: 0.1rem;
+        }
+        .social-icons img {
+            width: 20px;
+            height: 20px;
+            border-radius: 100%;
+            background-color: #111;
+            padding: 5px;
+            box-sizing: content-box;
+            vertical-align: middle; /* Align icons vertically */
+            margin-top: -2px; /* Adjust margin to move the icon upwards */
         }
         @media (min-width: 769px) {
             /* Redirect to the main site on larger screens */
