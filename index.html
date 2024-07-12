@@ -13,6 +13,7 @@
             padding: 0;
             background-color: #f2f2f2;
             color: #333;
+            font-size: 16px;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -31,43 +32,45 @@
             left: 0;
             z-index: 1000;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        header h1 {
-            font-size: 1.75rem;
-            margin: 0;
-        }
-
-        #menu-toggle {
-            cursor: pointer;
-            font-size: 1.5rem;
+            text-transform: uppercase;
         }
 
         nav {
-            display: none;
-            flex-direction: column;
-            width: 100%;
-            background: #111;
+            display: flex;
+            gap: 0.5rem;
+            margin-left: auto; /* Pushes the menu to the right */
         }
 
         nav a {
             color: #fff;
             text-decoration: none;
-            padding: 10px 20px;
-            border-top: 1px solid #333;
+            font-weight: normal;
+            font-size: 0.875rem;
+            transition: color 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            display: inline-block;
         }
 
         nav a:hover {
-            background-color: #555;
+            background-color: #555; /* Darker background on hover */
         }
 
         .container {
-            padding-top: 80px; /* Space for header */
-            padding-bottom: 20px;
+            padding-top: 80px; /* Adjusted to accommodate header */
+            margin-top: 20px; /* Added margin for spacing */
             display: flex;
             flex-direction: column;
-            width: 90%;
-            margin: 0 auto;
+            width: 90%; /* Width for mobile version */
+            margin: 0 auto; /* Center content horizontally */
+            padding: 20px;
+        }
+
+        .profile-image {
+            width: 100%; /* Ensure image fills its container */
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 4px;
+            margin-bottom: 20px;
         }
 
         .content-section {
@@ -87,12 +90,6 @@
         .content-section ul {
             font-size: 0.875rem;
             line-height: 1.6;
-        }
-        .profile-image {
-            width: 100%; /* Ensure image fills its container */
-            height: auto; /* Maintain aspect ratio */
-            border-radius: 4px;
-            margin-bottom: 20px;
         }
         footer {
             background: #111;
