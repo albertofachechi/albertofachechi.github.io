@@ -31,20 +31,11 @@
             z-index: 1000;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             text-transform: uppercase;
-            margin-bottom: 150px;
         }
         header h1 {
             font-size: 1.5rem;
             font-weight: normal;
             margin: 0;
-            display: flex;
-            align-items: center;
-        }
-        header h1 span:first-of-type::first-letter {
-            font-size: 1.25rem; /* Larger size for first letter of Alberto */
-        }
-        header h1 span:last-of-type::first-letter {
-            font-size: 1.25rem; /* Larger size for first letter of Fachechi */
         }
         nav {
             display: flex;
@@ -66,13 +57,30 @@
         nav a:hover {
             background-color: #555; /* Darker background on hover */
         }
-        /*.container {
-            padding: 80px 20px 20px;
-            flex: 1;
-            overflow-y: auto;
-        }*/
-        section {
-            margin-bottom: 2rem;
+        .container {
+            display: flex;
+            padding-top: 80px; /* Adjusted to accommodate header */
+            width: 85%; /* Center content horizontally */
+            margin: 0 auto;
+        }
+        .main-content {
+            flex: 5; /* 5/6 of the width */
+            padding-right: 40px; /* Padding inside main content */
+            overflow-y: auto; /* Make it scrollable */
+            height: calc(100vh - 80px); /* Full height minus header height */
+        }
+        .sidebar {
+            flex: 1; /* 1/6 of the width */
+            padding-left: 20px; /* Padding inside sidebar */
+            position: sticky; /* Keeps sidebar fixed */
+            top: 80px; /* Align with header height */
+            height: calc(100vh - 80px); /* Full height minus header height */
+            overflow-y: hidden; /* Disable scrolling in sidebar */
+        }
+        .sidebar img {
+            width: 100%; /* Ensure image fills its container */
+            border-radius: 4px;
+            margin-bottom: 20px;
         }
         footer {
             background: #111;
@@ -81,140 +89,8 @@
             padding: 0.5rem;
             box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
             margin-top: auto;
-            display: flex;
-            justify-content: flex-start; /* Align icons to the left */
-            align-items: center;
-            gap: 0.5rem;
-            height: 40px; /* Reduced height */
         }
-        footer a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 0.25rem;
-            padding: 0.25rem 0.5rem;
-        }
-        footer p {
-            font-size: 0.7rem; /* Adjust this value to change the size */
-            margin: 0; /* Remove default margin for better alignment */
-            text-align: right; /* Align text to the right */
-            flex: 1; /* Allow the paragraph to grow and occupy space */
-        }
-        footer a:hover {
-            text-decoration: underline;
-        }
-        .social-icons {
-            display: flex;
-            gap: 0.1rem;
-        }
-        .social-icons img {
-            width: 20px;
-            height: 20px;
-            border-radius: 100%;
-            background-color: #111;
-            padding: 5px;
-            box-sizing: content-box;
-            vertical-align: middle; /* Align icons vertically */
-            margin-top: -2px; /* Adjust margin to move the icon upwards */
-        }
-        @media (min-width: 768px) {
-            header h1 {
-                font-size: 1.1rem;
-            }
-            nav a {
-                font-size: 0.8rem;
-                padding: 0.5rem 1.5rem;
-            }
-        }
-        .container {
-            padding-top: 80px; /* Adjusted to accommodate header */
-            display: flex;
-            flex-wrap: nowrap;
-            justify-content: space-between;
-            width: 85%;
-            /*max-width: 2500px;  Maximum width of content */
-            margin: 0 auto; /* Center content horizontally */
-            padding: 20px;
-        }
-        .main-content {
-            flex: 4; /* 5/6 of the width */
-            margin-right: 25px; /* Gap between sections */
-            padding-right: 40px; /* Padding inside main content */
-            border-right: 2px solid #ddd; /* Right border as separator */
-        }
-        .sidebar {
-            flex: 1.0; /* 1/6 of the width */
-            padding-left: 20px; /* Padding inside sidebar */
-        }
-        .sidebar img {
-            width: 100%; /* Ensure image fills its container */
-            border-radius: 4px;
-            margin-bottom: 20px;
-        }
-        .latest-news {
-            background: #ffffff93; /* White background for contrast */
-            padding: 10px;
-            border-radius: 4px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Shadow for box */
-            text-align: justify;
-        }
-        .latest-news h3 {
-            margin-top: 3px; /* Optional margin for spacing */
-            font-size: 1.5rem; /* Example size for section title */
-            margin-bottom: 5px; /* Optional margin for spacing */
-        }
-
-        .latest-news p {
-            font-size: 0.75rem; /* Adjust font size for news content */
-            line-height: 1.6; /* Optional: Adjust line height for readability */
-            text-align: justify;
-        }
-        .news-date {
-            font-size: 0.75rem; /* Font size for the date */
-            color: #292929; /* Example color for the date text */
-            margin: 2px 0; /* Reduced margin */
-            font-weight: bold;
-        }
-        .section {
-            margin-bottom: 20px; /* Adjust margin between sections */
-        }
-
-        .section-title {
-            font-size: 1.0rem; /* Example size for section title */
-            font-weight: bold; /* Example: Make title bold */
-            margin-bottom: 2px; /* Optional margin below title */
-        }
-
-        .section-content p {
-            font-size: 0.875rem; /* Example size for section text */
-            margin-top: 0px;
-            text-align: justify;
-            /* Additional styling options can be added here */
-        }
-        .bulleted-list {
-            list-style-type: disc; /* Standard bullet points */
-            padding-left: 20px; /* Space between bullets and text */
-            margin-bottom: 1rem; /* Space below the list */
-        }
-
-        .bulleted-list li {
-            margin-bottom: 0.5rem; /* Space between list items */
-            font-size: 0.875rem; /* Example font size */
-        }
-        .box {
-            background-color: #f3f3f3; /* White background for contrast */
-            padding: 5px 20px; /* Space inside the box */
-            border-radius: 10px; /* Rounded corners */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Shadow for depth */
-            margin-bottom: 20px; /* Space between chat messages */
-            border-left: 5px solid #808080; /* Left border for chat bubble effect */
-            text-align: justify; /* Justify text inside chat boxes */
-        }
-        .vertical-skip {
-            margin-top: 6vh; /* Adjust this value for desired space */
-        }
-        .new_vertical-skip {
-            margin-top: 3vh; /* Adjust this value for desired space */
-        }
+        /* Add other styles as required... */
     </style>
 </head>
 <body>
@@ -229,15 +105,11 @@
             <a href="contacts.html">Contacts</a>
         </nav>
     </header>
-    <div class="vertical-skip"  id="overview">
-    </div>
     <div class="container">
         <div class="main-content">
             <section id="overview">
                 <h2>Overview</h2>
-                <p>Welcome to my personal web-page! Here you can find some informations about me and my research interests. (UNDER CONSTRUCTION)</p>
-                <div class="new_vertical-skip"  id="boxes">
-                </div>
+                <p>Welcome to my personal web-page! Here you can find some information about me and my research interests. (UNDER CONSTRUCTION)</p>
                 <div class="box">
                     <div class="section">
                         <h2 class="section-title">My current position</h2>
@@ -253,29 +125,9 @@
                         <h2 class="section-title">My research interests</h2>
                         <div class="section-content">
                             <ul class="bulleted-list">
-                                <li><b>Contents:</b> my research activity is placed in the wide discipline of statistical-mechanics methods for complex systems analysis, in particular concerning <u>spin-glass</u> theory and its application to modern <u>Artificial Intelligence</u> and <u>Machine Learning</u>.
-                                    My research is focused in particular on attractor neural networks (ANNs) as prototypical model for associative memory, such as the <u>Hopfield model</u> and its related variants. Also, I investigate collective behaviors of archetypical generative models, such
-                                    as the <u>Restricted Boltzmann Machines</u>, with the aim of developing an interpretable spin-glass theory depicting their working regimes. </li>
-                                <li><b>Methods:</b> a crucial point of my research is the development of <u>rigorous techniques</u> towards a solid-grounded mathematical theory of Artificial Intelligence and Machine Learning.
-                                In particular, the technology adopted falls in the fields of <u>Guerra's interpolation</u> schemes, <u>PDE</u> theory (in particular, Hamilton-Jacobi), <u>probability</u> and <u>random matrix theory</u>.</li>
-                                <li><b>Other interests:</b> I also dealt with statistical inference for biological problems, in particular concerning non-linear analysis for <u>heart rate variability</u> and in vitro
-                                    diffusion experiments quantifying the effects of chemioterapic drugs on mutual <u>stroma-cancer cells interaction</u> for different pancreatic lines with 
-                                    a composite approach of maximum entropy principle, graph theory and (multi-layer feed-forward) neural networks design.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="box">
-                    <div class="section">
-                        <h2 class="section-title">Additional informations</h2>
-                        <div class="section-content">
-                            <ul class="bulleted-list">
-                                <li> Since April 2023, I have been part of the <a href="https://fondazione-fair.it/">FAIR foundation</a> (Future Artificial Intelligence Research), a PNRR-funded project aiming in high-quality
-                                    research in the field of Artificial Intelligence as Researcher (RTD-A). Specifically, I am member of the Spoke 5 (WP5.5) "Quality assessment in Hard Science and AI", for which I also cover the role of responsible
-                                    for the communication and organization of dissemination events.
-                                </li>
-                                <li>My recent research activity has benefited from the stimulating environment provided by the Alan Turing Institute’s Theory and Methods Challenge Fortnights event “Physics-informed Machine Learning”. </li>
-                                <li>My work on "Dreaming Neural Networks" has attracted much attention from the generalistic press, see for example <a href="https://www.repubblica.it/tecnologia/2019/02/15/news/l_intelligenza_artificiale_sa_dormire_e_pare_ne_abbia_bisogno_forse_un_giorno_sognera_-219224187/">this article</a>.</li>
+                                <li><b>Contents:</b> My research activity is placed in the wide discipline of statistical-mechanics methods for complex systems analysis, in particular concerning <u>spin-glass</u> theory and its application to modern <u>Artificial Intelligence</u> and <u>Machine Learning</u>.</li>
+                                <li><b>Methods:</b> A crucial point of my research is the development of <u>rigorous techniques</u> towards a solid-grounded mathematical theory of Artificial Intelligence and Machine Learning.</li>
+                                <li><b>Other interests:</b> I also dealt with statistical inference for biological problems, particularly concerning non-linear analysis for <u>heart rate variability</u>.</li>
                             </ul>
                         </div>
                     </div>
@@ -287,51 +139,16 @@
             <div class="latest-news">
                 <h3>Latest News</h3>
                 <p class="news-date">14/06/2024</p>
-                <p>Our work "Fundamental operating regimes, hyper-parameter fine-tuning and glassiness: towards an interpretable replica-theory for trained restricted Boltzmann machines" is publicly available on arXiv.</p>
+                <p>Our work "Fundamental operating regimes..." is publicly available on arXiv.</p>
                 <p class="news-date">12/05/2024</p>
-                <p>Our work "Regularization, early-stopping and dreaming: a Hopfield-like setup to address generalization and overfitting" has been accepted for publication in Neural Networks.</p>
+                <p>Our work "Regularization, early-stopping..." has been accepted for publication in Neural Networks.</p>
                 <p class="news-date">17/03/2024</p>
-                <p>Our work "A spectral approach to Hebbian-like neural networks" has been accepted for publication in Applied Mathematics and Computation.</p>
+                <p>Our work "A spectral approach..." has been accepted for publication in Applied Mathematics and Computation.</p>
             </div>
         </div>
     </div>
     <footer>
-        <div class="social-icons">
-            <a href="https://scholar.google.it/citations?user=e2d-anoAAAAJ&hl=it"><img src="https://img.icons8.com/ios-filled/50/ffffff/google-logo.png" alt="Google"></a>
-            <a href="https://www.researchgate.net/profile/Alberto-Fachechi?ev=hdr_xprf&_tp=eyJjb250ZXh0Ijp7ImZpcnN0UGFnZSI6ImhvbWUiLCJwYWdlIjoiaG9tZSIsInBvc2l0aW9uIjoiZ2xvYmFsSGVhZGVyIn19"><img src="pngimg.com - letter_r_PNG93911.png" alt="ResearchGate"></a>
-            <a href="https://x.com/albertofachechi"><img src="https://img.icons8.com/ios-filled/50/ffffff/x.png" alt="X"></a>
-            <a href="https://www.facebook.com/alberto.fachechi"><img src="https://img.icons8.com/ios-filled/50/ffffff/facebook-new.png" alt="Facebook"></a>
-            <a href="https://www.instagram.com/albertofachechi/"><img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" alt="Instagram"></a>
-        </div>
         <p>&copy; 2024 Alberto Fachechi. All rights reserved.</p>
     </footer>
-
-    <script>
-        // Get the header element
-        const header = document.getElementById('header');
-
-        // Get the height of the header
-        const headerHeight = header.offsetHeight;
-
-        // Set margin-top for sections dynamically
-        const sections = document.querySelectorAll('.vertical-skip');
-        sections.forEach(section => {
-            section.style.marginTop = `${headerHeight}px`;
-        });
-
-        // Optional: Adjust margins on window resize
-        window.addEventListener('resize', () => {
-            const newHeaderHeight = header.offsetHeight;
-            sections.forEach(section => {
-                section.style.marginTop = `${newHeaderHeight}px`;
-            });
-        });
-    </script>
-    <script>
-        if (window.innerWidth <= 768) {
-            window.location.href = "mobile-index.html"; // Redirect to mobile version
-        }
-    </script>
-
 </body>
 </html>
