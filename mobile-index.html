@@ -16,12 +16,11 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            transition: padding-top 0.3s; /* Smooth transition for padding */
         }
         header {
             background: #111;
             color: #fff;
-            padding: 5px 20px;
+            padding: 5px 20px; /* Reduced height */
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -37,71 +36,90 @@
             font-size: 1.25rem;
             font-weight: normal;
             margin: 0;
-            padding-left: 10px; /* Left padding */
+            padding-left: 20px; /* Padding for name */
         }
         .menu-icon {
-            width: 40px;
-            height: 40px;
-            background-color: #111; /* Match header background */
+            background: #111;
+            color: white;
             border: none;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-size: 1.5rem;
             padding: 5px;
-            margin-right: 20px; /* Right padding */
-        }
-        .menu-icon:before {
-            content: "☰"; /* Hamburger icon */
-            font-size: 24px; /* Icon size */
-            color: #fff; /* White color for the icon */
+            margin-right: 20px; /* Padding for menu icon */
+            cursor: pointer;
+            z-index: 1001;
         }
         nav {
-            display: none; /* Hidden by default */
+            display: none;
             flex-direction: column;
             position: absolute;
-            top: 50px; /* Below the header */
             right: 0;
             background: #111;
-            width: 100%;
-            padding: 10px 0;
-            z-index: 999;
+            width: 100%; /* Full width */
+            z-index: 1000;
+            top: 50px; /* Adjust based on header height */
+        }
+        nav.open {
+            display: flex;
         }
         nav a {
             color: #fff;
             text-decoration: none;
-            font-weight: normal;
-            font-size: 1rem;
-            padding: 10px 20px;
-            transition: background-color 0.3s;
+            padding: 10px;
+            text-align: left;
         }
         nav a:hover {
             background-color: #555;
         }
         .container {
-            padding-top: 70px; /* Space for fixed header */
-            margin-top: 20px; /* Added margin for spacing */
-            display: flex;
-            flex-direction: column;
-            width: 90%;
-            margin: 0 auto;
-            padding: 20px;
-            transition: margin-top 0.3s; /* Smooth transition for margin */
+            padding-top: 70px;
+            margin-top: 20px; /* Fixed distance */
+            transition: margin-top 0.3s; /* Smooth transition */
+        }
+        .menu-open .container {
+            margin-top: 200px; /* Adjust based on your menu height */
+        }
+        section {
+            margin-bottom: 2rem;
         }
         footer {
             background: #111;
             color: #fff;
             text-align: center;
             padding: 0.5rem;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
             margin-top: auto;
             display: flex;
             justify-content: flex-start;
             align-items: center;
             gap: 0.5rem;
+            height: 40px;
+        }
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+        }
+        footer p {
+            font-size: 0.7rem;
+            margin: 0;
+            text-align: right;
+            flex: 1;
+        }
+        footer a:hover {
+            text-decoration: underline;
         }
         .social-icons {
             display: flex;
             gap: 0.1rem;
+        }
+        .social-icons img {
+            width: 20px;
+            height: 20px;
+            border-radius: 100%;
+            background-color: #111;
+            padding: 5px;
+            box-sizing: content-box;
         }
         .content-section {
             background: #ffffff93;
@@ -110,6 +128,35 @@
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
             text-align: justify;
             margin-bottom: 20px;
+        }
+        .content-section h2 {
+            margin-top: 3px;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        .content-section p, .content-section ul {
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+        .content-section img {
+            width: 100%;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .bulleted-list {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin-bottom: 1rem;
+        }
+        .bulleted-list li {
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+        .news-date {
+            font-size: 0.75rem;
+            color: #292929;
+            margin: 2px 0;
+            font-weight: bold;
         }
         @media (min-width: 769px) {
             body {
@@ -120,67 +167,71 @@
 </head>
 <body>
     <header id="header">
-        <h1>Alberto Fachechi</h1>
-        <button class="menu-icon" onclick="toggleMenu()"></button>
+        <h1><span>Alberto Fachechi</span></h1>
+        <button id="toggleMenu" class="menu-icon">☰</button> <!-- Menu icon -->
+        <nav id="menu" class="menu">
+            <a href="https://albertofachechi.github.io/">Overview</a>
+            <a href="cv.html">CV</a>
+            <a href="publications.html">Publications</a>
+            <a href="teaching.html">Teaching</a>
+            <a href="coworkers.html">Co-workers</a>
+            <a href="contacts.html">Contacts</a>
+        </nav>
     </header>
-    <nav id="menu">
-        <a href="https://albertofachechi.github.io/">Overview</a>
-        <a href="cv.html">CV</a>
-        <a href="publications.html">Publications</a>
-        <a href="teaching.html">Teaching</a>
-        <a href="coworkers.html">Co-workers</a>
-        <a href="contacts.html">Contacts</a>
-    </nav>
     <div class="container">
         <div class="content-section" id="overview">
             <h2>Overview</h2>
-            <p>Welcome to my personal web-page! Here you can find some information about me and my research interests. (UNDER CONSTRUCTION)</p>
+            <p>Welcome to my personal web-page! Here you can find some informations about me and my research interests. (UNDER CONSTRUCTION)</p>
         </div>
         <div class="content-section">
-            <img src="me.jpg" alt="Profile Image" style="width: 100%; border-radius: 4px;">
+            <img src="me.jpg" alt="Profile Image">
         </div>
         <div class="content-section" id="current-position">
             <h2>My current position</h2>
-            <p><b>Researcher</b> (RTD-A)<br>Department of Mathematics "Guido Castelnuovo"<br>Sapienza Università di Roma<br>Mathematical Physics</p>
+            <p><b>Researcher</b> (RTD-A)<br>
+            Department of Mathematics "Guido Castelnuovo"<br>Sapienza Università di Roma<br>
+            Mathematical Physics</p>
         </div>
         <div class="content-section" id="research-interests">
             <h2>My research interests</h2>
             <ul class="bulleted-list">
-                <li><b>Contents:</b> My research activity is placed in the wide discipline of statistical-mechanics methods for complex systems analysis, in particular concerning <u>spin-glass</u> theory and its application to modern <u>Artificial Intelligence</u> and <u>Machine Learning</u>.</li>
-                <li><b>Methods:</b> A crucial point of my research is the development of <u>rigorous techniques</u> towards a solid-grounded mathematical theory of Artificial Intelligence and Machine Learning.</li>
-                <li><b>Other interests:</b> I also dealt with statistical inference for biological problems.</li>
+                <li><b>Contents:</b> my research activity is placed in the wide discipline of statistical-mechanics methods for complex systems analysis, in particular concerning <u>spin-glass</u> theory and its application to modern <u>Artificial Intelligence</u> and <u>Machine Learning</u>.
+                    My research is focused in particular on attractor neural networks (ANNs) as prototypical model for associative memory, such as the <u>Hopfield model</u> and its related variants. Also, I investigate collective behaviors of archetypical generative models, such
+                    as the <u>Restricted Boltzmann Machines</u>, with the aim of developing an interpretable spin-glass theory depicting their working regimes.</li>
+                <li><b>Methods:</b> a crucial point of my research is the development of <u>rigorous techniques</u> towards a solid-grounded mathematical theory of Artificial Intelligence and Machine Learning.
+                In particular, the technology adopted falls in the fields of <u>Guerra's interpolation</u> schemes, <u>PDE</u> theory (in particular, Hamilton-Jacobi), <u>probability</u> and <u>random matrix theory</u>.</li>
+                <li><b>Other interests:</b> I also dealt with statistical inference for biological problems, in particular concerning non-linear analysis for <u>heart rate variability</u> and in vitro
+                    diffusion experiments quantifying the effects of chemioterapic drugs on mutual <u>stroma-cancer cells interaction</u> for different pancreatic lines with 
+                    a composite approach of maximum entropy principle, graph theory and (multi-layer feed-forward) neural networks design.</li>
             </ul>
         </div>
         <div class="content-section" id="news">
             <h2>News</h2>
             <p class="news-date">14/06/2024</p>
-            <p>Our work "Fundamental operating regimes..." is publicly available on arXiv.</p>
+            <p>Our work "Fundamental operating regimes, hyper-parameter fine-tuning and glassiness: towards an interpretable replica-theory for trained restricted Boltzmann machines" is publicly available on arXiv.</p>
             <p class="news-date">12/05/2024</p>
-            <p>Our work "Regularization, early-stopping..." has been accepted for publication.</p>
+            <p>Our work "Regularization, early-stopping and dreaming: a Hopfield-like setup to address generalization and overfitting" has been accepted for publication in Neural Networks.</p>
             <p class="news-date">17/03/2024</p>
-            <p>Our work "A spectral approach to Hebbian-like neural networks..." has been accepted for publication.</p>
+            <p>Our work "A spectral approach to Hebbian-like neural networks" has been accepted for publication in Applied Mathematics and Computation.</p>
         </div>
     </div>
     <footer>
         <div class="social-icons">
-            <a href="https://github.com/albertofachechi"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub" width="20" height="20"></a>
-            <a href="https://orcid.org/0000-0003-4913-1592"><img src="https://upload.wikimedia.org/wikipedia/commons/0/06/ORCID_iD.svg" alt="ORCID" width="20" height="20"></a>
-            <a href="https://inspirehep.net/authors/1990612"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Inspirehep.svg" alt="INSPIRE-HEP" width="20" height="20"></a>
+            <a href="https://github.com/albertofachechi"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub"></a>
+            <a href="https://orcid.org/0000-0003-4913-1592"><img src="https://upload.wikimedia.org/wikipedia/commons/0/06/ORCID_iD.svg" alt="ORCID"></a>
+            <a href="https://inspirehep.net/authors/1990612"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Inspirehep.svg" alt="INSPIRE-HEP"></a>
         </div>
         <p>© 2023 Alberto Fachechi. All rights reserved.</p>
     </footer>
     <script>
-        function toggleMenu() {
-            const menu = document.getElementById('menu');
-            const body = document.body;
-            if (menu.style.display === 'flex') {
-                menu.style.display = 'none';
-                body.style.paddingTop = '0'; // Reset padding
-            } else {
-                menu.style.display = 'flex';
-                body.style.paddingTop = '150px'; // Space for the menu
-            }
-        }
+        const toggleMenu = document.getElementById("toggleMenu");
+        const body = document.body;
+
+        toggleMenu.addEventListener("click", () => {
+            const menu = document.getElementById("menu");
+            menu.classList.toggle("open");
+            body.classList.toggle("menu-open"); // Add/remove class
+        });
     </script>
 </body>
 </html>
