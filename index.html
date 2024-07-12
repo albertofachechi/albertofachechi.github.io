@@ -77,6 +77,11 @@
             top: 80px; /* Align with header height */
             height: calc(90vh - 80px); /* Full height minus header height */
             overflow-y: auto; /* Disable scrolling in sidebar */
+            scrollbar-width: none; /* Hide scrollbar in Firefox */
+            -ms-overflow-style: none;  /* Hide scrollbar in Internet Explorer */
+        }
+        .sidebar::-webkit-scrollbar {
+            display: none; /* Hide scrollbar in Webkit browsers */
         }
         .sidebar .image-container {
             background-color: #f3f3f3; /* Light background for box */
