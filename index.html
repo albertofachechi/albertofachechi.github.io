@@ -180,6 +180,16 @@
             line-height: 1.6; /* Improved readability */
             text-align: justify; /* Justify text */
         }
+
+        .vertical-separator {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: -10px;
+            width: 1px;
+            background-color: #ccc; /* Light grey color for separator */
+            margin-left: 10px; /* Equal spacing on both sides */
+        }
     </style>
 </head>
 <body>
@@ -196,6 +206,7 @@
     </header>
     <div class="container">
         <div class="main-content">
+            <div class="vertical-separator"></div>
             <section id="overview">
                 <h2>Overview</h2>
                 <div class="box">
