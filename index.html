@@ -191,6 +191,31 @@
             height: auto; /* Full height minus header and footer */
         }
 
+        .keywords-section {
+            margin: 20px 0; /* Spacing around the section */
+            padding: 10px; /* Padding inside the section */
+            background-color: #f9f9f9; /* Light background for contrast */
+            border: 1px solid #ddd; /* Border around the section */
+            border-radius: 4px; /* Rounded corners */
+        }
+
+        .keywords-list {
+            list-style-type: none; /* Remove default list styling */
+            padding: 0; /* Remove padding */
+        }
+
+        .keyword-item {
+            font-size: 0.875rem; /* Font size for keywords */
+            line-height: 1.5; /* Improve readability */
+            margin-bottom: 5px; /* Space between keyword items */
+            color: #333; /* Text color */
+        }
+
+        .keyword-item::before {
+            content: "• "; /* Add bullet point before each keyword */
+            color: #007BFF; /* Change bullet color */
+        }
+
     </style>
 </head>
 <body>
@@ -224,6 +249,16 @@
                     </ul>
                 </div>
                 </div>
+                <section class="keywords-section">
+                    <h2>Keywords</h2>
+                    <ul class="keywords-list">
+                        <li class="keyword-item">Artificial Intelligence</li>
+                        <li class="keyword-item">Machine Learning</li>
+                        <li class="keyword-item">Statistical Mechanics</li>
+                        <li class="keyword-item">Spin-Glass Theory</li>
+                        <li class="keyword-item">Generative Models</li>
+                    </ul>
+                </section>
                 <div class="box">
                     <div class="section">
                         <h2 class="section-title">Selected papers</h2>
