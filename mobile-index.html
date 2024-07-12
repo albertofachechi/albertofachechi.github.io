@@ -16,6 +16,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            transition: padding-top 0.3s; /* Smooth transition for padding */
         }
         header {
             background: #111;
@@ -40,17 +41,19 @@
         .menu-icon {
             width: 40px;
             height: 40px;
-            background-color: #fff;
+            background-color: #111; /* Match header background */
             border: none;
             cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 5px;
+            margin-right: 10px; /* Padding from right edge */
         }
         .menu-icon:before {
             content: "☰"; /* Hamburger icon */
             font-size: 24px; /* Icon size */
-            color: #111;
+            color: #fff; /* White color for the icon */
         }
         nav {
             display: none; /* Hidden by default */
@@ -82,6 +85,7 @@
             width: 90%;
             margin: 0 auto;
             padding: 20px;
+            transition: margin-top 0.3s; /* Smooth transition for margin */
         }
         footer {
             background: #111;
@@ -129,7 +133,7 @@
     <div class="container">
         <div class="content-section" id="overview">
             <h2>Overview</h2>
-            <p>Welcome to my personal web-page! Here you can find some informations about me and my research interests. (UNDER CONSTRUCTION)</p>
+            <p>Welcome to my personal web-page! Here you can find some information about me and my research interests. (UNDER CONSTRUCTION)</p>
         </div>
         <div class="content-section">
             <img src="me.jpg" alt="Profile Image" style="width: 100%; border-radius: 4px;">
@@ -167,8 +171,14 @@
     <script>
         function toggleMenu() {
             const menu = document.getElementById('menu');
-            menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
-            document.body.style.overflow = menu.style.display === 'flex' ? 'hidden' : 'auto'; // Prevent scrolling when menu is open
+            const body = document.body;
+            if (menu.style.display === 'flex') {
+                menu.style.display = 'none';
+                body.style.paddingTop = '0'; // Reset padding
+            } else {
+                menu.style.display = 'flex';
+                body.style.paddingTop = '150px'; // Space for the menu
+            }
         }
     </script>
 </body>
