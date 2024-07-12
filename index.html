@@ -161,14 +161,19 @@
             margin-top: 3px; /* Optional margin for spacing */
             margin-bottom: 0px;
         }
-        .section-separator {
-            margin-top: 10px; /* Adjust spacing between sections */
-            margin-bottom: 0px; /* Adjust spacing between sections */
-            border-top: 1px solid #ccc; /* Example border style */
-            padding-top: 10px; /* Optional padding above the separator */
-            padding-bottom: 0px; /* Optional padding below the separator */
-            text-align: left; /* Optional: Center align text */
-            color: #666; /* Optional: Text color */
+        .section {
+            margin-bottom: 20px; /* Adjust margin between sections */
+        }
+
+        .section-title {
+            font-size: 1.5rem; /* Example size for section title */
+            font-weight: bold; /* Example: Make title bold */
+            margin-bottom: 10px; /* Optional margin below title */
+        }
+
+        .section-content p {
+            font-size: 0.875rem; /* Example size for section text */
+            /* Additional styling options can be added here */
         }
     </style>
 </head>
@@ -190,8 +195,12 @@
             <section id="overview">
                 <h2>Overview</h2>
                 <p>Welcome to my personal web-page! Here you can find some informations about me and my research interests.</p>
-                <p class="section-separator">My current position</p>
-                <p>Departments of Mathematics "Guido Castelnuovo", Sapienza Università di Roma</p>
+                <div class="section">
+                    <h2 class="section-title">Section Title</h2>
+                    <div class="section-content">
+                        <p>This is the text part of the section.</p>
+                    </div>
+                </div>
             </section>
         </div>
         <div class="sidebar">
