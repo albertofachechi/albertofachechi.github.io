@@ -90,7 +90,25 @@
             box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
             margin-top: auto;
         }
-        /* Add other styles as required... */
+        .social-icons {
+            display: flex;
+            justify-content: center; /* Center social icons */
+            gap: 0.5rem;
+        }
+        .social-icons img {
+            width: 20px;
+            height: 20px;
+            border-radius: 100%;
+            background-color: #111;
+            padding: 5px;
+        }
+        .box {
+            background-color: #f3f3f3; /* White background for contrast */
+            padding: 5px 20px; /* Space inside the box */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+            margin-bottom: 20px; /* Space between chat messages */
+        }
     </style>
 </head>
 <body>
@@ -148,6 +166,13 @@
         </div>
     </div>
     <footer>
+        <div class="social-icons">
+            <a href="https://scholar.google.it/citations?user=e2d-anoAAAAJ&hl=it"><img src="https://img.icons8.com/ios-filled/50/ffffff/google-logo.png" alt="Google"></a>
+            <a href="https://www.researchgate.net/profile/Alberto-Fachechi?ev=hdr_xprf&_tp=eyJjb250ZXh0Ijp7ImZpcnN0UGFnZSI6ImhvbWUiLCJwYWdlIjoiaG9tZSIsInBvc2l0aW9uIjoiZ2xvYmFsSGVhZGVyIn19"><img src="https://pngimg.com/uploads/letter_r_PNG93911.png" alt="ResearchGate"></a>
+            <a href="https://x.com/albertofachechi"><img src="https://img.icons8.com/ios-filled/50/ffffff/x.png" alt="X"></a>
+            <a href="https://www.facebook.com/alberto.fachechi"><img src="https://img.icons8.com/ios-filled/50/ffffff/facebook-new.png" alt="Facebook"></a>
+            <a href="https://www.instagram.com/albertofachechi/"><img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" alt="Instagram"></a>
+        </div>
         <p>&copy; 2024 Alberto Fachechi. All rights reserved.</p>
     </footer>
 </body>
