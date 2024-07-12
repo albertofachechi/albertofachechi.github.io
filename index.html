@@ -214,7 +214,7 @@
         <nav>
             <a href="overview.html">Overview</a>
             <a href="cv.html">CV</a>
-            <a href="publications.html">Pubs</a>
+            <a href="publications.html">Publications</a>
             <a href="teaching.html">Teaching</a>
             <a href="coworkers.html">Co-workers</a>
             <a href="contacts.html">Contacts</a>
@@ -277,5 +277,29 @@
         </div>
         <p>&copy; 2024 Alberto Fachechi. All rights reserved.</p>
     </footer>
+
+    <script>
+        // Get the header element
+        const header = document.getElementById('header');
+
+        // Get the height of the header
+        const headerHeight = header.offsetHeight;
+
+        // Set margin-top for sections dynamically
+        const sections = document.querySelectorAll('.vertical-skip');
+        sections.forEach(section => {
+            section.style.marginTop = `${headerHeight}px`;
+        });
+
+        // Optional: Adjust margins on window resize
+        window.addEventListener('resize', () => {
+            const newHeaderHeight = header.offsetHeight;
+            sections.forEach(section => {
+                section.style.marginTop = `${newHeaderHeight}px`;
+            });
+        });
+    </script>
+
+
 </body>
 </html>
