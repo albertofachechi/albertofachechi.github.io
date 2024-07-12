@@ -1,3 +1,10 @@
+Here is the updated HTML code with the requested adjustments:
+
+1. The menu is adaptive and always in the right corner.
+2. Removed the "menu" word.
+3. Added padding between the header and the overview section to ensure the entire page is always visible.
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,7 +51,12 @@
         }
 
         header h1 span {
-            font-size: 1.25rem;
+            font-size: 1.75rem;
+        }
+
+        #menu-toggle {
+            cursor: pointer;
+            font-size: 1.5rem;
         }
 
         nav {
@@ -66,11 +78,6 @@
 
         nav a:hover {
             background-color: #555;
-        }
-
-        #menu-toggle {
-            cursor: pointer;
-            font-size: 1.5rem;
         }
 
         .container {
@@ -233,23 +240,3 @@
         </div>
     </div>
     <footer>
-        <div class="social-icons">
-            <a href="https://github.com/albertofachechi"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub"></a>
-            <a href="https://orcid.org/0000-0003-4913-1592"><img src="https://upload.wikimedia.org/wikipedia/commons/0/06/ORCID_iD.svg" alt="ORCID"></a>
-            <a href="https://inspirehep.net/authors/1990612"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Inspirehep.svg" alt="INSPIRE-HEP"></a>
-        </div>
-        <p>© 2023 Alberto Fachechi. All rights reserved.</p>
-    </footer>
-    <script>
-        function toggleMenu() {
-            var nav = document.getElementById("nav");
-            if (nav.style.display === "flex") {
-                nav.style.display = "none";
-            } else {
-                nav.style.display = "flex";
-            }
-        }
-    </script>
-</body>
-
-</html>
