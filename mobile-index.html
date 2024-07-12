@@ -1,13 +1,5 @@
-Here is the updated HTML code with the requested adjustments:
-
-1. The menu is adaptive and always in the right corner.
-2. Removed the "menu" word.
-3. Added padding between the header and the overview section to ensure the entire page is always visible.
-
-```html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,18 +10,17 @@ Here is the updated HTML code with the requested adjustments:
             font-family: Verdana, Geneva, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f2f2f2;
+            background-color: #f2f2f2; /* Soft neutral color */
             color: #333;
-            font-size: 16px;
+            font-size: 16px; /* Global font size */
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
-
         header {
             background: #111;
             color: #fff;
-            padding: 10px 20px;
+            padding: 5px 20px; /* Reduced height */
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -41,99 +32,31 @@ Here is the updated HTML code with the requested adjustments:
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             text-transform: uppercase;
         }
-
         header h1 {
-            font-size: 1.25rem;
+            font-size: 1.25rem; /* Reduced font size */
             font-weight: normal;
             margin: 0;
-            display: flex;
-            align-items: center;
         }
-
-        header h1 span {
-            font-size: 1.75rem;
-        }
-
-        #menu-toggle {
-            cursor: pointer;
-            font-size: 1.5rem;
-        }
-
         nav {
-            display: none;
-            flex-direction: column;
-            width: 100%;
-            background: #111;
+            display: flex;
+            gap: 0.5rem;
+            margin-left: auto; /* Keeps menu on the right */
         }
-
         nav a {
             color: #fff;
             text-decoration: none;
             font-weight: normal;
-            font-size: 1rem;
+            font-size: 0.875rem; /* Adjusted size */
             transition: color 0.3s;
-            padding: 10px 20px;
-            border-top: 1px solid #333;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
         }
-
         nav a:hover {
-            background-color: #555;
+            background-color: #555; /* Darker background on hover */
         }
-
-        .container {
-            padding-top: 140px;
-            display: flex;
-            flex-direction: column;
-            width: 90%;
-            margin: 0 auto;
-            padding: 20px;
+        section {
+            margin-bottom: 2rem;
         }
-
-        .content-section {
-            background: #ffffff93;
-            padding: 10px;
-            border-radius: 4px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-            text-align: justify;
-            margin-bottom: 20px;
-        }
-
-        .content-section h2 {
-            margin-top: 3px;
-            font-size: 1.5rem;
-            margin-bottom: 5px;
-        }
-
-        .content-section p,
-        .content-section ul {
-            font-size: 0.875rem;
-            line-height: 1.6;
-        }
-
-        .content-section img {
-            width: 100%;
-            border-radius: 4px;
-            margin-bottom: 20px;
-        }
-
-        .bulleted-list {
-            list-style-type: disc;
-            padding-left: 20px;
-            margin-bottom: 1rem;
-        }
-
-        .bulleted-list li {
-            margin-bottom: 0.5rem;
-            font-size: 0.875rem;
-        }
-
-        .news-date {
-            font-size: 0.75rem;
-            color: #292929;
-            margin: 2px 0;
-            font-weight: bold;
-        }
-
         footer {
             background: #111;
             color: #fff;
@@ -142,35 +65,30 @@ Here is the updated HTML code with the requested adjustments:
             box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
             margin-top: auto;
             display: flex;
-            justify-content: flex-start;
+            justify-content: flex-start; /* Align icons to the left */
             align-items: center;
             gap: 0.5rem;
-            height: 40px;
+            height: 40px; /* Reduced height */
         }
-
         footer a {
             color: #fff;
             text-decoration: none;
             font-size: 0.25rem;
             padding: 0.25rem 0.5rem;
         }
-
         footer p {
-            font-size: 0.7rem;
-            margin: 0;
-            text-align: right;
-            flex: 1;
+            font-size: 0.7rem; /* Adjust this value to change the size */
+            margin: 0; /* Remove default margin for better alignment */
+            text-align: right; /* Align text to the right */
+            flex: 1; /* Allow the paragraph to grow and occupy space */
         }
-
         footer a:hover {
             text-decoration: underline;
         }
-
         .social-icons {
             display: flex;
             gap: 0.1rem;
         }
-
         .social-icons img {
             width: 20px;
             height: 20px;
@@ -178,55 +96,101 @@ Here is the updated HTML code with the requested adjustments:
             background-color: #111;
             padding: 5px;
             box-sizing: content-box;
-            vertical-align: middle;
-            margin-top: -2px;
+            vertical-align: middle; /* Align icons vertically */
+            margin-top: -2px; /* Adjust margin to move the icon upwards */
         }
-
+        .container {
+            padding-top: 70px; /* Adjusted for header height */
+            margin-top: 20px; /* Added margin for spacing */
+            display: flex;
+            flex-direction: column; /* Vertical alignment */
+            width: 90%; /* Width for mobile version */
+            margin: 0 auto; /* Center content horizontally */
+            padding: 20px;
+        }
+        .content-section {
+            background: #ffffff93; /* White background for contrast */
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Shadow for box */
+            text-align: justify;
+            margin-bottom: 20px; /* Space between sections */
+        }
+        .content-section h2 {
+            margin-top: 3px; /* Optional margin for spacing */
+            font-size: 1.5rem; /* Example size for section title */
+            margin-bottom: 5px; /* Optional margin for spacing */
+        }
+        .content-section p, .content-section ul {
+            font-size: 0.875rem; /* Adjust font size for content */
+            line-height: 1.6; /* Optional: Adjust line height for readability */
+        }
+        .content-section img {
+            width: 100%; /* Ensure image fills its container */
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .bulleted-list {
+            list-style-type: disc; /* Standard bullet points */
+            padding-left: 20px; /* Space between bullets and text */
+            margin-bottom: 1rem; /* Space below the list */
+        }
+        .bulleted-list li {
+            margin-bottom: 0.5rem; /* Space between list items */
+            font-size: 0.875rem; /* Example font size */
+        }
+        .news-date {
+            font-size: 0.75rem; /* Font size for the date */
+            color: #292929; /* Example color for the date text */
+            margin: 2px 0; /* Reduced margin */
+            font-weight: bold;
+        }
         @media (min-width: 769px) {
+            /* Redirect to the main site on larger screens */
             body {
                 display: none;
             }
         }
     </style>
 </head>
-
 <body>
     <header id="header">
         <h1><span>Alberto Fachechi</span></h1>
-        <div id="menu-toggle" onclick="toggleMenu()">☰</div>
+        <nav>
+            <a href="https://albertofachechi.github.io/">Overview</a>
+            <a href="cv.html">CV</a>
+            <a href="publications.html">Publications</a>
+            <a href="teaching.html">Teaching</a>
+            <a href="coworkers.html">Co-workers</a>
+            <a href="contacts.html">Contacts</a>
+        </nav>
     </header>
-    <nav id="nav">
-        <a href="https://albertofachechi.github.io/">Overview</a>
-        <a href="cv.html">CV</a>
-        <a href="publications.html">Publications</a>
-        <a href="teaching.html">Teaching</a>
-        <a href="coworkers.html">Co-workers</a>
-        <a href="contacts.html">Contacts</a>
-    </nav>
     <div class="container">
         <div class="content-section" id="overview">
             <h2>Overview</h2>
-            <p>Welcome to my personal web-page! Here you can find some informations about me and my research interests.
-                (UNDER CONSTRUCTION)</p>
+            <p>Welcome to my personal web-page! Here you can find some informations about me and my research interests. (UNDER CONSTRUCTION)</p>
         </div>
         <div class="content-section">
             <img src="me.jpg" alt="Profile Image">
         </div>
         <div class="content-section" id="current-position">
             <h2>My current position</h2>
-            <p><b>Researcher</b> (RTD-A)<br> Department of Mathematics "Guido Castelnuovo"<br>Sapienza Università di Roma<br> Mathematical Physics</p>
+            <p><b>Researcher</b> (RTD-A)<br>
+            Department of Mathematics "Guido Castelnuovo"<br>Sapienza Università di Roma<br>
+            Mathematical Physics</p>
         </div>
         <div class="content-section" id="research-interests">
             <h2>My research interests</h2>
             <ul class="bulleted-list">
-                <li><b>Contents:</b> my research activity is placed in the wide discipline of statistical-mechanics methods for complex systems analysis, in particular concerning <u>spin-glass</u> theory and its application to modern <u>Artificial
-                        Intelligence</u> and <u>Machine Learning</u>. My research is focused in particular on attractor neural networks (ANNs) as prototypical model for associative memory, such as the <u>Hopfield model</u> and its related variants.
-                    Also, I investigate collective behaviors of archetypical generative models, such as the <u>Restricted Boltzmann Machines</u>, with the aim of developing an interpretable spin-glass theory depicting their working regimes. </li>
-                <li><b>Methods:</b> a crucial point of my research is the development of <u>rigorous techniques</u> towards a solid-grounded mathematical theory of Artificial Intelligence and Machine Learning. In particular, the technology adopted falls
-                    in the fields of <u>Guerra's interpolation</u> schemes, <u>PDE</u> theory (in particular, Hamilton-Jacobi), <u>probability</u> and <u>random matrix theory</u>.</li>
-                <li><b>Other interests:</b> I also dealt with statistical inference for biological problems, in particular concerning non-linear analysis for <u>heart rate variability</u> and in vitro diffusion experiments quantifying the effects of
-                    chemioterapic drugs on mutual <u>stroma-cancer cells interaction</u> for different pancreatic lines with a composite approach of maximum entropy principle methods and <u>biological fluid dynamics</u>. I developed a stochastic
-                    mathematical approach in the study of <u>single-cell microfluidic based PCR</u>.</li>
+                <li><b>Contents:</b> my research activity is placed in the wide discipline of statistical-mechanics methods for complex systems analysis, in particular concerning <u>spin-glass</u> theory and its application to modern <u>Artificial Intelligence</u> and <u>Machine Learning</u>.
+                    My research is focused in particular on attractor neural networks (ANNs) as prototypical model for associative memory, such as the <u>Hopfield model</u> and its related variants. Also, I investigate collective behaviors of archetypical generative models, such
+                    as the <u>Restricted Boltzmann Machines</u>, with the aim of developing an interpretable spin-glass theory depicting their working regimes. </li>
+                <li><b>Methods:</b> a crucial point of my research is the development of <u>rigorous techniques</u> towards a solid-grounded mathematical theory of Artificial Intelligence and Machine Learning.
+                In particular, the technology adopted falls in the fields of <u>Guerra's interpolation</u> schemes, <u>PDE</u> theory (in particular, Hamilton-Jacobi), <u>probability</u> and <u>random matrix theory</u>.</li>
+                <li><b>Other interests:</b> I also dealt with statistical inference for biological problems, in particular concerning non-linear analysis for <u>heart rate variability</u> and in vitro
+                    diffusion experiments quantifying the effects of chemioterapic drugs on mutual <u>stroma-cancer cells interaction</u> for different pancreatic lines with 
+                    a composite approach of maximum entropy principle methods and <u>biological fluid dynamics</u>. I developed a stochastic mathematical approach
+                    in the study of <u>single-cell microfluidic based PCR</u>.</li>
             </ul>
         </div>
         <div class="content-section" id="news">
@@ -240,3 +204,12 @@ Here is the updated HTML code with the requested adjustments:
         </div>
     </div>
     <footer>
+        <div class="social-icons">
+            <a href="https://github.com/albertofachechi"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub"></a>
+            <a href="https://orcid.org/0000-0003-4913-1592"><img src="https://upload.wikimedia.org/wikipedia/commons/0/06/ORCID_iD.svg" alt="ORCID"></a>
+            <a href="https://inspirehep.net/authors/1990612"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Inspirehep.svg" alt="INSPIRE-HEP"></a>
+        </div>
+        <p>© 2023 Alberto Fachechi. All rights reserved.</p>
+    </footer>
+</body>
+</html>
