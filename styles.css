@@ -137,6 +137,7 @@ footer {
     align-items: center;
     padding-bottom: 10px; /* Optional: adjust spacing between header and content */
     border-bottom: 1px solid #ddd; /* Optional: add a bottom border */
+    transition: border-bottom 0.5s ease, opacity 0.5s ease; /* Add opacity transition */
 }
 
 .collapse-btn {
@@ -164,6 +165,7 @@ footer {
 
 .box[data-visible="false"] .box-header {
     border-bottom: none;
+    opacity: 0; /* Hide the border smoothly */
 }
 
 .section-title {
