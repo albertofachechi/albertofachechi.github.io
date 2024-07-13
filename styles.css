@@ -138,7 +138,7 @@ footer {
     justify-content: space-between;
     align-items: center; /* Center items vertically */
     position: relative;
-    padding-bottom: 5px; /* Add padding to create space */
+    padding-bottom: 10px; /* Add padding to create space */
 }
 
 .separator {
