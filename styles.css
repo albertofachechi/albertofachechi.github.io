@@ -229,11 +229,13 @@ footer {
 .date-position-location-list .date {
     font-size: 0.785rem; /* Size for date */
     color: #666; /* Optional: color for date */
+    text-align: justify;
 }
 
 .date-position-location-list .position {
     font-weight: bold; /* Bold for position */
     font-size: 0.785rem; /* Size for position */
+    text-align: justify;
 }
 
 .date-position-location-list .location {
