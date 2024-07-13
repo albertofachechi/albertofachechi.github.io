@@ -29,10 +29,12 @@
                 <h2>Overview</h2>
                 <div class="box" data-visible="true">
                     <button class="collapse-btn">-</button>
+                    <div class="box-header">
+                        <h2  class="section-title">My research interests</h2>
+                        <button class="collapse-btn">-</button>
+                    </div>
                     <div class="box-content">
-                    <div class="section" id="research-interests">
-                    <h2  class="section-title">My research interests</h2>
-                    <ul class="bulleted-list">
+                        <ul class="bulleted-list">
                         <li><b>Contents:</b> my research activity is placed in the wide discipline of statistical-mechanics methods for complex systems analysis, in particular concerning spin-glass theory and its application to modern Artificial Intelligence and Machine Learning.
                             My research is focused in particular on attractor neural networks (ANNs) as prototypical model for associative memory, such as the Hopfield model and its related variants. Also, I investigate collective behaviors of archetypical generative models, such
                             as the Restricted Boltzmann Machines, with the aim of developing an interpretable spin-glass theory depicting their working regimes.</li>
@@ -41,9 +43,9 @@
                         <li><b>Other interests:</b> I also dealt with statistical inference for biological problems, in particular concerning non-linear analysis for heart rate variability and in vitro
                             diffusion experiments quantifying the effects of chemioterapic drugs on mutual stroma-cancer cells interaction for different pancreatic lines with 
                             a composite approach of maximum entropy principle, graph theory and (multi-layer feed-forward) neural networks design.</li>
-                    </ul>
+                        </ul>
+                    </div>
                 </div>
-                </div></div>
                 <div class="box">
                     <h2 class="section-title">Keywords</h2>
                     <p style="font-family: 'DejaVu Sans Mono', 'Courier New', monospace; font-size: 0.785rem; font-weight: bold;">Neural Networks; Machine Learning; Deep Learning; Artificial Intelligence;
@@ -162,6 +164,36 @@
                 container.classList.toggle('menu-open');
             });
         });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+    const boxes = document.querySelectorAll(".box");
+    boxes.forEach(box => {
+        const button = box.querySelector(".collapse-btn");
+        const content = box.querySelector(".box-content");
+        const visible = box.getAttribute("data-visible") === "true";
+
+        // Set initial visibility
+        if (!visible) {
+            content.style.display = "none";
+            button.textContent = "+";
+        } else {
+            button.textContent = "-";
+        }
+
+        // Add click event listener
+        button.addEventListener("click", () => {
+            if (content.style.display === "none") {
+                content.style.display = "block";
+                button.textContent = "-";
+            } else {
+                content.style.display = "none";
+                button.textContent = "+";
+            }
+        });
+    });
+});
     </script>
 </body>
 </html>

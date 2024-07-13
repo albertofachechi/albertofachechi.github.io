@@ -131,6 +131,15 @@ footer {
     margin-bottom: 20px; /* Space between boxes */
     font-size: 1.0rem;
 }
+
+.box-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px; /* Optional: adjust spacing between header and content */
+    border-bottom: 1px solid #ddd; /* Optional: add a bottom border */
+}
+
 .section-title {
     font-size: 1.0rem; /* Reduced font size for section titles */
     font-weight: bold; /* Keep bold styling */
@@ -244,6 +253,20 @@ footer {
 .date-position-location-list .location {
     font-size: 0.785rem; /* Size for location */
     color: #333; /* Optional: color for location */
+}
+
+.collapse-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: block;
+    margin-bottom: 10px;
+    margin-left: auto;
+}
+
+.box[data-visible="false"] .box-content {
+    display: none;
 }
 
 /* Mobile styles */
