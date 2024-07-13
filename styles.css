@@ -210,8 +210,9 @@ footer {
     cursor: pointer;
     z-index: 1100; /* Above header */
 }
+
 .date-position-location-list {
-    padding-top: 10px;
+    padding-top: 0px;
     margin-left: 0;
     padding-left: 0;
     list-style-type: none; /* Removes default list bullets */
