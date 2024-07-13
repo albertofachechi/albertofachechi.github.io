@@ -177,8 +177,6 @@ footer {
     font-size: 0.8rem; /* Size for paragraph text */
     line-height: 1.4;  /*Improved readability */
     text-align: justify; /* Justify text */
-    padding-bottom: 0px;
-    padding-top: 0px;
 }
 
 .vertical-separator {
