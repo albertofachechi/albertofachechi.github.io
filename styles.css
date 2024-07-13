@@ -212,7 +212,7 @@ footer {
 }
 .date-position-location-list {
     list-style-type: none; /* Removes default list bullets */
-    padding: 0; /* Removes default padding */
+    padding: 5px; /* Removes default padding */
     margin: 5px; /* Removes default margin */
 }
 
