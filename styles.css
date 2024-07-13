@@ -237,7 +237,6 @@ footer {
 }
 
 .date-position-location-list .colab {
-    font-weight: bold; /* Bold for position */
     font-size: 0.785rem; /* Size for position */
     text-align: justify;
 }
