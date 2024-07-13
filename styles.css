@@ -140,6 +140,21 @@ footer {
     border-bottom: 1px solid #ddd; /* Optional: add a bottom border */
 }
 
+.collapse-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: block;
+    margin: 0; /* Ensure no extra margin */
+    padding: 0; /* Ensure no extra padding */
+    color: #333; /* Optional: change button color */
+}
+
+.box[data-visible="false"] .box-content {
+    display: none;
+}
+
 .section-title {
     font-size: 1.0rem; /* Reduced font size for section titles */
     font-weight: bold; /* Keep bold styling */
@@ -255,19 +270,6 @@ footer {
     color: #333; /* Optional: color for location */
 }
 
-.collapse-btn {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-    display: block;
-    margin-bottom: 10px;
-    margin-left: auto;
-}
-
-.box[data-visible="false"] .box-content {
-    display: none;
-}
 
 /* Mobile styles */
 @media (max-width: 768px) {
