@@ -242,28 +242,60 @@
             nav a:first-child {
                 border-top: none;
             }
-            .menu-toggle {
-                display: block;
+            #menu-toggle {
+                display: none;
+                background: none;
+                border: none;
+                color: #fff;
+                font-size: 1.5rem;
                 cursor: pointer;
+                z-index: 1100; /* Above header */
             }
-            .menu-toggle div {
-                width: 25px;
-                height: 3px;
-                background: #fff;
-                margin: 4px;
-                transition: 0.4s;
-            }
-            .menu-toggle.open div:nth-child(1) {
-                transform: rotate(-45deg) translate(-5px, 6px);
-            }
-            .menu-toggle.open div:nth-child(2) {
-                opacity: 0;
-            }
-            .menu-toggle.open div:nth-child(3) {
-                transform: rotate(45deg) translate(-5px, -6px);
-            }
-            nav.open {
-                display: flex;
+
+            @media (max-width: 768px) {
+                #menu-toggle {
+                    display: block; /* Show toggle button on small screens */
+                }
+
+                nav {
+                    position: fixed;
+                    top: 60px; /* Adjust based on header height */
+                    left: 0;
+                    width: 100%;
+                    background: #111;
+                    overflow: hidden;
+                    max-height: 0;
+                    transition: max-height 0.3s ease;
+                    z-index: 1000; /* Below menu toggle */
+                }
+
+                nav.open {
+                    max-height: 500px; /* Adjust based on content height */
+                }
+
+                nav #nav-items {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    text-align: left;
+                }
+
+                nav a {
+                    width: 100%;
+                    padding: 1rem;
+                    border-bottom: 1px solid #555;
+                    color: #fff;
+                    text-decoration: none;
+                    font-size: 1rem;
+                }
+
+                .container {
+                    transition: transform 0.3s ease;
+                }
+
+                .container.menu-open {
+                    transform: translateY(200px); /* Adjust based on the menu height */
+                }
             }
         }
     </style>
@@ -272,12 +304,8 @@
 <body>
     <header id="header">
         <h1><span>Alberto Fachechi</span></h1>
-        <div class="menu-toggle" onclick="toggleMenu()">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-        <nav>
+        <button id="menu-toggle" aria-label="Toggle navigation menu">&#9776;</button>
+        <nav id="nav">
             <a href="https://albertofachechi.github.io/">Overview</a>
             <a href="cv.html">Bio</a>
             <a href="publications.html">Publications</a>
@@ -410,12 +438,16 @@
     </footer>
 
     <script>
-        function toggleMenu() {
-            const nav = document.querySelector('nav');
-            const menuToggle = document.querySelector('.menu-toggle');
-            nav.classList.toggle('open');
-            menuToggle.classList.toggle('open');
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menu-toggle');
+            const nav = document.getElementById('nav');
+            const container = document.querySelector('.container');
+    
+            menuToggle.addEventListener('click', function() {
+                nav.classList.toggle('open');
+                container.classList.toggle('menu-open');
+            });
+        });
     </script>
 </body>
 </html>
