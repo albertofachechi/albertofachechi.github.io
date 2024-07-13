@@ -169,8 +169,6 @@ footer {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
     margin-bottom: 10px; /* Space below the section */
     margin-top: 5px;
-    padding-top: 0px;
-    padding-bottom: 0px;
     padding-left: 10px;
     padding-right: 10px;
 }
