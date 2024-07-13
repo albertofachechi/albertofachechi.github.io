@@ -138,12 +138,12 @@ footer {
     justify-content: space-between;
     align-items: center; /* Center items vertically */
     position: relative;
-    padding-bottom: 10px; /* Add padding to create space */
+    padding-bottom: 5px; /* Add padding to create space */
 }
 
 .separator {
     position: absolute;
-    bottom: 5px; /* Adjust based on padding-bottom of .box-header */
+    bottom: -5px; /* Adjust based on padding-bottom of .box-header */
     left: 0;
     width: 100%;
     height: 1px;
@@ -175,7 +175,6 @@ footer {
 .box[data-visible="false"] .separator {
     opacity: 0; /* Hide the border smoothly */
 }
-
 .section-title {
     font-size: 1.0rem; /* Reduced font size for section titles */
     font-weight: bold; /* Keep bold styling */
