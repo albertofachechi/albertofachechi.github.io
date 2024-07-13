@@ -131,7 +131,6 @@ footer {
     margin-bottom: 20px; /* Space between boxes */
     font-size: 1.0rem;
 }
-
 .box-header {
     display: flex;
     justify-content: space-between;
@@ -153,6 +152,10 @@ footer {
 
 .box[data-visible="false"] .box-content {
     display: none;
+}
+
+.box[data-visible="false"] .box-header {
+    border-bottom: none;
 }
 
 .section-title {
