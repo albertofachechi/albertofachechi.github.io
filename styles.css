@@ -218,6 +218,7 @@ footer {
 }
 
 .date-position-location-list li {
+    margin-top: 1rem;
     margin-bottom: 1rem; /* Space between list items */
     font-size: 0.785rem;
 }
