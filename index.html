@@ -176,23 +176,20 @@
 
         // Set initial visibility
         if (!visible) {
-            content.style.display = "none";
+            box.setAttribute("data-visible", "false");
             button.textContent = "+";
-            header.style.borderBottom = "none";
         } else {
             button.textContent = "-";
         }
 
         // Add click event listener
         button.addEventListener("click", () => {
-            if (content.style.display === "none") {
-                content.style.display = "block";
-                button.textContent = "-";
-                header.style.borderBottom = "1px solid #ddd"; /* Optional: add a bottom border */
-            } else {
-                content.style.display = "none";
+            if (box.getAttribute("data-visible") === "true") {
+                box.setAttribute("data-visible", "false");
                 button.textContent = "+";
-                header.style.borderBottom = "none";
+            } else {
+                box.setAttribute("data-visible", "true");
+                button.textContent = "-";
             }
         });
     });
