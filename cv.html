@@ -275,5 +275,35 @@
             });
         });
     </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const boxes = document.querySelectorAll(".box");
+            boxes.forEach(box => {
+                const button = box.querySelector(".collapse-btn");
+                const content = box.querySelector(".box-content");
+                const visible = box.getAttribute("data-visible") === "true";
+
+                // Set initial visibility
+                if (!visible) {
+                    content.style.display = "none";
+                    button.textContent = "+";
+                } else {
+                    button.textContent = "-";
+                }
+
+                // Add click event listener
+                button.addEventListener("click", () => {
+                    if (content.style.display === "none") {
+                        content.style.display = "block";
+                        button.textContent = "-";
+                    } else {
+                        content.style.display = "none";
+                        button.textContent = "+";
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
