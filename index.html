@@ -171,12 +171,14 @@
     boxes.forEach(box => {
         const button = box.querySelector(".collapse-btn");
         const content = box.querySelector(".box-content");
+        const header = box.querySelector(".box-header");
         const visible = box.getAttribute("data-visible") === "true";
 
         // Set initial visibility
         if (!visible) {
             content.style.display = "none";
             button.textContent = "+";
+            header.style.borderBottom = "none";
         } else {
             button.textContent = "-";
         }
@@ -186,9 +188,11 @@
             if (content.style.display === "none") {
                 content.style.display = "block";
                 button.textContent = "-";
+                header.style.borderBottom = "1px solid #ddd"; /* Optional: add a bottom border */
             } else {
                 content.style.display = "none";
                 button.textContent = "+";
+                header.style.borderBottom = "none";
             }
         });
     });
