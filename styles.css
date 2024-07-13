@@ -119,10 +119,12 @@ footer {
     background-color: #111;
     padding: 5px;
 }
+
 .footer-text {
     margin-left: auto; /* Pushes text to the right */
     font-size: 0.3rem; /* Smaller font size for footer text */
 }
+
 .box {
     background-color: #f3f3f3; /* Light background for boxes */
     padding: 5px 20px; /* Space inside the box */
