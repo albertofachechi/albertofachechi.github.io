@@ -264,6 +264,9 @@ footer {
         overflow-y: visible;
         margin-top: 0;
     }
+    .no-sidebar .sidebar {
+        display: none; /* Hides sidebar on mobile */
+    }
     .vertical-separator {
         display: none; /* Hide separator on mobile */
     }
