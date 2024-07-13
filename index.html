@@ -208,94 +208,60 @@
             line-height: 1.5; /* Improve readability */
             margin-bottom: 5px; /* Space between keyword items */
         }
+        #menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1100; /* Above header */
+        }
 
         /* Mobile styles */
         @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-                padding: 70px 20px; /* Adjusted padding for mobile */
-                width: 100%;
+            #menu-toggle {
+                display: block; /* Show toggle button on small screens */
             }
-            .main-content, .sidebar {
-                width: 100%;
-                padding: 0;
-            }
-            .vertical-separator {
-                display: none; /* Hide separator on mobile */
-            }
+
             nav {
-                display: none; /* Hide original nav on mobile */
-                flex-direction: column;
+                position: fixed;
+                top: 60px; /* Adjust based on header height */
+                left: 0;
                 width: 100%;
                 background: #111;
-                position: absolute;
-                top: 60px;
-                left: 0;
-                z-index: 999;
+                overflow: hidden;
+                max-height: 0;
+                transition: max-height 0.3s ease;
+                z-index: 1000; /* Below menu toggle */
             }
-            nav a {
-                padding: 1rem;
-                border-top: 1px solid #555;
-                width: 100%;
+
+            nav.open {
+                max-height: 500px; /* Adjust based on content height */
+            }
+
+            nav #nav-items {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
                 text-align: center;
             }
-            nav a:first-child {
-                border-top: none;
-            }
-            #menu-toggle {
-                display: none;
-                background: none;
-                border: none;
+
+            nav a {
+                width: 100%;
+                padding: 1rem;
+                border-bottom: 1px solid #555;
                 color: #fff;
-                font-size: 1.5rem;
-                cursor: pointer;
-                z-index: 1100; /* Above header */
+                text-decoration: none;
+                font-size: 1rem;
             }
 
-            @media (max-width: 768px) {
-                #menu-toggle {
-                    display: block; /* Show toggle button on small screens */
-                }
+            .container {
+                transition: transform 0.3s ease;
+            }
 
-                nav {
-                    position: fixed;
-                    top: 60px; /* Adjust based on header height */
-                    left: 0;
-                    width: 100%;
-                    background: #111;
-                    overflow: hidden;
-                    max-height: 0;
-                    transition: max-height 0.3s ease;
-                    z-index: 1000; /* Below menu toggle */
-                }
-
-                nav.open {
-                    max-height: 500px; /* Adjust based on content height */
-                }
-
-                nav #nav-items {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    text-align: left;
-                }
-
-                nav a {
-                    width: 100%;
-                    padding: 1rem;
-                    border-bottom: 1px solid #555;
-                    color: #fff;
-                    text-decoration: none;
-                    font-size: 1rem;
-                }
-
-                .container {
-                    transition: transform 0.3s ease;
-                }
-
-                .container.menu-open {
-                    transform: translateY(200px); /* Adjust based on the menu height */
-                }
+            .container.menu-open {
+                transform: translateY(200px); /* Adjust based on the menu height */
             }
         }
     </style>
