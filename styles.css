@@ -212,7 +212,6 @@ footer {
 }
 .date-position-location-list {
     padding-top: 1.3rem;
-    padding-left: 0;
     margin-left: 0;
     list-style-type: none; /* Removes default list bullets */
 }
@@ -220,6 +219,7 @@ footer {
 .date-position-location-list li {
     margin-bottom: 1rem; /* Space between list items */
     font-size: 0.785rem;
+    margin-left: 0;
 }
 
 .date-position-location-list .date {
