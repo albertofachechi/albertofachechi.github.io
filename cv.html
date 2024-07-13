@@ -218,7 +218,30 @@
             cursor: pointer;
             z-index: 1100; /* Above header */
         }
+        .date-position-location-list {
+            list-style-type: none; /* Removes default list bullets */
+            padding: 0; /* Removes default padding */
+            margin: 0; /* Removes default margin */
+        }
 
+        .date-position-location-list li {
+            margin-bottom: 1rem; /* Space between list items */
+        }
+
+        .date-position-location-list .date {
+            font-size: 0.9rem; /* Size for date */
+            color: #666; /* Optional: color for date */
+        }
+
+        .date-position-location-list .position {
+            font-weight: bold; /* Bold for position */
+            font-size: 1rem; /* Size for position */
+        }
+
+        .date-position-location-list .location {
+            font-size: 0.9rem; /* Size for location */
+            color: #333; /* Optional: color for location */
+        }
         /* Mobile styles */
         @media (max-width: 768px) {
             .container {
@@ -322,12 +345,19 @@
                 <div class="box">
                 <div class="section" id="research-interests">
                     <h2  class="section-title">Positions</h2>
-                    <div class="section-content">
-                        <ul class="bulleted-list">
-                            <li>
-                            </li>
-                        </ul>
-                </div>
+                    <ul class="date-position-location-list">
+                        <li>
+                            <span class="date">January 2024</span>
+                            <span class="position"><strong>Research Assistant</strong></span>
+                            <span class="location">Rome, Italy</span>
+                        </li>
+                        <li>
+                            <span class="date">March 2023</span>
+                            <span class="position"><strong>Intern</strong></span>
+                            <span class="location">Milan, Italy</span>
+                        </li>
+                        <!-- Add more list items as needed -->
+                    </ul>
                 </div>
                 </div>
                 <div class="box">
