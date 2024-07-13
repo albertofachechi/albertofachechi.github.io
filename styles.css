@@ -135,9 +135,18 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 10px; /* Optional: adjust spacing between header and content */
-    border-bottom: 1px solid #ddd; /* Optional: add a bottom border */
-    transition: border-bottom 0.5s ease, opacity 0.5s ease; /* Add opacity transition */
+    position: relative;
+}
+
+.separator {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #ddd;
+    transition: opacity 0.5s ease;
+    opacity: 1;
 }
 
 .collapse-btn {
@@ -145,14 +154,11 @@ footer {
     border: none;
     font-size: 1.2rem;
     cursor: pointer;
-    display: block;
-    margin: 0; /* Ensure no extra margin */
-    padding: 0; /* Ensure no extra padding */
-    color: #333; /* Optional: change button color */
+    color: #333;
 }
 
 .box-content {
-    max-height: 1000px; /* Large enough to fit the content */
+    max-height: 1000px;
     overflow: hidden;
     transition: max-height 0.5s ease, padding 0.5s ease;
 }
@@ -163,8 +169,7 @@ footer {
     padding-bottom: 0;
 }
 
-.box[data-visible="false"] .box-header {
-    border-bottom: none;
+.box[data-visible="false"] .separator {
     opacity: 0; /* Hide the border smoothly */
 }
 
