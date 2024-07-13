@@ -211,7 +211,7 @@ footer {
     z-index: 1100; /* Above header */
 }
 .date-position-location-list {
-    padding-top: 1.3rem;
+    padding-top: 10px;
     margin-left: 0;
     padding-left: 0;
     list-style-type: none; /* Removes default list bullets */
