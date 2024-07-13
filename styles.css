@@ -169,13 +169,15 @@ footer {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
     margin-bottom: 10px; /* Space below the section */
     margin-top: 5px;
+    padding-top: 2px;
+    padding-bottom: 2px;
     padding-left: 10px;
     padding-right: 10px;
 }
 
 .information-section p {
     font-size: 0.8rem; /* Size for paragraph text */
-    line-height: 1.4;  /*Improved readability */
+    line-height: 1.6; /* Improved readability */
     text-align: justify; /* Justify text */
 }
 
