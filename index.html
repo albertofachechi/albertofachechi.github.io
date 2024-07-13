@@ -227,11 +227,18 @@
                 width: 100%;
                 transition: transform 0.3s ease;
                 margin-top: 20px;
-                order: 3;
             }
-            .main-content, .sidebar {
+            .main-content {
                 width: 100%;
                 padding: 0;
+                order: 2;
+            }
+            .sidebar {
+                width: 100%;
+                padding: 0;
+                order: 1;
+                display: flex;
+                flex-direction: column; /* Stack items vertically */
             }
             .vertical-separator {
                 display: none; /* Hide separator on mobile */
@@ -284,21 +291,6 @@
 
             .container.menu-open {
                 transform: translateY(250px); /* Adjust based on the menu height */
-            }
-
-            .sidebar {
-                display: flex;
-                flex-direction: column; /* Stack items vertically */
-                order: 1;
-            }
-            .image-container {
-                order: 1; /* First */
-            }
-            .information-section {
-                order: 2; /* Second */
-            }
-            .latest-news {
-                order: 4; /* Third */
             }
         }
     </style>
