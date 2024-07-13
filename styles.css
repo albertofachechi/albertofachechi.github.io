@@ -239,6 +239,7 @@ footer {
 .date-position-location-list .location {
     font-size: 0.785rem; /* Size for location */
     color: #333; /* Optional: color for location */
+    text-align: justify;
 }
 /* Mobile styles */
 @media (max-width: 768px) {
