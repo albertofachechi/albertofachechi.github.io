@@ -225,6 +225,7 @@
                 flex-direction: column;
                 padding: 70px 20px; /* Adjusted padding for mobile */
                 width: 100%;
+                transition: transform 0.3s ease;
             }
             .main-content, .sidebar {
                 width: 100%;
@@ -296,6 +297,10 @@
                 color: #fff;
                 text-decoration: none;
                 font-size: 1rem;
+            }
+
+            .container.menu-open {
+                transform: translateY(200px); /* Adjust based on the menu height */
             }
         }
     </style>
