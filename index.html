@@ -204,11 +204,74 @@
             margin-bottom: 5px; /* Space between keyword items */
         }
 
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                padding: 70px 20px; /* Adjusted padding for mobile */
+                width: 100%;
+            }
+            .main-content, .sidebar {
+                width: 100%;
+                padding: 0;
+            }
+            .vertical-separator {
+                display: none; /* Hide separator on mobile */
+            }
+            nav {
+                display: none; /* Hide original nav on mobile */
+                flex-direction: column;
+                width: 100%;
+                background: #111;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                z-index: 999;
+            }
+            nav a {
+                padding: 1rem;
+                border-top: 1px solid #555;
+                width: 100%;
+                text-align: center;
+            }
+            nav a:first-child {
+                border-top: none;
+            }
+            .menu-toggle {
+                display: block;
+                cursor: pointer;
+            }
+            .menu-toggle div {
+                width: 25px;
+                height: 3px;
+                background: #fff;
+                margin: 4px;
+                transition: 0.4s;
+            }
+            .menu-toggle.open div:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+            .menu-toggle.open div:nth-child(2) {
+                opacity: 0;
+            }
+            .menu-toggle.open div:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+            nav.open {
+                display: flex;
+            }
+        }
     </style>
 </head>
+
 <body>
     <header id="header">
         <h1><span>Alberto Fachechi</span></h1>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
         <nav>
             <a href="https://albertofachechi.github.io/">Overview</a>
             <a href="cv.html">Bio</a>
@@ -340,5 +403,14 @@
         </div>
         <p style="font-size: 0.6rem;" style="padding-right: 50px;">&copy; 2024 Alberto Fachechi. All rights reserved.</p>
     </footer>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.querySelector('nav');
+            const menuToggle = document.querySelector('.menu-toggle');
+            nav.classList.toggle('open');
+            menuToggle.classList.toggle('open');
+        }
+    </script>
 </body>
 </html>
