@@ -284,6 +284,20 @@
             .container.menu-open {
                 transform: translateY(250px); /* Adjust based on the menu height */
             }
+
+            .sidebar {
+                display: flex;
+                flex-direction: column; /* Stack items vertically */
+            }
+            .image-container {
+                order: 1; /* First */
+            }
+            .information-section {
+                order: 2; /* Second */
+            }
+            .latest-news {
+                order: 3; /* Third */
+            }
         }
     </style>
 </head>
