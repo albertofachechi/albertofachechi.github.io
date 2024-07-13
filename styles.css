@@ -245,6 +245,7 @@ footer {
     font-size: 0.785rem; /* Size for location */
     color: #333; /* Optional: color for location */
 }
+
 /* Mobile styles */
 @media (max-width: 768px) {
     .container {
