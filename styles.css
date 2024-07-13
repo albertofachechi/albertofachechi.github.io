@@ -221,17 +221,17 @@ footer {
 }
 
 .date-position-location-list .date {
-    font-size: 0.9rem; /* Size for date */
+    font-size: 0.785rem; /* Size for date */
     color: #666; /* Optional: color for date */
 }
 
 .date-position-location-list .position {
     font-weight: bold; /* Bold for position */
-    font-size: 1rem; /* Size for position */
+    font-size: 0.785rem; /* Size for position */
 }
 
 .date-position-location-list .location {
-    font-size: 0.9rem; /* Size for location */
+    font-size: 0.785rem; /* Size for location */
     color: #333; /* Optional: color for location */
 }
 /* Mobile styles */
