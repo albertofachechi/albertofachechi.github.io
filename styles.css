@@ -134,7 +134,7 @@ footer {
 .section-title {
     font-size: 1.0rem; /* Reduced font size for section titles */
     font-weight: bold; /* Keep bold styling */
-    margin-bottom: 2px; /* Optional margin below title */
+    margin-bottom: 0px; /* Optional margin below title */
 }
 .latest-news {
     background: #ffffff93; /* White background for contrast */
