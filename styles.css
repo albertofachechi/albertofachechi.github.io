@@ -219,7 +219,7 @@ footer {
 }
 
 .date-position-location-list li {
-    margin-top: 0;
+    margin-top: 5px;
     margin-bottom: 1rem; /* Space between list items */
     font-size: 0.785rem;
     margin-left: 0;
