@@ -144,24 +144,45 @@ function displayPublications(publications) {
 
     publications.forEach((pub) => {
         const itemDiv = document.createElement('div'); // Create a div for each publication
-
         itemDiv.classList.add('publication-item'); // Add class for styling
 
-        itemDiv.innerHTML = `
-            <p class="pub-title"><em>${pub.title}</em></p>
-            <p class="pub-authors">${formatAuthors(pub.author)}</p>
-            <p class="pub-details">${pub.journal}, ${pub.volume}, ${pub.pages} (${pub.year})</p>
-            <p class="pub-link"><a href="${pub.url || '#'}" target="_blank">View Article</a></p>
-        `;
+        // Build the publication details dynamically
+        let details = '';
 
-        listContainer.appendChild(itemDiv); // Append to the container
+        // Title
+        if (pub.title) {
+            details += `<p class="pub-title"><em>${pub.title}</em></p>`;
+        }
+
+        // Authors
+        if (pub.author) {
+            details += `<p class="pub-authors">${formatAuthors(pub.author)}</p>`;
+        }
+
+        // Book title / Journal name
+        if (pub.booktitle) {
+            details += `<p class="pub-details">${pub.booktitle}`;
+            // Add pages if available
+            if (pub.pages) {
+                details += `, Pages ${pub.pages}`;
+            }
+            // Add year if available
+            if (pub.year) {
+                details += ` (${pub.year})`;
+            }
+            details += `</p>`;
+        }
+
+        // Set the inner HTML only if there are details to display
+        if (details) {
+            itemDiv.innerHTML = details;
+            listContainer.appendChild(itemDiv); // Append to the container
+        }
     });
 
     // Reprocess the content with MathJax if needed
     MathJax.typeset();
 }
-
-
 
 
 function formatAuthors(authorString) {
