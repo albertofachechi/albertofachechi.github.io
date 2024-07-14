@@ -313,12 +313,13 @@ footer {
     font-size: 0.785rem; /* Size for location */
     color: #333; /* Optional: color for location */
 }
+
 .publication-list {
     margin-top: 20px; /* Space above the list */
 }
 
 .publication-item {
-    margin-bottom: 0; /* No bottom margin between entries */
+    margin-bottom: 5; /* No bottom margin between entries */
 }
 
 .publication-item p {
