@@ -167,12 +167,12 @@ function displayPublications(publications) {
 
         // Volume
         if (pub.volume) {
-            details += `, Volume ${pub.volume}`;
+            details += `, ${pub.volume}`;
         }
 
         // Add pages if available
         if (pub.pages) {
-            details += `, Pages ${pub.pages}`;
+            details += `, ${pub.pages}`;
         }
 
         // Add year if available
