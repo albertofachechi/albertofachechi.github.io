@@ -156,10 +156,16 @@ publications.forEach((pub) => {
 }
 
 function formatAuthors(authorString) {
-const authors = authorString.split('and').map(author => author.trim());
-return authors.map(author => {
-    const [lastName, firstName] = author.split(',');
-    const firstNameInitial = firstName ? firstName.trim().charAt(0) + '.' : '';
-    return `${firstNameInitial} ${lastName.trim()}`;
-}).join(', ');
+    const authors = authorString.split('and').map(author => author.trim());
+    return authors.map(author => {
+        const [lastName, firstName] = author.split(',');
+        const firstNameInitial = firstName ? firstName.trim().charAt(0) + '.' : '';
+
+        // Check for "Fachechi" and make it bold
+        if (lastName.trim() === "Fachechi") {
+            return `<strong>${firstNameInitial} ${lastName.trim()}</strong>`;
+        }
+
+        return `${firstNameInitial} ${lastName.trim()}`;
+    }).join(', ');
 }
