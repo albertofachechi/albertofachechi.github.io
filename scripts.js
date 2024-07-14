@@ -115,6 +115,29 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function parseBibTeX(bibtex) {
+    const entries = bibtex.split('@').slice(1);
+    const publications = [];
+
+    entries.forEach(entry => {
+        const lines = entry.split('\n').filter(line => line.trim() !== '');
+        let publication = {};
+
+        lines.forEach(line => {
+            const [key, value] = line.split('=').map(item => item.trim().replace(/[{}]/g, ''));
+            if (key && value) {
+                publication[key] = value.replace(/"/g, '').trim();
+            }
+        });
+
+        if (publication.title && publication.author) {
+            publications.push(publication);
+        }
+    });
+
+    return publications;
+}
+/*
+function parseBibTeX(bibtex) {
 const entries = bibtex.split('@').slice(1);
 const publications = [];
 
@@ -136,7 +159,7 @@ entries.forEach(entry => {
 });
 
 return publications;
-}
+}*/
 
 function displayPublications(publications) {
     const listContainer = document.querySelector('.publication-list');
