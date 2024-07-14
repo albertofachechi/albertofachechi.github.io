@@ -161,16 +161,22 @@ function displayPublications(publications) {
         // Book title / Journal name
         if (pub.booktitle) {
             details += `<p class="pub-details">${pub.booktitle}`;
-            
-            // Add pages if available
-            if (pub.pages) {
-                details += `, Pages ${pub.pages}`;
-            }
+        } else if (pub.journal) {
+            details += `<p class="pub-details">${pub.journal}`;
+        }
 
-            // Add year if available
-            if (pub.year) {
-                details += ` (${pub.year})`;
-            }
+        // Add pages if available
+        if (pub.pages) {
+            details += `, Pages ${pub.pages}`;
+        }
+
+        // Add year if available
+        if (pub.year) {
+            details += ` (${pub.year})`;
+        }
+
+        // Close the details paragraph if any details were added
+        if (pub.booktitle || pub.journal) {
             details += `</p>`;
         }
 
