@@ -314,6 +314,25 @@ footer {
     color: #333; /* Optional: color for location */
 }
 
+.publication-item {
+    margin-bottom: 1rem;
+}
+
+.publication-item p {
+    margin: 0;
+}
+
+.publication-item hr {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.pub-title,
+.pub-authors,
+.pub-details,
+.pub-link {
+    display: block;
+}
 
 /* Mobile styles */
 @media (max-width: 768px) {
