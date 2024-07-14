@@ -165,9 +165,14 @@ function displayPublications(publications) {
             details += `<p class="pub-details">${pub.journal}`;
         }
 
+        // Volume
+        if (pub.volume) {
+            details += `, ${pub.volume}`;
+        }
+
         // Add pages if available
         if (pub.pages) {
-            details += `, Pages ${pub.pages}`;
+            details += `, ${pub.pages}`;
         }
 
         // Add year if available
