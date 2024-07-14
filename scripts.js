@@ -148,8 +148,8 @@ function displayPublications(publications) {
 
         // Replace $$...$$ with \(...\)
         const displayDetails = pub.journal + 
-            ', Volume ' + pub.volume + 
-            ', Pages ' + pub.pages + 
+            ', ' + pub.volume + 
+            ', ' + pub.pages + 
             ' (' + pub.year + ')';
         
         const formattedDetails = displayDetails.replace(/\$\$(.*?)\$\$/g, '\\($1\\)');
