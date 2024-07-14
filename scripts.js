@@ -204,6 +204,7 @@ function displayPublications(publications) {
 
 
 
+
 function formatAuthors(authorString) {
     const authors = authorString.split('and').map(author => author.trim());
     return authors.map(author => {
