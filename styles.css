@@ -184,6 +184,8 @@ footer {
     max-height: 10000px;
     overflow: hidden;
     transition: max-height 0.5s ease, padding 0.5s ease;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 0.785rem;
 }
 
 .box[data-visible="false"] .box-content {
