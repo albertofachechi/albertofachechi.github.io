@@ -122,14 +122,14 @@ footer {
 
 .more-button {
     display: inline-block;
-    padding: 10px 20px;
+    padding: 5px 10px; /* Smaller padding */
     margin: 20px 0;
-    font-size: 1rem;
+    font-size: 0.8rem; /* Smaller font size */
     font-weight: bold;
-    color: #fff;
-    background-color: #007BFF;
+    color: #ffffff;
+    background-color: #333333; /* Color fitting the template */
     border: none;
-    border-radius: 5px;
+    border-radius: 3px; /* Smaller border radius */
     cursor: pointer;
     text-align: center;
     text-decoration: none;
@@ -137,7 +137,7 @@ footer {
 }
 
 .more-button:hover {
-    background-color: #0056b3;
+    background-color: #555555; /* Slightly lighter shade for hover effect */
 }
 
 .footer-text {
