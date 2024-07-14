@@ -103,63 +103,63 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => console.error('Error fetching news:', error));
 });
 
-/* for the bibliography */
-document.addEventListener('DOMContentLoaded', function() {
+/* for the bibliography */document.addEventListener('DOMContentLoaded', function() {
     fetch('publications.bib') // Ensure this path is correct
-        .then(response => response.text())
-        .then(bibtex => {
-            const publications = parseBibTeX(bibtex);
-            displayPublications(publications);
-        })
-        .catch(error => console.error('Error fetching BibTeX file:', error));
+    .then(response => response.text())
+    .then(bibtex => {
+        const publications = parseBibTeX(bibtex);
+        displayPublications(publications);
+    })
+    .catch(error => console.error('Error fetching BibTeX file:', error));
 });
 
 function parseBibTeX(bibtex) {
-    const entries = bibtex.split('@').slice(1);
-    const publications = [];
+const entries = bibtex.split('@').slice(1);
+const publications = [];
 
-    entries.forEach(entry => {
-        const lines = entry.split('\n').filter(line => line.trim() !== '');
-        let publication = {};
-        
-        lines.forEach(line => {
-            const [key, value] = line.split('=').map(item => item.trim().replace(/[{()}]/g, ''));
-            if (key && value) {
-                publication[key] = value.replace(/"/g, '').trim();
-            }
-        });
-
-        if (publication.title && publication.author && publication.journal) {
-            publications.push(publication);
+entries.forEach(entry => {
+    const lines = entry.split('\n').filter(line => line.trim() !== '');
+    let publication = {};
+    
+    lines.forEach(line => {
+        const [key, value] = line.split('=').map(item => item.trim().replace(/[{()}]/g, ''));
+        if (key && value) {
+            // Remove trailing commas if any
+            publication[key] = value.replace(/"/g, '').replace(/,$/, '').trim();
         }
     });
 
-    return publications;
+    if (publication.title && publication.author && publication.journal) {
+        publications.push(publication);
+    }
+});
+
+return publications;
 }
 
 function displayPublications(publications) {
-    const listContainer = document.querySelector('.publication-list');
-    listContainer.innerHTML = ''; // Clear previous content
+const listContainer = document.querySelector('.publication-list');
+listContainer.innerHTML = ''; // Clear previous content
 
-    publications.forEach((pub) => {
-        const articleElement = document.createElement('div');
-        articleElement.classList.add('publication-item'); // Add a class for individual items
-        articleElement.innerHTML = `
-            <p class="pub-title"><em>${pub.title}</em></p>
-            <p class="pub-authors">${formatAuthors(pub.author)}</p>
-            <p class="pub-details">${pub.journal} ${pub.volume} ${pub.pages} (${pub.year})</p>
-            <p class="pub-link"><a href="${pub.url}" target="_blank">View Article</a></p>
-            <hr>
-        `;
-        listContainer.appendChild(articleElement);
-    });
+publications.forEach((pub) => {
+    const articleElement = document.createElement('div');
+    articleElement.classList.add('publication-item'); // Add a class for individual items
+    articleElement.innerHTML = `
+        <p class="pub-title"><em>${pub.title}</em></p>
+        <p class="pub-authors">${formatAuthors(pub.author)}</p>
+        <p class="pub-details">${pub.journal}, Volume ${pub.volume}, Pages ${pub.pages} (${pub.year})</p>
+        <p class="pub-link"><a href="${pub.url || '#'}" target="_blank">View Article</a></p>
+        <hr>
+    `;
+    listContainer.appendChild(articleElement);
+});
 }
 
 function formatAuthors(authorString) {
-    const authors = authorString.split('and').map(author => author.trim());
-    return authors.map(author => {
-        const [lastName, firstName] = author.split(',');
-        const firstNameInitial = firstName ? firstName.trim().charAt(0) + '.' : '';
-        return `${firstNameInitial} ${lastName.trim()}`;
-    }).join(', ');
+const authors = authorString.split('and').map(author => author.trim());
+return authors.map(author => {
+    const [lastName, firstName] = author.split(',');
+    const firstNameInitial = firstName ? firstName.trim().charAt(0) + '.' : '';
+    return `${firstNameInitial} ${lastName.trim()}`;
+}).join(', ');
 }
