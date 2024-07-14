@@ -103,7 +103,8 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => console.error('Error fetching news:', error));
 });
 
-/* for the bibliography */document.addEventListener('DOMContentLoaded', function() {
+/* for the bibliography */
+document.addEventListener('DOMContentLoaded', function() {
     fetch('publications.bib') // Ensure this path is correct
     .then(response => response.text())
     .then(bibtex => {
@@ -155,9 +156,9 @@ function displayPublications(publications) {
         const formattedDetails = displayDetails.replace(/\$\$(.*?)\$\$/g, '\\($1\\)');
 
         listItem.innerHTML = `
-            <p class="pub-title"><em>${pub.title}</em></p><br>
-            <p class="pub-authors">${formatAuthors(pub.author)}</p><br>
-            <p class="pub-details">${formattedDetails}</p><br>
+            <p class="pub-title"><em>${pub.title}</em></p>
+            <p class="pub-authors">${formatAuthors(pub.author)}</p>
+            <p class="pub-details">${formattedDetails}</p>
             <p class="pub-link"><a href="${pub.url || '#'}" target="_blank">View Article</a></p>
         `;
         
