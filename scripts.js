@@ -138,22 +138,26 @@ return publications;
 }
 
 function displayPublications(publications) {
-const listContainer = document.querySelector('.publication-list');
-listContainer.innerHTML = ''; // Clear previous content
+    const listContainer = document.querySelector('.publication-list');
+    listContainer.innerHTML = ''; // Clear previous content
 
-publications.forEach((pub) => {
-    const articleElement = document.createElement('div');
-    articleElement.classList.add('publication-item'); // Add a class for individual items
-    articleElement.innerHTML = `
-        <p class="pub-title"><em>${pub.title}</em></p>
-        <p class="pub-authors">${formatAuthors(pub.author)}</p>
-        <p class="pub-details">${pub.journal}, ${pub.volume}, ${pub.pages} (${pub.year})</p>
-        <p class="pub-link"><a href="${pub.url || '#'}" target="_blank">View Article</a></p>
-        <hr>
-    `;
-    listContainer.appendChild(articleElement);
-});
+    publications.forEach((pub) => {
+        const articleElement = document.createElement('div');
+        articleElement.classList.add('publication-item');
+        articleElement.innerHTML = `
+            <p class="pub-title"><em>${pub.title}</em></p>
+            <p class="pub-authors">${formatAuthors(pub.author)}</p>
+            <p class="pub-details">${pub.journal}, Volume ${pub.volume}, Pages ${pub.pages} (${pub.year}) $E=mc^2$</p>
+            <p class="pub-link"><a href="${pub.url || '#'}" target="_blank">View Article</a></p>
+            <hr>
+        `;
+        listContainer.appendChild(articleElement);
+    });
+
+    // Reprocess the content with MathJax
+    MathJax.typeset();
 }
+
 
 function formatAuthors(authorString) {
     const authors = authorString.split('and').map(author => author.trim());
