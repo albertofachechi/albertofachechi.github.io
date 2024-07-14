@@ -147,7 +147,7 @@ function displayPublications(publications) {
         articleElement.innerHTML = `
             <p class="pub-title"><em>${pub.title}</em></p>
             <p class="pub-authors">${formatAuthors(pub.author)}</p>
-            <p class="pub-details">${pub.journal}, Volume ${pub.volume}, Pages ${pub.pages} (${pub.year})</p>
+            <p class="pub-details">${pub.journal}, ${pub.volume}, ${pub.pages} (${pub.year})</p>
             <p class="pub-link"><a href="${pub.url}" target="_blank">View Article</a></p>
             <hr>
         `;
