@@ -158,7 +158,9 @@ function displayPublications(publications) {
 function formatAuthors(authorString) {
     const authors = authorString.split('and').map(author => author.trim());
     return authors.map(author => {
-        const [firstName, lastName] = author.split(' ');
-        return `${firstName.charAt(0)}. ${lastName}`;
+        const names = author.split(' ');
+        const lastName = names.pop(); // Get the last name
+        const firstNameInitials = names.map(name => name.charAt(0) + '.').join(' '); // Get initials of first names
+        return `${firstNameInitials} ${lastName}`;
     }).join(', ');
 }
