@@ -167,12 +167,12 @@ function displayPublications(publications) {
 
         // Volume
         if (pub.volume) {
-            details += `, ${pub.volume}`;
+            details += `, Volume ${pub.volume}`;
         }
 
         // Add pages if available
         if (pub.pages) {
-            details += `, ${pub.pages}`;
+            details += `, Pages ${pub.pages}`;
         }
 
         // Add year if available
@@ -183,6 +183,11 @@ function displayPublications(publications) {
         // Close the details paragraph if any details were added
         if (pub.booktitle || pub.journal) {
             details += `</p>`;
+        }
+
+        // Add the URL link if available
+        if (pub.url) {
+            details += `<p class="pub-link"><a href="${pub.url}" target="_blank">View Article</a></p>`;
         }
 
         // Set the inner HTML only if there are details to display
