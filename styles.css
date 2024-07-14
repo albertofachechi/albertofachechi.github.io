@@ -314,12 +314,13 @@ footer {
     color: #333; /* Optional: color for location */
 }
 .publication-list {
-    margin-top: 20px; /* Adjust the value as needed */
+    margin-top: 20px; /* Space above the list */
 }
 
 .publication-item {
-    margin-bottom: 1rem;
+    margin-bottom: 0; /* No bottom margin between entries */
 }
+
 
 .publication-item p {
     margin: 0;

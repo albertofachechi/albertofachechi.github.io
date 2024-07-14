@@ -141,27 +141,30 @@ function displayPublications(publications) {
     const listContainer = document.querySelector('.publication-list');
     listContainer.innerHTML = ''; // Clear previous content
 
+    const ol = document.createElement('ol'); // Create an ordered list
+
     publications.forEach((pub) => {
-        const articleElement = document.createElement('div');
-        articleElement.classList.add('publication-item');
+        const listItem = document.createElement('li'); // Create a list item
 
         // Replace $$...$$ with \(...\)
-        const detailsWithInlineMath = pub.journal + 
+        const displayDetails = pub.journal + 
             ', Volume ' + pub.volume + 
             ', Pages ' + pub.pages + 
             ' (' + pub.year + ')';
         
-        const displayDetails = detailsWithInlineMath.replace(/\$\$(.*?)\$\$/g, '\\($1\\)');
+        const formattedDetails = displayDetails.replace(/\$\$(.*?)\$\$/g, '\\($1\\)');
 
-        articleElement.innerHTML = `
+        listItem.innerHTML = `
             <p class="pub-title"><em>${pub.title}</em></p>
             <p class="pub-authors">${formatAuthors(pub.author)}</p>
-            <p class="pub-details">${displayDetails}</p>
+            <p class="pub-details">${formattedDetails}</p>
             <p class="pub-link"><a href="${pub.url || '#'}" target="_blank">View Article</a></p>
-            <hr>
         `;
-        listContainer.appendChild(articleElement);
+        
+        ol.appendChild(listItem); // Add the list item to the ordered list
     });
+
+    listContainer.appendChild(ol); // Append the ordered list to the container
 
     // Reprocess the content with MathJax
     MathJax.typeset();
