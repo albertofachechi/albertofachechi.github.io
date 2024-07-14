@@ -323,7 +323,7 @@ footer {
 
 .publication-item p {
     margin: 0; /* Remove default margins for paragraphs */
-    line-height: normal; /* Reset line height to standard */
+    line-height: 1; /* Set line height to minimize spacing */
     padding: 0; /* Ensure no padding */
 }
 
