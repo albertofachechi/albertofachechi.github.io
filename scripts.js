@@ -146,8 +146,7 @@ function displayPublications(publications) {
         const itemDiv = document.createElement('div'); // Create a div for each publication
         itemDiv.classList.add('publication-item'); // Add class for styling
 
-        // Build the publication details dynamically
-        let details = '';
+        let details = ''; // Initialize details
 
         // Title
         if (pub.title) {
@@ -162,10 +161,12 @@ function displayPublications(publications) {
         // Book title / Journal name
         if (pub.booktitle) {
             details += `<p class="pub-details">${pub.booktitle}`;
+            
             // Add pages if available
             if (pub.pages) {
                 details += `, Pages ${pub.pages}`;
             }
+
             // Add year if available
             if (pub.year) {
                 details += ` (${pub.year})`;
@@ -183,6 +184,7 @@ function displayPublications(publications) {
     // Reprocess the content with MathJax if needed
     MathJax.typeset();
 }
+
 
 
 function formatAuthors(authorString) {
