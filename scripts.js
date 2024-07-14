@@ -159,7 +159,7 @@ function formatAuthors(authorString) {
     const authors = authorString.split('and').map(author => author.trim());
     return authors.map(author => {
         const [lastName, firstName] = author.split(',');
-        const firstNameInitial = firstName.trim().charAt(0) + '.';
+        const firstNameInitial = firstName ? firstName.trim().charAt(0) + '.' : '';
         return `${firstNameInitial} ${lastName.trim()}`;
     }).join(', ');
 }
