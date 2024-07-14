@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 /* script 3 */
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('latest-news.json')
+    fetch('news.json')
         .then(response => response.json())
         .then(data => {
             const newsContainer = document.getElementById('news-container');
