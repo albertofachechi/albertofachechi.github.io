@@ -51,6 +51,17 @@ nav a {
 nav a:hover {
     background-color: #555; /* Darker background on hover */
 }
+
+a {
+    font-weight: bold; /* Make links bold */
+    color: #00b3a2;    /* Water green color */
+    text-decoration: none; /* Optional: remove underline */
+}
+
+a:hover {
+    text-decoration: underline; /* Optional: underline on hover */
+}
+
 .container {
     display: flex;
     padding-top: 80px; /* Adjusted for header height */
