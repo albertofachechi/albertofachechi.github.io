@@ -135,8 +135,6 @@ entries.forEach(entry => {
     }
 });
 
-
-
 return publications;
 }
 
@@ -203,9 +201,6 @@ function displayPublications(publications) {
     // Reprocess the content with MathJax if needed
     MathJax.typeset();
 }
-
-
-
 
 function formatAuthors(authorString) {
     const authors = authorString.split('and').map(author => author.trim());
