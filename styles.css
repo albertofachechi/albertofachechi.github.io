@@ -315,6 +315,7 @@ footer {
 }
 .publication-list {
     margin-top: 20px; /* Space above the list */
+    list-style-position: inside; /* Adjust bullet positioning if needed */
 }
 
 .publication-item {
@@ -323,6 +324,7 @@ footer {
 
 .publication-item p {
     margin: 0; /* Remove default margins for paragraphs */
+    line-height: 1; /* Set line height to 1 to reduce space between lines */
 }
 
 .pub-title,
