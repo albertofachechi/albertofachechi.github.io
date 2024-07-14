@@ -163,4 +163,3 @@ function formatAuthors(authorString) {
         return `${firstNameInitial} ${lastName.trim()}`;
     }).join(', ');
 }
-
