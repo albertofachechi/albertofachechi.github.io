@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const newsContainer = document.getElementById('news-container');
             const moreButton = document.createElement('button');
             moreButton.textContent = 'More';
+            moreButton.className = 'more-button';  // Add class name
             moreButton.onclick = function() {
                 window.location.href = 'feed.html';
             };
@@ -70,6 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => console.error('Error fetching news:', error));
 });
+
 
 /* load all news */
 document.addEventListener('DOMContentLoaded', function() {

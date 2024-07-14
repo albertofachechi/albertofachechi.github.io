@@ -120,6 +120,26 @@ footer {
     padding: 5px;
 }
 
+.more-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 20px 0;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.more-button:hover {
+    background-color: #0056b3;
+}
+
 .footer-text {
     margin-left: auto; /* Pushes text to the right */
     font-size: 0.3rem; /* Smaller font size for footer text */
