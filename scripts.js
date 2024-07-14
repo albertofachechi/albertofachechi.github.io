@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 /* script 3 */
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('latest-news.json')
+    fetch('news.json')
         .then(response => response.json())
         .then(data => {
             const newsContainer = document.getElementById('news-container');
@@ -67,6 +67,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 newsContainer.appendChild(newsItem);
             });
             newsContainer.appendChild(moreButton);
+        })
+        .catch(error => console.error('Error fetching news:', error));
+});
+
+/* load all news */
+document.addEventListener('DOMContentLoaded', function() {
+    fetch('news.json')
+        .then(response => response.json())
+        .then(data => {
+            const allNewsContainer = document.getElementById('all-news-container');
+            data.forEach(news => {
+                const newsItem = document.createElement('div');
+                const newsDate = document.createElement('p');
+                newsDate.className = 'news-date';
+                newsDate.textContent = news.date;
+
+                const newsContent = document.createElement('p');
+                newsContent.textContent = news.content;
+
+                newsItem.appendChild(newsDate);
+                newsItem.appendChild(newsContent);
+                allNewsContainer.appendChild(newsItem);
+            });
         })
         .catch(error => console.error('Error fetching news:', error));
 });
