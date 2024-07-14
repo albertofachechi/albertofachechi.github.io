@@ -1,4 +1,11 @@
 
+MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    }
+  };
+
 /* script 1*/
 document.addEventListener('DOMContentLoaded', function() {
     const menuToggle = document.getElementById('menu-toggle');
@@ -104,13 +111,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 /* for the bibliography */
-
-MathJax = {
-    tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']],
-      tags: 'ams'
-    }
-  };
 
 document.addEventListener('DOMContentLoaded', function() {
     fetch('publications.bib') // Ensure this path is correct
