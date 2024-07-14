@@ -322,15 +322,6 @@ footer {
 }
 
 
-.publication-item p {
-    margin: 0;
-}
-
-.publication-item hr {
-    margin-top: 0.5rem;
-    margin-bottom: 1rem;
-}
-
 .pub-title,
 .pub-authors,
 .pub-details,
