@@ -150,7 +150,8 @@ function displayPublications(publications) {
 
         // Title
         if (pub.title) {
-            details += `<p class="pub-title"><em>${pub.title}</em></p>`;
+            const titleProcessed = pub.title.replace(/\$(.*?)\$/g, '\\($1\\)');
+            details += `<p class="pub-title"><em>${titleProcessed}</em></p>`;
         }
 
         // Authors
