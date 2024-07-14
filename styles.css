@@ -161,7 +161,7 @@ footer {
 }
 
 .box-content {
-    max-height: 3000px;
+    max-height: 10000px;
     overflow: hidden;
     transition: max-height 0.5s ease, padding 0.5s ease;
 }
