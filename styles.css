@@ -313,13 +313,12 @@ footer {
     font-size: 0.785rem; /* Size for location */
     color: #333; /* Optional: color for location */
 }
-
 .publication-list {
     margin-top: 20px; /* Space above the list */
 }
 
 .publication-item {
-    margin-bottom: 5; /* No bottom margin between entries */
+    margin-bottom: 1rem; /* Adds space between entries */
 }
 
 .publication-item p {
@@ -327,7 +326,6 @@ footer {
     line-height: 1; /* Set line height to minimize spacing */
     padding: 0; /* Ensure no padding */
 }
-
 .pub-title,
 .pub-authors,
 .pub-details {
