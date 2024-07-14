@@ -143,12 +143,12 @@ function displayPublications(publications) {
 
     publications.forEach((pub) => {
         const articleElement = document.createElement('div');
-        articleElement.classList.add('publication-item'); // Optional: Add a class for individual items
+        articleElement.classList.add('publication-item'); // Add a class for individual items
         articleElement.innerHTML = `
-            <p><em>${pub.title}</em></p>
-            <p>${formatAuthors(pub.author)}</p>
-            <p>${pub.journal}, Volume ${pub.volume}, ${pub.year}. Pages ${pub.pages}</p>
-            <p><a href="${pub.url}" target="_blank">View Article</a></p>
+            <p class="pub-title"><em>${pub.title}</em></p>
+            <p class="pub-authors">${formatAuthors(pub.author)}</p>
+            <p class="pub-details">${pub.journal}, Volume ${pub.volume}, ${pub.year}. Pages ${pub.pages}</p>
+            <p class="pub-link"><a href="${pub.url}" target="_blank">View Article</a></p>
             <hr>
         `;
         listContainer.appendChild(articleElement);
