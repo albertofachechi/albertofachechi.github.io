@@ -104,6 +104,14 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 /* for the bibliography */
+
+MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    }
+  };
+
 document.addEventListener('DOMContentLoaded', function() {
     fetch('publications.bib') // Ensure this path is correct
     .then(response => response.text())
