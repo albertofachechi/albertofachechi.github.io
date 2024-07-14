@@ -321,6 +321,9 @@ footer {
     margin-bottom: 0; /* No bottom margin between entries */
 }
 
+.publication-item p {
+    margin: 0; /* Remove default margins for paragraphs */
+}
 
 .pub-title,
 .pub-authors,
