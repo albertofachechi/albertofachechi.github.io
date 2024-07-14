@@ -186,6 +186,7 @@ footer {
     transition: max-height 0.5s ease, padding 0.5s ease;
     font-family: Verdana, Geneva, sans-serif;
     font-size: 0.785rem;
+    text-align: justify;
 }
 
 .box[data-visible="false"] .box-content {

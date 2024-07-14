@@ -81,9 +81,16 @@ document.addEventListener('DOMContentLoaded', function() {
             const allNewsContainer = document.getElementById('all-news-container');
             data.forEach(news => {
                 const newsItem = document.createElement('div');
+
                 const newsDate = document.createElement('p');
                 newsDate.className = 'news-date';
-                newsDate.textContent = news.date;
+                
+                // Create a strong element for bold text
+                const boldDate = document.createElement('strong');
+                boldDate.textContent = news.date;
+                
+                // Append the bold date to the newsDate paragraph
+                newsDate.appendChild(boldDate);
 
                 const newsContent = document.createElement('p');
                 newsContent.textContent = news.content;
