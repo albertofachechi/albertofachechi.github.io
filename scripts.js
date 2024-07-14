@@ -144,10 +144,19 @@ function displayPublications(publications) {
     publications.forEach((pub) => {
         const articleElement = document.createElement('div');
         articleElement.classList.add('publication-item');
+
+        // Replace $$...$$ with \(...\)
+        const detailsWithInlineMath = pub.journal + 
+            ', Volume ' + pub.volume + 
+            ', Pages ' + pub.pages + 
+            ' (' + pub.year + ')';
+        
+        const displayDetails = detailsWithInlineMath.replace(/\$\$(.*?)\$\$/g, '\\($1\\)');
+
         articleElement.innerHTML = `
             <p class="pub-title"><em>${pub.title}</em></p>
             <p class="pub-authors">${formatAuthors(pub.author)}</p>
-            <p class="pub-details">${pub.journal}, ${pub.volume}, ${pub.pages} (${pub.year})</p>
+            <p class="pub-details">${displayDetails}</p>
             <p class="pub-link"><a href="${pub.url || '#'}" target="_blank">View Article</a></p>
             <hr>
         `;
@@ -157,6 +166,7 @@ function displayPublications(publications) {
     // Reprocess the content with MathJax
     MathJax.typeset();
 }
+
 
 
 function formatAuthors(authorString) {
