@@ -376,6 +376,9 @@ footer {
     border-bottom: 1px solid #ddd;
     border-right: 1px solid #ddd;
 }
+.elegant-table th:last-child, .elegant-table td:last-child {
+    border-right: none;
+}
 .elegant-table th {
     background-color: #f4f4f4;
     font-weight: bold;
@@ -385,9 +388,6 @@ footer {
 }
 .elegant-table tr:last-child td {
     border-bottom: none;
-}
-.elegant-table th:last-child, .elegant-table td:last-child {
-    border-right: none;
 }
 
 /* Mobile styles */
