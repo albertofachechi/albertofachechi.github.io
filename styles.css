@@ -365,7 +365,7 @@ footer {
 }
 
 .elegant-table {
-    width: 50%;
+    width: auto;
     border-collapse: collapse;
     margin-top: 20px;
 }
