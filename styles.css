@@ -363,14 +363,14 @@ footer {
 .publication-item p {
     margin: 0;
 }
+
 .elegant-table {
     width: 50%;
     border-collapse: collapse;
 }
 .elegant-table th, .elegant-table td {
-    padding: 15px;
+    padding: 10px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
     border-right: 1px solid #ddd;
 }
 .elegant-table th:last-child, .elegant-table td:last-child {
@@ -382,9 +382,6 @@ footer {
 }
 .elegant-table tr:hover {
     background-color: #f1f1f1;
-}
-.elegant-table tr:last-child td {
-    border-bottom: none;
 }
 
 /* Mobile styles */
