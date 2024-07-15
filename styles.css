@@ -363,15 +363,12 @@ footer {
 .publication-item p {
     margin: 0;
 }
-
 .elegant-table {
     width: 50%;
-    margin: 0px auto;
     border-collapse: collapse;
-    margin-top: 20px
 }
 .elegant-table th, .elegant-table td {
-    padding: 0px;
+    padding: 15px;
     text-align: left;
     border-bottom: 1px solid #ddd;
     border-right: 1px solid #ddd;
@@ -384,7 +381,7 @@ footer {
     font-weight: bold;
 }
 .elegant-table tr:hover {
-    background-color: none;
+    background-color: #f1f1f1;
 }
 .elegant-table tr:last-child td {
     border-bottom: none;
