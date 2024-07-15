@@ -324,23 +324,44 @@ footer {
     font-size: 0.785rem; /* Size for location */
     color: #333; /* Optional: color for location */
 }
+/* Add top margin to the entire list */
 .publication-list {
-    margin-top: 20px; /* Space above the list */
+    margin-top: 20px;
+    font-size: 0.785rem;
 }
 
+/* Format individual publication items */
 .publication-item {
-    margin-bottom: 1rem; /* Adds space between entries */
+    margin-bottom: 10px; /* Add some spacing between different publication items */
 }
 
-.publication-item p {
-    margin: 0; /* Remove default margins for paragraphs */
-    line-height: 1; /* Set line height to minimize spacing */
-    padding: 0; /* Ensure no padding */
+/* Format title of the paper in italic font */
+.publication-item .title {
+    font-style: italic;
 }
-.pub-title,
-.pub-authors,
-.pub-details {
-    margin-bottom: 0; /* Ensure no margin between these elements */
+
+/* Format authors' names with "A Fachechi" in bold */
+.publication-item .authors {
+    font-weight: normal;
+}
+
+.publication-item .authors .highlight {
+    font-weight: bold;
+}
+
+/* Format details of the journal */
+.publication-item .journal-details {
+    font-style: normal;
+}
+
+/* Format URL */
+.publication-item .url {
+    font-style: normal;
+}
+
+/* Ensure no spacing between lines in the same entry */
+.publication-item p {
+    margin: 0;
 }
 
 /* Mobile styles */
