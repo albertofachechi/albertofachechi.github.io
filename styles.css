@@ -366,12 +366,11 @@ footer {
 
 .elegant-table {
     width: 50%;
-    margin: 50px auto;
+    margin: 0px auto;
     border-collapse: collapse;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.15);
 }
 .elegant-table th, .elegant-table td {
-    padding: 15px;
+    padding: 0px;
     text-align: left;
     border-bottom: 1px solid #ddd;
     border-right: 1px solid #ddd;
