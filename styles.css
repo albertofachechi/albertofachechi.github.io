@@ -364,6 +364,25 @@ footer {
     margin: 0;
 }
 
+.elegant-table {
+    width: 50%;
+    margin: 50px auto;
+    border-collapse: collapse;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+}
+.elegant-table th, .elegant-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+.elegant-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+.elegant-table tr:hover {
+    background-color: #f1f1f1;
+}
+
 /* Mobile styles */
 @media (max-width: 768px) {
     .container {
