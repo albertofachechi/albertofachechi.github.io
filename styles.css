@@ -383,6 +383,9 @@ footer {
     background-color: #f4f4f4;
     font-weight: bold;
 }
+.elegant-table tr:hover {
+    background-color: none;
+}
 .elegant-table tr:last-child td {
     border-bottom: none;
 }
