@@ -429,6 +429,7 @@ footer {
 }
 /* ID card container */
 .id-card {
+    margin-top: 20px;
     display: flex;
     width: 100%;
     padding: 10px;
