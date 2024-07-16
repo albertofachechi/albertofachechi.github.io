@@ -657,6 +657,11 @@ button:hover {
         font-size: 1rem;
     }
 
+    nav a:hover {
+        background-color: rgba(255, 255, 255, 0.1); /* Light background on hover */
+        width: 100%;
+    }
+
     .container.menu-open {
         transform: translateY(250px); /* Adjust based on the menu height */
     }
