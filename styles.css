@@ -491,7 +491,7 @@ footer {
 
 .address-container {
     margin-left: 0;
-    margin-top: 20px;
+    margin-top: 10px;
     margin: 20px auto;
     display: flex;
     flex-direction: column; /* Stack elements vertically */
