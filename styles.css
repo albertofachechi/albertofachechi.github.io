@@ -445,7 +445,7 @@ footer {
 
 /* Picture section */
 .id-card .picture {
-    flex: 0 0 80px; /* Width of the picture */
+    flex: 0 0 90px; /* Width of the picture */
     height: 120px; /* Height of the picture */
     margin-left: 5px;
     margin-right: 40px;
