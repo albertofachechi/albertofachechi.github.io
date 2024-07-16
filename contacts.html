@@ -34,7 +34,22 @@
                         <div class="separator"></div>
                     </div>
                     <div class="box-content">
-                        
+                        <form id="contact-form" action="contact.php" method="POST">
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" name="name" required>
+                            
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" required>
+                            
+                            <label for="message">Message:</label>
+                            <textarea id="message" name="message" required></textarea>
+                            
+                            <!-- Google reCAPTCHA -->
+                            <div class="g-recaptcha" data-sitekey="6LdwoBEqAAAAAGS4unKLg1sWFXTqrTu2PYP3xZ9R"></div>
+                            
+                            <button type="submit">Send</button>
+                        </form>
+                    
                     </div>
                 </div>
                 <div class="box" data-visible="true" id="list">
@@ -97,8 +112,7 @@
     <script src="scripts.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-    
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>    
 
 </body>
 </html>
