@@ -110,3 +110,9 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => console.error('Error fetching news:', error));
 });
 
+
+
+
+function onSubmit(token) {
+    document.getElementById("demo-form").submit();
+  }
