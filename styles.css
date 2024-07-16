@@ -412,15 +412,14 @@ footer {
     object-fit: cover;
   }
   
-  /* Information section */
- /* ID card container */
+/* ID card container */
 .id-card {
     display: flex;
-    width: 400px;
+    width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Reduced shadow effect */
     background-color: #f9f9f9;
     font-family: Verdana, Geneva, sans-serif;
     color: #333;
