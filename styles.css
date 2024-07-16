@@ -427,18 +427,33 @@ footer {
     box-sizing: border-box;
     margin-bottom: 20px;
 }
+/* ID card container */
+.id-card {
+    display: flex;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Reduced shadow effect */
+    background-color: #f9f9f9;
+    font-family: Verdana, Geneva, sans-serif;
+    color: #333;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
 
 /* Picture section */
 .id-card .picture {
-    flex: 0 0 100px;
+    flex: 0 0 80px; /* Width of the picture */
+    height: 120px; /* Height of the picture */
     margin-right: 20px;
 }
 
 .id-card .picture img {
-    width: 100px;
-    height: 100px;
+    width: 100%; /* Make the image fill the container */
+    height: 100%; /* Maintain height */
     border-radius: 10px; /* Slightly rounded corners */
-    object-fit: cover;
+    object-fit: cover; /* Ensure the image covers the area */
 }
 
 /* Information section */
@@ -471,6 +486,7 @@ footer {
 .id-card .info .website a:hover {
     text-decoration: underline;
 }
+
 
 /* Mobile styles */
 @media (max-width: 768px) {
