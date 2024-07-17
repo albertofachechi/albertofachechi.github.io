@@ -559,6 +559,8 @@ footer {
 .form-group {
     display: flex;
     flex-direction: column;
+    margin-left: 0;
+    margin-right: 0;
 }
   
 .form-label {
