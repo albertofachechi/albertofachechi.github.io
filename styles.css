@@ -535,19 +535,16 @@ footer {
   
 .contact-intro > * + * {
     margin-top: 0rem;
-    width: 100%;
 }
   
 .contact-title {
     font-size: 1.875rem;
     line-height: 2.25rem;
     font-weight: 700;    
-    width: 100%;
 }
   
 .contact-description {
     color: rgb(107 114 128);
-    width: 100%;
 }
   
 .form-group-container {
@@ -558,7 +555,6 @@ footer {
 }
   
 .form-group {
-    width: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -592,7 +588,6 @@ footer {
   
 .form-textarea {
     min-height: 100px;
-    width: 100%; /* Ensure full width */
 }
   
 .form-submit {
