@@ -34,32 +34,43 @@
                         <div class="separator"></div>
                     </div>
                     <div class="box-content">
-                        <div class="contact-section">                       
-                            <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
-                          
-                              <input type="hidden" name="access_key" value="fdaf4bef-d4a6-4b5a-ad71-d497cff3659b" />
-                              <input type="hidden" name="subject" value="New Contact Form Submission from Web3Forms" />
-                              <input type="hidden" name="from_name" value="My Website" />
-                              <!-- More custom ization options available in the docs: https://docs.web3forms.com -->
-                          
-                              <div class="form-group-container">
-                                <div class="form-group">
-                                  <label for="name" class="form-label">Name</label>
-                                  <input id="name" name="name" class="form-input" placeholder="Your name" type="text" />
+                        <div class="flex items-center min-h-screen bg-gray-900">
+                            <div class="container mx-auto">
+                            <div class="max-w-md mx-auto my-10 bg-gray-800 p-5 rounded-md shadow-sm">
+                                <div class="m-7">
+                                <form action="https://api.web3forms.com/submit" method="POST" id="form">
+                                    <input type="hidden" name="access_key" value="fdaf4bef-d4a6-4b5a-ad71-d497cff3659b" />
+                                    <input type="hidden" name="subject" value="New Submission from Web3Forms" />
+                                    <input type="checkbox" name="botcheck" id="" style="display: none;" />
+                        
+                                    <div class="mb-6">
+                                    <label for="name" class="block mb-2 text-sm text-gray-400">Full Name</label>
+                                    <input type="text" name="name" id="name" placeholder="John Doe" required class="w-full px-3 py-2 h-12 rounded-sm placeholder-gray-500 text-gray-900 bg-gray-100 text-sm focus:outline-none" />
+                                    </div>
+                                    <div class="mb-6">
+                                    <label for="email" class="block mb-2 text-sm text-gray-400">Email Address</label>
+                                    <input type="email" name="email" id="email" placeholder="you@company.com" required class="w-full px-3 py-2 h-12 rounded-sm placeholder-gray-500 text-gray-900 bg-gray-100 text-sm focus:outline-none" />
+                                    </div>
+                                    <div class="mb-6">
+                                    <label for="phone" class="block mb-2 text-sm text-gray-400">Phone Number</label>
+                                    <input type="text" name="phone" id="phone" placeholder="+1 (555) 1234-567" required class="w-full px-3 py-2 h-12 rounded-sm placeholder-gray-500 text-gray-900 bg-gray-100 text-sm focus:outline-none" />
+                                    </div>
+                                    <div class="mb-6">
+                                    <label for="message" class="block mb-2 text-sm text-gray-400">Your Message</label>
+                        
+                                    <textarea rows="5" name="message" id="message" placeholder="Your Message" class="w-full px-3 py-2 rounded-sm placeholder-gray-500 text-gray-900 bg-gray-100 text-sm focus:outline-none" required></textarea>
+                                    </div>
+                                    <div class="mb-6">
+                                    <button type="submit" class="w-full bg-indigo-600 inline-block text-white no-underline hover:text-indigo-100 py-4 px-4 rounded-sm focus:outline-none">
+                                        Send Message
+                                    </button>
+                                    </div>
+                                    <p class="text-base text-center text-gray-400" id="result"></p>
+                                </form>
                                 </div>
-                                <div class="form-group">
-                                  <label for="email" class="form-label">Email</label>
-                                  <input id="email" name="email" class="form-input" placeholder="Your email" type="email" />
-                                </div>
-                                <div class="form-group">
-                                  <label for="message" class="form-label">Message</label>
-                                  <textarea class="form-textarea" id="message" name="message" placeholder="Your message"></textarea>
-                                </div>
-                              </div>
-                              <button class="form-submit" type="submit">Send Message</button>
-                            </form>
-                          
-                          </div>
+                            </div>
+                            </div>
+                        </div>
                     
                     </div>
                 </div>
