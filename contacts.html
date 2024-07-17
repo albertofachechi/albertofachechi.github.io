@@ -37,19 +37,14 @@
                         <div class="contact-form">
                             <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
                                 <input type="hidden" name="access_key" value="fdaf4bef-d4a6-4b5a-ad71-d497cff3659b">
-                                <label for="name">Full name</label>
+                                <input type="hidden" name="redirect" value="">
+                                <label for="name">Name:</label>
                                 <input type="text" id="name" name="name" required>
-                    
-                                <label for="email">Email</label>
+                                <label for="email">Email:</label>
                                 <input type="email" id="email" name="email" required>
-                    
-                                <label for="subject">Subject</label>
-                                <input type="text" id="subject" name="subject" required>
-                    
-                                <label for="message">Message</label>
-                                <textarea id="message" name="message" rows="10" required></textarea>
-                    
-                                <button type="submit">Send Message</button>
+                                <label for="message">Message:</label>
+                                <textarea id="message" name="message" required></textarea>
+                                <button type="submit" id="submitButton">Send Message</button>
                             </form>
                         </div>
                     </div>
