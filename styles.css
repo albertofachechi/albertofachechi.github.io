@@ -508,7 +508,6 @@ footer {
 }
 
 .address-container .address {
-    width: 100%;
     margin-bottom: 15px;
 }
 
@@ -536,16 +535,19 @@ footer {
   
 .contact-intro > * + * {
     margin-top: 0rem;
+    width: 100%;
 }
   
 .contact-title {
     font-size: 1.875rem;
     line-height: 2.25rem;
-    font-weight: 700;
+    font-weight: 700;    
+    width: 100%;
 }
   
 .contact-description {
     color: rgb(107 114 128);
+    width: 100%;
 }
   
 .form-group-container {
@@ -563,6 +565,7 @@ footer {
   
 .form-label {
     margin-bottom: 0.5rem;
+    width: 100%;
 }
   
 .form-input,
@@ -571,7 +574,6 @@ footer {
     border: 1px solid #e5e7eb;
     display: flex;
     height: 2.5rem;
-    width: 100%; /* Ensure full width */
     border-radius: 0.375rem;
     font-size: 0.875rem;
     line-height: 1.25rem;
