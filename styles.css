@@ -566,7 +566,7 @@ footer {
   
   .form-input,
   .form-textarea {
-    padding: 0.5rem;
+    padding: 0.0rem;
     border: 1px solid #e5e7eb;
     display: flex;
     height: 2.5rem;
