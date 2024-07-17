@@ -137,4 +137,3 @@ form.addEventListener('submit', async function(event) {
         alert('There was an error submitting the form. Please try again.');
     }
 });
-});
