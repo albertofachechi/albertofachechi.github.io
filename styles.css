@@ -528,11 +528,11 @@ footer {
  /* Apply existing styles for the form */
  .contact-form {
     background-color: #f2f2f2;
-    padding: 20px;
+    padding: 0px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.0);
     width: 100%;
-    margin: 20px auto;
+    margin: 0px 0;
     font-family: Verdana, Geneva, sans-serif;
 }
 .contact-form h2 {
