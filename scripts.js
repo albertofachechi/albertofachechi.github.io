@@ -110,3 +110,32 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => console.error('Error fetching news:', error));
 });
 
+
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('contactForm');
+    const submitButton = document.getElementById('submitButton');
+
+    form.addEventListener('submit', async function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        const formData = new FormData(form);
+        submitButton.disabled = true; // Disable the button to prevent multiple submissions
+        submitButton.textContent = 'Submitting...'; // Change the button text while submitting
+
+        const response = await fetch(form.action, {
+            method: form.method,
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        if (response.ok) {
+            submitButton.textContent = 'Message Submitted'; // Change button text to indicate success
+        } else {
+            submitButton.textContent = 'Send Message'; // Revert button text on failure
+            submitButton.disabled = false; // Re-enable the button on failure
+            alert('There was an error submitting the form. Please try again.');
+        }
+    });
+});
