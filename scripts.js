@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
             moreButton.onclick = function() {
                 window.location.href = 'feed.html';
             };
-            const lastThreeNews = data.slice(3);
+            const lastThreeNews = data.slice(0,3);
             lastThreeNews.forEach(news => {
                 const newsItem = document.createElement('div');
                 const newsDate = document.createElement('p');
