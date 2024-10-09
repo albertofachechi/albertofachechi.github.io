@@ -1,4 +1,8 @@
-[
+[   
+    {
+        "date": "8/10/2024",
+        "content": "A date to remember: John Hopfield and Geoffrey Hinton were awarded with Nobel Prize in Physics on this day for their influential works on neural networks and machine learning!"
+    },
     {
         "date": "17/09/2024",
         "content": "Our work 'The thermodynamic limit in mean field neural networks' is publicly available on arXiv."
