@@ -1,8 +1,4 @@
-import os
 
-# Define the LaTeX CV structure
-def generate_cv_tex(filename):
-    content = r"""
 \documentclass[a4paper,skipsamekey,11pt,english]{curve}
 \PassOptionsToPackage{style=ieee,sorting=ydnt,uniquename=init,defernumbers=true}{biblatex}
 \usepackage{settings}
@@ -106,18 +102,4 @@ def generate_cv_tex(filename):
 \makerubric{talks}
 
 \end{document}
-    """
-    with open(filename, 'w') as file:
-        file.write(content)
-    print(f"LaTeX CV template written to {filename}")
-
-# Function to compile the LaTeX file
-def compile_tex(filename):
-    os.system(f"pdflatex {filename}")
-
-# Main script
-if __name__ == "__main__":
-    tex_filename = "CV_Fachechi.tex"
-    generate_cv_tex(tex_filename)
-    print("To compile the LaTeX file, run the following command in your terminal:")
-    print(f"pdflatex {tex_filename}")
+    
