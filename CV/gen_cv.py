@@ -67,12 +67,12 @@ def generate_cv_tex(filename):
 \leftheader{%
   {\LARGE\bfseries\sffamily Alberto Fachechi}
 
-  %\makefield{\faEnvelope[regular]}{\href{mailto:alberto.fachechi@gmail.com}{\texttt{alberto.fachechi@gmail.com}}}
+  \makefield{\faEnvelope[regular]}{\href{mailto:alberto.fachechi@gmail.com}{\texttt{alberto.fachechi@gmail.com}}}
   %\makefield{\faTwitter}%{\href{https://twitter.com/overleaf_example}{\texttt{@overleaf\_example}}}
   %\makefield{\faLinkedin}
   %{\href{http://www.linkedin.com/in/example/}{\texttt{example}}}
   %% Next line
-  %\makefield{\faGlobe}{\url{http://albertofachechi.com}}
+  \makefield{\faGlobe}{\url{http://albertofachechi.com}}
 
   % You can use a tabular here if you want to line up the fields.
 }
