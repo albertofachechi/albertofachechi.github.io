@@ -1,13 +1,7 @@
 [   
     {
         "date": "24/01/2026",
-        "content": "Sign the {{petition}} for the European Research Center for Artificial Intelligence!",
-        "links": {
-            "workshop": {
-             "label": "Petition",
-        "url": "https://c.org/YtzRrSFjnv"
-                        }
-                }
+        "content": "Sign this <a href='https://c.org/YtzRrSFjnv'>petition</a> for the European Research Center for Artificial Intelligence!"
     },
     {
         "date": "01/01/2026",
