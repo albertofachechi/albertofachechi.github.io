@@ -1,4 +1,9 @@
 [   
+    
+    {
+        "date": "25/04/2026",
+        "content": "Our paper 'Spectral criteria for generalization in unsupervised Hebbian nets' is now publicly available on arXiv."
+    }, 
     {
         "date": "25/04/2026",
         "content": "Our paper 'The importance of being empty: a spectral approach to Hopfield neural networks with diluted examples' has been accepted for publication in Neurocomputing."
