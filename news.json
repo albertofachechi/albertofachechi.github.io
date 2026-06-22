@@ -1,5 +1,8 @@
 [   
-    
+    {
+        "date": "08/06/2026",
+        "content": "Today, I give a talk about modular Hopfield networks at Chalmers University of Technology (Göteborg, Sweden) for the workshop 'Mathematical Foundations of AI'."
+    }, 
     {
         "date": "03/06/2026",
         "content": "Our paper 'Spectral criteria for generalization in unsupervised Hebbian nets' is now publicly available on arXiv."
