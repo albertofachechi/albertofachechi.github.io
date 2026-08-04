@@ -1,5 +1,9 @@
 [   
     {
+        "date": "28/07/2026",
+        "content": "Our paper 'Pattern disentanglement and reconstruction by modular Hebbian networks' has been published in Bollettino dell'Unione Matematica Italiana."
+    }, 
+    {
         "date": "08/06/2026",
         "content": "Today, I give a talk about modular Hopfield networks at Chalmers University of Technology (Göteborg, Sweden) for the workshop 'Mathematical Foundations of AI'."
     }, 
