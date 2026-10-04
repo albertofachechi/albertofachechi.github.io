@@ -7,6 +7,7 @@
 <style>
   :root {
     --scale: 1;
+    --chrome: 17rem; /* spazio occupato da intestazione, schede, formula e margini */
     --bg: #f7f7f4;
     --panel: #ffffff;
     --ink: #1d1d1f;
@@ -82,7 +83,13 @@
   }
   .card h2 { font-size: 1rem; margin: 0 0 0.75rem; font-weight: 600; }
 
-  .plot-wrap { position: relative; width: 100%; aspect-ratio: 4 / 3; }
+  /* Il grafico mantiene il rapporto 4:3 ma non supera l'altezza disponibile dello schermo:
+     se lo schermo è basso, la larghezza viene ridotta e il grafico centrato. */
+  .plot-wrap {
+    position: relative; aspect-ratio: 4 / 3; margin: 0 auto;
+    width: min(100%, max(18rem, (100vh - var(--chrome)) * 4 / 3));
+    width: min(100%, max(18rem, (100dvh - var(--chrome)) * 4 / 3));
+  }
   .plot-wrap canvas { width: 100%; height: 100%; display: block; }
 
   .controls {
@@ -117,7 +124,7 @@
   .grid-set input { width: 100%; }
   .msg { font-size: 0.8rem; color: var(--p2); min-height: 1em; margin-bottom: 0.4rem; }
 
-  .table-wrap { max-height: 32rem; overflow-y: auto; border: 1px solid var(--line); border-radius: 6px; }
+  .table-wrap { max-height: max(15rem, 100vh - 20rem); max-height: max(15rem, 100dvh - 20rem); overflow-y: auto; border: 1px solid var(--line); border-radius: 6px; }
   table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
   th, td { padding: 0.35rem 0.75rem; text-align: right; border-bottom: 1px solid var(--line); }
   th { position: sticky; top: 0; background: var(--accent-soft); font-weight: 600; }
