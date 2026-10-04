@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Funzioni elementari</title>
+<style>
+  :root {
+    --scale: 1;
+    --bg: #f7f7f4;
+    --panel: #ffffff;
+    --ink: #1d1d1f;
+    --muted: #6b6b70;
+    --line: #dcdcd6;
+    --accent: #1f5fbf;
+    --accent-soft: #e6eefb;
+    --curve: #1f5fbf;
+    --intercept: #c0392b;
+    --zero: #1e8a4c;
+    --point: #e08a00;
+  }
+  * { box-sizing: border-box; }
+  html { font-size: calc(16px * var(--scale)); }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+  }
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem; flex-wrap: wrap;
+    padding: 0.9rem 1.25rem;
+    background: var(--panel);
+    border-bottom: 1px solid var(--line);
+  }
+  header h1 { font-size: 1.3rem; margin: 0; font-weight: 600; }
+  .btn {
+    font: inherit; font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+    border: 1px solid var(--line); border-radius: 6px;
+    background: var(--panel); color: var(--ink); cursor: pointer;
+  }
+  .btn:hover { border-color: var(--accent); }
+  .btn.on { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  nav.tabs {
+    display: flex; gap: 0.25rem; flex-wrap: wrap;
+    padding: 0 1.25rem; background: var(--panel);
+    border-bottom: 1px solid var(--line);
+  }
+  nav.tabs button {
+    font: inherit; font-size: 0.95rem;
+    padding: 0.65rem 1rem; border: none; background: none;
+    border-bottom: 3px solid transparent; color: var(--muted); cursor: pointer;
+  }
+  nav.tabs button.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+  nav.tabs button:disabled { cursor: default; opacity: 0.45; }
+
+  main { padding: 1.25rem; max-width: 1400px; margin: 0 auto; }
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  .formula {
+    font-family: "Cambria Math", "STIX Two Math", Georgia, serif;
+    font-size: 1.9rem; text-align: center;
+    margin: 0 0 1rem;
+  }
+  .formula .m { color: var(--accent); font-weight: 600; }
+  .formula .q { color: var(--intercept); font-weight: 600; }
+
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 20rem;
+    gap: 1.25rem;
+  }
+  @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: 10px; padding: 1rem;
+  }
+  .card h2 { font-size: 1rem; margin: 0 0 0.75rem; font-weight: 600; }
+
+  .plot-wrap { position: relative; width: 100%; aspect-ratio: 4 / 3; }
+  .plot-wrap canvas { width: 100%; height: 100%; display: block; }
+
+  .controls {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+    margin-top: 1rem;
+  }
+  @media (max-width: 600px) { .controls { grid-template-columns: 1fr; } }
+  .param label { display: block; font-weight: 600; margin-bottom: 0.35rem; }
+  .param .row { display: flex; align-items: center; gap: 0.6rem; }
+  .param input[type=range] { flex: 1; }
+  .param input[type=number] { width: 6rem; }
+  input[type=number] {
+    font: inherit; font-size: 1rem;
+    padding: 0.3rem 0.4rem; border: 1px solid var(--line); border-radius: 5px;
+  }
+  .param.m label { color: var(--accent); }
+  .param.q label { color: var(--intercept); }
+  .param.m input[type=range] { accent-color: var(--accent); }
+  .param.q input[type=range] { accent-color: var(--intercept); }
+  .hint { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; }
+
+  .info { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.6rem 1.5rem; font-size: 0.95rem; }
+  .info .dot { display: inline-block; width: 0.7rem; height: 0.7rem; border-radius: 50%; margin-right: 0.35rem; vertical-align: middle; }
+
+  .view-row { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.75rem; font-size: 0.9rem; color: var(--muted); flex-wrap: wrap; }
+
+  .grid-set { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-bottom: 0.75rem; }
+  .grid-set label { font-size: 0.8rem; color: var(--muted); display: block; margin-bottom: 0.2rem; }
+  .grid-set input { width: 100%; }
+  .msg { font-size: 0.8rem; color: var(--intercept); min-height: 1em; margin-bottom: 0.4rem; }
+
+  .table-wrap { max-height: 32rem; overflow-y: auto; border: 1px solid var(--line); border-radius: 6px; }
+  table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  th, td { padding: 0.35rem 0.75rem; text-align: right; border-bottom: 1px solid var(--line); }
+  th { position: sticky; top: 0; background: var(--accent-soft); font-weight: 600; }
+  th:first-child, td:first-child { border-right: 1px solid var(--line); }
+  tr.hl-q td { background: #fbe9e7; }
+  tr.hl-z td { background: #e5f4ea; }
+
+  .placeholder { padding: 3rem; text-align: center; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Funzioni elementari di una variabile reale</h1>
+  <button class="btn" id="btnPresent" title="Ingrandisce testi e controlli per la proiezione">Modalità proiezione</button>
+</header>
+
+<nav class="tabs">
+  <button class="active" data-tab="lineare">Lineare</button>
+  <button disabled title="In arrivo">Quadratica</button>
+  <button disabled title="In arrivo">Potenza</button>
+  <button disabled title="In arrivo">Esponenziale</button>
+  <button disabled title="In arrivo">Logaritmo</button>
+  <button disabled title="In arrivo">Trigonometriche</button>
+</nav>
+
+<main>
+  <!-- ================= FUNZIONE LINEARE ================= -->
+  <section class="panel active" id="tab-lineare">
+    <p class="formula" id="lin-formula"></p>
+
+    <div class="layout">
+      <div class="card">
+        <div class="plot-wrap"><canvas id="lin-canvas"></canvas></div>
+
+        <div class="controls">
+          <div class="param m">
+            <label for="lin-m-range">Coefficiente angolare m</label>
+            <div class="row">
+              <input type="range" id="lin-m-range" min="-5" max="5" step="0.1" value="1">
+              <input type="number" id="lin-m-num" step="any" value="1">
+            </div>
+            <div class="hint">Lo slider va da −5 a 5; nel campo puoi scrivere qualsiasi valore.</div>
+          </div>
+          <div class="param q">
+            <label for="lin-q-range">Intercetta q</label>
+            <div class="row">
+              <input type="range" id="lin-q-range" min="-10" max="10" step="0.1" value="0">
+              <input type="number" id="lin-q-num" step="any" value="0">
+            </div>
+            <div class="hint">Lo slider va da −10 a 10; nel campo puoi scrivere qualsiasi valore.</div>
+          </div>
+        </div>
+
+        <div class="info" id="lin-info"></div>
+
+        <div class="view-row">
+          Finestra del grafico: x e y in [−L, L], con L =
+          <input type="number" id="lin-view" value="10" min="1" step="1" style="width:5rem">
+          <button class="btn" id="lin-reset">Ripristina m = 1, q = 0</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Tabella dei valori</h2>
+        <div class="grid-set">
+          <div><label for="lin-xa">x iniziale</label><input type="number" id="lin-xa" value="-3" step="any"></div>
+          <div><label for="lin-xb">x finale</label><input type="number" id="lin-xb" value="3" step="any"></div>
+          <div><label for="lin-xh">passo</label><input type="number" id="lin-xh" value="1" step="any" min="0"></div>
+        </div>
+        <div class="msg" id="lin-msg"></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>x</th><th>y = mx + q</th></tr></thead>
+            <tbody id="lin-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+/* ================================================================
+   Utilità comuni (riutilizzabili per le prossime funzioni)
+   ================================================================ */
+
+// Formatta un numero all'italiana, eliminando lo "sporco" in virgola mobile
+function fmt(v, maxDec = 4) {
+  if (!isFinite(v)) return "—";
+  const r = Math.round(v * 1e10) / 1e10;
+  const s = (Object.is(r, -0) ? 0 : r).toLocaleString("it-IT", { maximumFractionDigits: maxDec });
+  return s.replace("-", "−");
+}
+
+// Passo "gradevole" per la griglia (1, 2, 5 × 10^k)
+function niceStep(range, target = 10) {
+  const raw = range / target;
+  const p = Math.pow(10, Math.floor(Math.log10(raw)));
+  const r = raw / p;
+  return (r < 1.5 ? 1 : r < 3.5 ? 2 : r < 7.5 ? 5 : 10) * p;
+}
+
+// Collega uno slider e un campo numerico allo stesso parametro
+function bindParam(rangeEl, numEl, onChange) {
+  rangeEl.addEventListener("input", () => {
+    numEl.value = rangeEl.value;
+    onChange(parseFloat(rangeEl.value));
+  });
+  numEl.addEventListener("input", () => {
+    const v = parseFloat(numEl.value);
+    if (!isFinite(v)) return;
+    rangeEl.value = Math.min(Math.max(v, rangeEl.min), rangeEl.max);
+    onChange(v);
+  });
+}
+
+/*  Disegno di un grafico cartesiano.
+    opts = { xmin, xmax, ymin, ymax, f, points:[{x,y}], markers:[{x,y,color,label}] } */
+function drawPlot(canvas, opts) {
+  const dpr = window.devicePixelRatio || 1;
+  const W = canvas.clientWidth, H = canvas.clientHeight;
+  canvas.width = W * dpr; canvas.height = H * dpr;
+  const ctx = canvas.getContext("2d");
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, W, H);
+
+  const css = getComputedStyle(document.documentElement);
+  const col = n => css.getPropertyValue(n).trim();
+  const fs = 13 * parseFloat(css.getPropertyValue("--scale"));
+
+  const { xmin, xmax, ymin, ymax } = opts;
+  const X = x => (x - xmin) / (xmax - xmin) * W;
+  const Y = y => H - (y - ymin) / (ymax - ymin) * H;
+
+  // Griglia
+  const sx = niceStep(xmax - xmin), sy = niceStep(ymax - ymin);
+  ctx.lineWidth = 1; ctx.strokeStyle = "#ececE6";
+  for (let x = Math.ceil(xmin / sx) * sx; x <= xmax; x += sx) {
+    ctx.beginPath(); ctx.moveTo(X(x), 0); ctx.lineTo(X(x), H); ctx.stroke();
+  }
+  for (let y = Math.ceil(ymin / sy) * sy; y <= ymax; y += sy) {
+    ctx.beginPath(); ctx.moveTo(0, Y(y)); ctx.lineTo(W, Y(y)); ctx.stroke();
+  }
+
+  // Assi
+  const x0 = X(0), y0 = Y(0);
+  ctx.strokeStyle = "#555"; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(0, y0); ctx.lineTo(W, y0); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(x0, 0); ctx.lineTo(x0, H); ctx.stroke();
+  ctx.fillStyle = "#555";
+  ctx.beginPath(); ctx.moveTo(W, y0); ctx.lineTo(W - 9, y0 - 4); ctx.lineTo(W - 9, y0 + 4); ctx.fill();
+  ctx.beginPath(); ctx.moveTo(x0, 0); ctx.lineTo(x0 - 4, 9); ctx.lineTo(x0 + 4, 9); ctx.fill();
+  ctx.font = `italic ${fs + 2}px Georgia, serif`;
+  ctx.fillText("x", W - 14, y0 - 8);
+  ctx.fillText("y", x0 + 8, 14);
+
+  // Etichette numeriche
+  ctx.font = `${fs}px system-ui, sans-serif`; ctx.fillStyle = col("--muted");
+  const ly = Math.min(Math.max(y0 + fs + 3, fs + 2), H - 4);
+  ctx.textAlign = "center";
+  for (let x = Math.ceil(xmin / sx) * sx; x <= xmax; x += sx)
+    if (Math.abs(x) > sx / 2) ctx.fillText(fmt(x), X(x), ly);
+  ctx.textAlign = "right";
+  const lx = Math.min(Math.max(x0 - 5, 30), W - 4);
+  for (let y = Math.ceil(ymin / sy) * sy; y <= ymax; y += sy)
+    if (Math.abs(y) > sy / 2) ctx.fillText(fmt(y), lx, Y(y) + fs / 3);
+  ctx.textAlign = "left";
+
+  // Curva (campionata pixel per pixel, interrotta fuori dalla finestra)
+  ctx.save();
+  ctx.beginPath(); ctx.rect(0, 0, W, H); ctx.clip();
+  ctx.strokeStyle = col("--curve"); ctx.lineWidth = 3;
+  ctx.beginPath();
+  let pen = false;
+  for (let px = 0; px <= W; px++) {
+    const x = xmin + px / W * (xmax - xmin), y = opts.f(x);
+    if (!isFinite(y) || Math.abs(Y(y)) > 1e5) { pen = false; continue; }
+    pen ? ctx.lineTo(px, Y(y)) : ctx.moveTo(px, Y(y));
+    pen = true;
+  }
+  ctx.stroke();
+
+  // Punti della tabella
+  ctx.fillStyle = col("--point"); ctx.strokeStyle = "#fff"; ctx.lineWidth = 1.5;
+  for (const p of opts.points || []) {
+    ctx.beginPath(); ctx.arc(X(p.x), Y(p.y), 4.5, 0, 2 * Math.PI); ctx.fill(); ctx.stroke();
+  }
+
+  // Punti notevoli
+  ctx.font = `600 ${fs}px system-ui, sans-serif`;
+  for (const mk of opts.markers || []) {
+    const mx = X(mk.x), my = Y(mk.y);
+    ctx.fillStyle = mk.color; ctx.strokeStyle = "#fff"; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.arc(mx, my, 7, 0, 2 * Math.PI); ctx.fill(); ctx.stroke();
+    const tw = ctx.measureText(mk.label).width;
+    let tx = mx + 11, ty = my - 11;
+    if (tx + tw > W - 4) tx = mx - 11 - tw;
+    if (ty < fs + 2) ty = my + fs + 10;
+    ctx.fillStyle = "rgba(255,255,255,0.85)";
+    ctx.fillRect(tx - 3, ty - fs, tw + 6, fs + 5);
+    ctx.fillStyle = mk.color; ctx.fillText(mk.label, tx, ty);
+  }
+  ctx.restore();
+}
+
+/* ================================================================
+   Scheda: FUNZIONE LINEARE  y = m x + q
+   ================================================================ */
+(function () {
+  const $ = id => document.getElementById(id);
+  const state = { m: 1, q: 0, L: 10 };
+  const canvas = $("lin-canvas");
+
+  // Scrittura "pulita" dell'equazione: y = 2x − 3, y = −x, y = 4, ...
+  function formulaHTML(m, q) {
+    let s = '<i>y</i> = ';
+    const mz = Math.abs(m) < 1e-12, qz = Math.abs(q) < 1e-12;
+    if (!mz) {
+      const am = Math.abs(m);
+      s += (m < 0 ? '−' : '') + '<span class="m">' + (Math.abs(am - 1) < 1e-12 ? '' : fmt(am)) + '</span><i>x</i>';
+    }
+    if (!qz) {
+      if (mz) s += '<span class="q">' + fmt(q) + '</span>';
+      else s += (q < 0 ? ' − ' : ' + ') + '<span class="q">' + fmt(Math.abs(q)) + '</span>';
+    }
+    if (mz && qz) s += '0';
+    return s;
+  }
+
+  function gridValues() {
+    const a = parseFloat($("lin-xa").value), b = parseFloat($("lin-xb").value), h = parseFloat($("lin-xh").value);
+    const msg = $("lin-msg");
+    if (![a, b, h].every(isFinite)) { msg.textContent = "Inserisci valori numerici."; return []; }
+    if (h <= 0) { msg.textContent = "Il passo deve essere positivo."; return []; }
+    if (b < a) { msg.textContent = "x finale deve essere ≥ x iniziale."; return []; }
+    const n = Math.floor((b - a) / h + 1e-9) + 1;
+    if (n > 201) { msg.textContent = "Troppi valori (max 201): aumenta il passo."; return []; }
+    msg.textContent = "";
+    return Array.from({ length: n }, (_, i) => Math.round((a + i * h) * 1e10) / 1e10);
+  }
+
+  function update() {
+    const { m, q, L } = state;
+    const f = x => m * x + q;
+    const mz = Math.abs(m) < 1e-12;
+
+    $("lin-formula").innerHTML = formulaHTML(m, q);
+
+    // Tabella
+    const xs = gridValues();
+    const zero = mz ? null : -q / m;
+    $("lin-tbody").innerHTML = xs.map(x => {
+      const y = f(x);
+      const cls = Math.abs(x) < 1e-12 ? "hl-q" : (Math.abs(y) < 1e-10 ? "hl-z" : "");
+      return `<tr class="${cls}"><td>${fmt(x)}</td><td>${fmt(y)}</td></tr>`;
+    }).join("");
+
+    // Punti notevoli
+    const markers = [{ x: 0, y: q, color: getComputedStyle(document.documentElement).getPropertyValue("--intercept").trim(),
+                       label: `(0; ${fmt(q, 2)})` }];
+    if (zero !== null)
+      markers.push({ x: zero, y: 0, color: getComputedStyle(document.documentElement).getPropertyValue("--zero").trim(),
+                     label: `(${fmt(zero, 2)}; 0)` });
+
+    drawPlot(canvas, {
+      xmin: -L, xmax: L, ymin: -L, ymax: L, f,
+      points: xs.map(x => ({ x, y: f(x) })),
+      markers
+    });
+
+    // Riquadro informativo
+    let zeroTxt;
+    if (!mz) zeroTxt = `x = −q/m = ${fmt(zero)}`;
+    else if (Math.abs(q) < 1e-12) zeroTxt = "tutti i punti (la retta coincide con l'asse x)";
+    else zeroTxt = "nessuno (retta parallela all'asse x)";
+    const trend = mz ? "costante" : (m > 0 ? "crescente" : "decrescente");
+    $("lin-info").innerHTML =
+      `<span><span class="dot" style="background:var(--intercept)"></span>Intercetta con l'asse y: (0; ${fmt(q)})</span>` +
+      `<span><span class="dot" style="background:var(--zero)"></span>Zero: ${zeroTxt}</span>` +
+      `<span><span class="dot" style="background:var(--point)"></span>Punti della tabella</span>` +
+      `<span>Andamento: <b>${trend}</b></span>`;
+  }
+
+  bindParam($("lin-m-range"), $("lin-m-num"), v => { state.m = v; update(); });
+  bindParam($("lin-q-range"), $("lin-q-num"), v => { state.q = v; update(); });
+  ["lin-xa", "lin-xb", "lin-xh"].forEach(id => $(id).addEventListener("input", update));
+  $("lin-view").addEventListener("input", () => {
+    const v = parseFloat($("lin-view").value);
+    if (isFinite(v) && v > 0) { state.L = v; update(); }
+  });
+  $("lin-reset").addEventListener("click", () => {
+    state.m = 1; state.q = 0;
+    $("lin-m-range").value = $("lin-m-num").value = 1;
+    $("lin-q-range").value = $("lin-q-num").value = 0;
+    update();
+  });
+
+  new ResizeObserver(update).observe(canvas);
+  window.addEventListener("scalechange", update);
+  update();
+})();
+
+/* ================================================================
+   Schede e modalità proiezione
+   ================================================================ */
+document.querySelectorAll("nav.tabs button[data-tab]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll("nav.tabs button").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById("tab-" + btn.dataset.tab).classList.add("active");
+  });
+});
+
+document.getElementById("btnPresent").addEventListener("click", e => {
+  const on = e.currentTarget.classList.toggle("on");
+  document.documentElement.style.setProperty("--scale", on ? 1.3 : 1);
+  window.dispatchEvent(new Event("scalechange"));
+});
+</script>
+</body>
+</html>
