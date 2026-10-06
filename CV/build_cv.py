@@ -334,14 +334,11 @@ def build_activity(index_soup):
             paras = [escape_text(p) for p in re.split(r"\n\s*\n", text) if p.strip()]
             body = "\n\n".join(clean(p) for p in paras)
             with open("activity.tex", "w", encoding="utf-8") as f:
-                # Niente pallino: \@prefix di curve è globale, quindi lo
-                # svuoto per questa rubrica e lo ripristino subito dopo.
+                # \text{...} di curve: riga a tutta larghezza (niente colonna
+                # della chiave né pallino).
                 f.write("% Generato da build_cv.py — non modificare a mano\n"
-                        "\\makeatletter\\let\\cvsavedprefix\\@prefix\\makeatother\n"
-                        "\\prefix{}\n"
                         f"\\begin{{rubric}}{{{ACTIVITY_TITLE}}}\n"
-                        f"\\entry*[]\n  {body}\n\\end{{rubric}}\n"
-                        "\\makeatletter\\global\\let\\@prefix\\cvsavedprefix\\makeatother\n")
+                        f"\\text{{{body}}}\n\\end{{rubric}}\n")
             return
     raise KeyError("Commento 'FOR CV' non trovato in index.html")
 
