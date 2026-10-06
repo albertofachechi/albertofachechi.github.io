@@ -1,4 +1,3 @@
-python3 gen_activity.py
-python3 gen_positions.py
-python3 gen_cv.py
-pdflatex CV_Fachechi.tex
+#!/bin/sh
+# Rigenera i file del CV dal sito e compila. Opzioni: vedi python3 build_cv.py --help
+cd "$(dirname "$0")" && python3 build_cv.py "$@"
