@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Funzioni elementari</title>
+<style>
+  :root {
+    --scale: 1;
+    --chrome: 16rem; /* spazio occupato da intestazione, schede, formula e margini */
+    --plotw: max(18rem, (100vh - var(--chrome)) * 4 / 3); /* larghezza del grafico (4:3) */
+    --bg: #f7f7f4;
+    --panel: #ffffff;
+    --ink: #1d1d1f;
+    --muted: #6b6b70;
+    --line: #dcdcd6;
+    --accent: #1f5fbf;
+    --accent-soft: #e6eefb;
+    --p1: #1f5fbf;
+    --p2: #c0392b;
+    --p3: #7b3fb5;
+  }
+  @supports (height: 100dvh) { :root { --plotw: max(18rem, (100dvh - var(--chrome)) * 4 / 3); } }
+  * { box-sizing: border-box; }
+  html { font-size: calc(16px * var(--scale)); }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+  }
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem; flex-wrap: wrap;
+    padding: 0.9rem 1.25rem;
+    background: var(--panel);
+    border-bottom: 1px solid var(--line);
+  }
+  header h1 { font-size: 1.3rem; margin: 0; font-weight: 600; }
+  .btn {
+    font: inherit; font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+    border: 1px solid var(--line); border-radius: 6px;
+    background: var(--panel); color: var(--ink); cursor: pointer;
+  }
+  .btn:hover { border-color: var(--accent); }
+  .btn.on { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  nav.tabs {
+    display: flex; gap: 0.25rem; flex-wrap: wrap;
+    padding: 0 1.25rem; background: var(--panel);
+    border-bottom: 1px solid var(--line);
+  }
+  nav.tabs button {
+    font: inherit; font-size: 0.95rem;
+    padding: 0.65rem 1rem; border: none; background: none;
+    border-bottom: 3px solid transparent; color: var(--muted); cursor: pointer;
+  }
+  nav.tabs button.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+
+  main { padding: 1.25rem; }
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  .formula {
+    font-family: "Cambria Math", "STIX Two Math", Georgia, serif;
+    font-size: 1.9rem; text-align: center;
+    margin: 0 0 1rem; min-height: 2.4rem;
+  }
+  .formula .p1 { color: var(--p1); font-weight: 600; }
+  .formula .p2 { color: var(--p2); font-weight: 600; }
+  .formula .p3 { color: var(--p3); font-weight: 600; }
+  .formula sup { font-size: 0.65em; }
+
+  /* Tre colonne: grafico | parametri | tabella */
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(0, calc(var(--plotw) + 2rem + 2px)) 19rem 16rem;
+    justify-content: center; align-items: start;
+    gap: 1.25rem;
+  }
+  .plot-card { width: 100%; }
+  /* Schermi medi: grafico sopra, parametri e tabella affiancati sotto */
+  @media (max-width: 1100px) {
+    .layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .plot-card { grid-column: 1 / -1; justify-self: center; width: min(100%, calc(var(--plotw) + 2rem + 2px)); }
+  }
+  /* Telefoni: una sola colonna */
+  @media (max-width: 700px) { .layout { grid-template-columns: minmax(0, 1fr); } }
+
+  .card {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: 10px; padding: 1rem;
+  }
+  .card h2 { font-size: 1rem; margin: 0 0 0.75rem; font-weight: 600; }
+
+  /* Il grafico mantiene il rapporto 4:3 ma non supera l'altezza disponibile dello schermo:
+     se lo schermo è basso, la larghezza viene ridotta e il grafico centrato. */
+  .plot-wrap { position: relative; width: 100%; aspect-ratio: 4 / 3; }
+  .plot-wrap canvas { width: 100%; height: 100%; display: block; }
+
+  .controls { display: grid; grid-template-columns: 1fr; gap: 0.9rem; }
+  .card h2.sub { margin-top: 1.2rem; padding-top: 0.9rem; border-top: 1px solid var(--line); }
+  .param label { display: block; font-weight: 600; margin-bottom: 0.35rem; }
+  .param .row { display: flex; align-items: center; gap: 0.6rem; }
+  .param input[type=range] { flex: 1; min-width: 0; }
+  .param input.val { width: 5.5rem; }
+  .param.p1 label { color: var(--p1); } .param.p1 input[type=range] { accent-color: var(--p1); }
+  .param.p2 label { color: var(--p2); } .param.p2 input[type=range] { accent-color: var(--p2); }
+  .param.p3 label { color: var(--p3); } .param.p3 input[type=range] { accent-color: var(--p3); }
+  .param select { font: inherit; padding: 0.3rem 0.4rem; border: 1px solid var(--line); border-radius: 5px; }
+  .param.check label { display: flex; align-items: center; gap: 0.5rem; font-weight: 500; color: var(--ink); cursor: pointer; }
+  input.val, .grid-set input, .view-row input {
+    font: inherit; font-size: 1rem;
+    padding: 0.3rem 0.4rem; border: 1px solid var(--line); border-radius: 5px;
+  }
+  input.bad { border-color: var(--p2); background: #fdf0ee; }
+  .hint { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; }
+
+  .info { display: flex; flex-direction: column; gap: 0.45rem; font-size: 0.9rem; line-height: 1.35; }
+  .info .dot { display: inline-block; width: 0.7rem; height: 0.7rem; border-radius: 50%; margin-right: 0.35rem; vertical-align: middle; }
+  .info .err { color: var(--p2); font-weight: 600; }
+
+  .view-row { display: flex; align-items: center; gap: 1rem; font-size: 0.95rem; flex-wrap: wrap; }
+  .view-row label { display: flex; align-items: center; gap: 0.4rem; }
+  .view-row input { width: 4.5rem; }
+  .reset { margin-top: 0.9rem; width: 100%; }
+
+  .grid-set { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-bottom: 0.4rem; }
+  .grid-set label { font-size: 0.8rem; color: var(--muted); display: block; margin-bottom: 0.2rem; }
+  .grid-set input { width: 100%; }
+  .msg { font-size: 0.8rem; color: var(--p2); min-height: 1em; margin-bottom: 0.4rem; }
+
+  .table-wrap { max-height: max(15rem, 100vh - 20rem); max-height: max(15rem, 100dvh - 20rem); overflow-y: auto; border: 1px solid var(--line); border-radius: 6px; }
+  table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  th, td { padding: 0.35rem 0.75rem; text-align: right; border-bottom: 1px solid var(--line); }
+  th { position: sticky; top: 0; background: var(--accent-soft); font-weight: 600; }
+  th:first-child, td:first-child { border-right: 1px solid var(--line); }
+  tr.hl-q td { background: #fbe9e7; }
+  tr.hl-z td { background: #e5f4ea; }
+  td.nd { color: var(--muted); font-style: italic; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Funzioni elementari di una variabile reale</h1>
+  <button class="btn" id="btnPresent" title="Ingrandisce testi e controlli per la proiezione">Modalità proiezione</button>
+</header>
+
+<nav class="tabs" id="tabs"></nav>
+<main id="panels"></main>
+
+<script>
+/* ================================================================
+   Utilità
+   ================================================================ */
+const COL = {
+  intercept: "#c0392b", zero: "#1e8a4c", vertex: "#7b3fb5",
+  other: "#1f5fbf", point: "#e08a00", curve: "#1f5fbf",
+  guide: "#8a8a8a", muted: "#6b6b70"
+};
+const EPS = 1e-12;
+
+// Numero in formato italiano, senza separatore delle migliaia e senza errori di arrotondamento visibili
+function fmt(v, maxDec = 4) {
+  if (!isFinite(v)) return "—";
+  const d = Math.pow(10, maxDec);
+  let r = Math.round(Math.round(v * 1e10) / 1e10 * d) / d;
+  if (r === 0) r = 0; // elimina lo "zero negativo"
+  return r
+    .toLocaleString("it-IT", { maximumFractionDigits: maxDec, useGrouping: false })
+    .replace("-", "−");
+}
+
+// Scrive v come multiplo razionale semplice di π (es. 2π/3); null se non lo è
+function formatPi(v) {
+  const r = v / Math.PI;
+  for (const d of [1, 2, 3, 4, 6, 12]) {
+    const n = Math.round(r * d);
+    if (Math.abs(r * d - n) < 1e-9) {
+      if (n === 0) return "0";
+      const an = Math.abs(n);
+      return (n < 0 ? "−" : "") + (an === 1 ? "" : an) + "π" + (d > 1 ? "/" + d : "");
+    }
+  }
+  return null;
+}
+
+// Interpreta espressioni semplici: 2,5   −3   pi/6   2π/3   e   3*pi/4
+function parseExpr(str) {
+  let s = String(str).trim().toLowerCase()
+    .replace(/π/g, "pi").replace(/−/g, "-").replace(/,/g, ".");
+  if (s === "") return NaN;
+  s = s.replace(/(\d|\))\s*(pi|e)(?![a-z])/g, "$1*$2")
+       .replace(/(pi|e)\s*(\d|\()/g, "$1*$2");
+  if (!/^[0-9.+\-*/()\s]*$/.test(s.replace(/pi|e/g, ""))) return NaN;
+  s = s.replace(/pi|e/g, m => (m === "pi" ? "Math.PI" : "Math.E"));
+  try { const v = Function('"use strict"; return (' + s + ')')(); return typeof v === "number" ? v : NaN; }
+  catch { return NaN; }
+}
+
+function niceStep(range, target = 10) {
+  const raw = range / target;
+  const p = Math.pow(10, Math.floor(Math.log10(raw)));
+  const r = raw / p;
+  return (r < 1.5 ? 1 : r < 3.5 ? 2 : r < 7.5 ? 5 : 10) * p;
+}
+
+// Costruisce un polinomio/somma di termini con segni e coefficienti 1 nascosti
+function termsHTML(terms) {
+  let s = "", first = true;
+  for (const [c, v, cls] of terms) {
+    if (Math.abs(c) < EPS) continue;
+    const a = Math.abs(c);
+    const num = v && Math.abs(a - 1) < EPS ? "" : fmt(a);
+    const body = `<span class="${cls}">${num}</span>${v}`;
+    s += first ? (c < 0 ? "−" : "") + body : (c < 0 ? " − " : " + ") + body;
+    first = false;
+  }
+  return s || "0";
+}
+
+// Coefficiente moltiplicativo davanti a un'espressione: 1 → "", −1 → "−", 2 → "2"
+function coefHTML(c, cls) {
+  if (Math.abs(c - 1) < EPS) return "";
+  if (Math.abs(c + 1) < EPS) return "−";
+  return `<span class="${cls}">${fmt(c)}</span>`;
+}
+
+const pt = (x, y) => `(${fmt(x, 2)}; ${fmt(y, 2)})`;
+const dot = c => `<span class="dot" style="background:${c}"></span>`;
+
+/* ================================================================
+   Disegno del grafico
+   opts = { xmin,xmax,ymin,ymax, curves:[{f,color,width,dash}], points:[{x,y}],
+            markers:[{x,y,color,label}], vlines:[{x,color}], breaks:[x], piX }
+   ================================================================ */
+function drawPlot(canvas, o) {
+  const W = canvas.clientWidth, H = canvas.clientHeight;
+  if (!W || !H) return;
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = W * dpr; canvas.height = H * dpr;
+  const ctx = canvas.getContext("2d");
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, W, H);
+  const fs = 13 * parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--scale"));
+
+  const { xmin, xmax, ymin, ymax } = o;
+  const X = x => (x - xmin) / (xmax - xmin) * W;
+  const Y = y => H - (y - ymin) / (ymax - ymin) * H;
+
+  // passo delle tacche: multipli di π sull'asse x per le trigonometriche
+  let sx;
+  if (o.piX) {
+    const cands = [1/12, 1/6, 1/4, 1/2, 1, 2, 4, 8, 16, 32].map(k => k * Math.PI);
+    sx = cands.find(c => (xmax - xmin) / c <= 12) || cands[cands.length - 1];
+  } else sx = niceStep(xmax - xmin);
+  const sy = niceStep(ymax - ymin);
+  const ticks = (a, b, s) => { const t = []; for (let k = Math.ceil(a / s - 1e-9); k * s <= b + 1e-9; k++) t.push(k * s); return t; };
+  const tx = ticks(xmin, xmax, sx), ty = ticks(ymin, ymax, sy);
+
+  // griglia
+  ctx.lineWidth = 1; ctx.strokeStyle = "#ececE6";
+  tx.forEach(x => { ctx.beginPath(); ctx.moveTo(X(x), 0); ctx.lineTo(X(x), H); ctx.stroke(); });
+  ty.forEach(y => { ctx.beginPath(); ctx.moveTo(0, Y(y)); ctx.lineTo(W, Y(y)); ctx.stroke(); });
+
+  // assi con frecce
+  const x0 = X(0), y0 = Y(0);
+  ctx.strokeStyle = "#555"; ctx.fillStyle = "#555"; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(0, y0); ctx.lineTo(W, y0); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(x0, 0); ctx.lineTo(x0, H); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(W, y0); ctx.lineTo(W - 9, y0 - 4); ctx.lineTo(W - 9, y0 + 4); ctx.fill();
+  ctx.beginPath(); ctx.moveTo(x0, 0); ctx.lineTo(x0 - 4, 9); ctx.lineTo(x0 + 4, 9); ctx.fill();
+  ctx.font = `italic ${fs + 2}px Georgia, serif`;
+  ctx.fillText("x", W - 14, y0 - 8);
+  ctx.fillText("y", x0 + 8, 14);
+
+  // etichette numeriche
+  ctx.font = `${fs}px system-ui, sans-serif`; ctx.fillStyle = COL.muted;
+  const ly = Math.min(Math.max(y0 + fs + 3, fs + 2), H - 4);
+  ctx.textAlign = "center";
+  tx.forEach(x => { if (Math.abs(x) > sx / 2 && X(x) > 18 && X(x) < W - 18) ctx.fillText(o.piX ? (formatPi(x) ?? fmt(x, 2)) : fmt(x), X(x), ly); });
+  ctx.textAlign = "right";
+  const lx = Math.min(Math.max(x0 - 5, 30), W - 4);
+  ty.forEach(y => { if (Math.abs(y) > sy / 2 && Y(y) > 12 && Y(y) < H - 8) ctx.fillText(fmt(y), lx, Y(y) + fs / 3); });
+  ctx.textAlign = "left";
+
+  ctx.save();
+  ctx.beginPath(); ctx.rect(0, 0, W, H); ctx.clip();
+
+  // rette verticali tratteggiate (asintoti, assi di simmetria)
+  ctx.lineWidth = 1.5; ctx.setLineDash([6, 5]);
+  (o.vlines || []).forEach(v => {
+    ctx.strokeStyle = v.color || COL.guide;
+    ctx.beginPath(); ctx.moveTo(X(v.x), 0); ctx.lineTo(X(v.x), H); ctx.stroke();
+  });
+  ctx.setLineDash([]);
+
+  // curve (campionate pixel per pixel, con interruzioni sulle discontinuità)
+  const breaks = o.breaks || [];
+  for (const c of o.curves) {
+    ctx.strokeStyle = c.color; ctx.lineWidth = c.width || 3; ctx.setLineDash(c.dash || []);
+    ctx.beginPath();
+    let pen = false, prevX = null, prevY = null;
+    for (let px = 0; px <= W; px += 0.5) {
+      const x = xmin + px / W * (xmax - xmin), y = c.f(x);
+      const py = Y(y);
+      if (!isFinite(y) || Math.abs(py) > 1e5) { pen = false; prevX = null; continue; }
+      const jump = prevX !== null && (
+        breaks.some(b => (b - prevX) * (b - x) <= 0) ||
+        (prevY < 0 && py > H) || (prevY > H && py < 0));
+      if (pen && !jump) ctx.lineTo(px, py); else ctx.moveTo(px, py);
+      pen = true; prevX = x; prevY = py;
+    }
+    ctx.stroke();
+  }
+  ctx.setLineDash([]);
+
+  // punti della tabella
+  ctx.fillStyle = COL.point; ctx.strokeStyle = "#fff"; ctx.lineWidth = 1.5;
+  (o.points || []).forEach(p => {
+    ctx.beginPath(); ctx.arc(X(p.x), Y(p.y), 4.5, 0, 2 * Math.PI); ctx.fill(); ctx.stroke();
+  });
+
+  // punti notevoli con etichetta
+  ctx.font = `600 ${fs}px system-ui, sans-serif`;
+  (o.markers || []).forEach(mk => {
+    if (!isFinite(mk.x) || !isFinite(mk.y) || mk.x < xmin || mk.x > xmax || mk.y < ymin || mk.y > ymax) return;
+    const mx = X(mk.x), my = Y(mk.y);
+    ctx.fillStyle = mk.color; ctx.strokeStyle = "#fff"; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.arc(mx, my, 7, 0, 2 * Math.PI); ctx.fill(); ctx.stroke();
+    const tw = ctx.measureText(mk.label).width;
+    let lx2 = mx + 11, ly2 = my - 11;
+    if (lx2 + tw > W - 4) lx2 = mx - 11 - tw;
+    if (ly2 < fs + 2) ly2 = my + fs + 10;
+    ctx.fillStyle = "rgba(255,255,255,0.85)";
+    ctx.fillRect(lx2 - 3, ly2 - fs, tw + 6, fs + 5);
+    ctx.fillStyle = mk.color; ctx.fillText(mk.label, lx2, ly2);
+  });
+  ctx.restore();
+}
+
+/* ================================================================
+   Definizione delle funzioni
+   compute(p, win) restituisce:
+     f, formula (HTML), info [HTML], markers, vlines, breaks, extraCurves, error
+   ================================================================ */
+const FUNCS = [
+
+/* ---------------- LINEARE ---------------- */
+{
+  id: "lineare", title: "Lineare",
+  params: [
+    { key: "m", label: "Coefficiente angolare m", min: -5, max: 5, step: 0.1, value: 1, cls: "p1" },
+    { key: "q", label: "Intercetta q", min: -10, max: 10, step: 0.1, value: 0, cls: "p2" }
+  ],
+  grid: ["-3", "3", "1"], view: ["10", "7.5"],
+  compute({ m, q }) {
+    const f = x => m * x + q;
+    const mz = Math.abs(m) < EPS;
+    const markers = [{ x: 0, y: q, color: COL.intercept, label: pt(0, q) }];
+    let zeroTxt;
+    if (!mz) { markers.push({ x: -q / m, y: 0, color: COL.zero, label: pt(-q / m, 0) }); zeroTxt = `x = −q/m = ${fmt(-q / m)}`; }
+    else if (Math.abs(q) < EPS) zeroTxt = "tutti i punti (la retta coincide con l'asse x)";
+    else zeroTxt = "nessuno (retta parallela all'asse x)";
+    return {
+      f, markers,
+      formula: "<i>y</i> = " + termsHTML([[m, "<i>x</i>", "p1"], [q, "", "p2"]]),
+      info: [
+        `${dot(COL.intercept)}Intercetta con l'asse y: (0; ${fmt(q)})`,
+        `${dot(COL.zero)}Zero: ${zeroTxt}`,
+        `Andamento: <b>${mz ? "costante" : m > 0 ? "crescente" : "decrescente"}</b>`
+      ]
+    };
+  }
+},
+
+/* ---------------- QUADRATICA ---------------- */
+{
+  id: "quadratica", title: "Quadratica",
+  params: [
+    { key: "a", label: "Coefficiente a", min: -3, max: 3, step: 0.1, value: 1, cls: "p1" },
+    { key: "b", label: "Coefficiente b", min: -6, max: 6, step: 0.1, value: 0, cls: "p2" },
+    { key: "c", label: "Termine noto c", min: -6, max: 6, step: 0.1, value: 0, cls: "p3" }
+  ],
+  grid: ["-3", "3", "1"], view: ["8", "6"],
+  compute({ a, b, c }) {
+    const f = x => a * x * x + b * x + c;
+    const formula = "<i>y</i> = " + termsHTML([[a, "<i>x</i><sup>2</sup>", "p1"], [b, "<i>x</i>", "p2"], [c, "", "p3"]]);
+    const markers = [{ x: 0, y: c, color: COL.intercept, label: pt(0, c) }];
+    const info = [`${dot(COL.intercept)}Intercetta con l'asse y: (0; ${fmt(c)})`];
+
+    if (Math.abs(a) < EPS) {
+      if (Math.abs(b) > EPS) markers.push({ x: -c / b, y: 0, color: COL.zero, label: pt(-c / b, 0) });
+      info.push(`<span class="err">Con a = 0 la funzione non è quadratica: il grafico è una retta.</span>`);
+      return { f, formula, markers, info };
+    }
+    const D = b * b - 4 * a * c;
+    const xv = -b / (2 * a), yv = -D / (4 * a);
+    let zeroTxt;
+    if (D > EPS) {
+      const s = Math.sqrt(D), x1 = (-b - s) / (2 * a), x2 = (-b + s) / (2 * a);
+      const [l, r] = x1 < x2 ? [x1, x2] : [x2, x1];
+      markers.push({ x: l, y: 0, color: COL.zero, label: pt(l, 0) }, { x: r, y: 0, color: COL.zero, label: pt(r, 0) });
+      zeroTxt = `x₁ = ${fmt(l)}, x₂ = ${fmt(r)}`;
+    } else if (D > -EPS) {
+      zeroTxt = `una soluzione doppia, x = ${fmt(xv)} (il vertice sta sull'asse x)`;
+    } else zeroTxt = "nessuno (la parabola non interseca l'asse x)";
+    markers.push({ x: xv, y: yv, color: COL.vertex, label: "V " + pt(xv, yv) });
+    return {
+      f, formula, markers,
+      vlines: [{ x: xv, color: COL.vertex }],
+      info: info.concat([
+        `Discriminante: Δ = b² − 4ac = <b>${fmt(D)}</b>`,
+        `${dot(COL.zero)}Zeri: ${zeroTxt}`,
+        `${dot(COL.vertex)}Vertice V(−b/2a; −Δ/4a) = (${fmt(xv)}; ${fmt(yv)}), asse di simmetria x = ${fmt(xv)} (tratteggiato)`,
+        `Concavità: <b>${a > 0 ? "verso l'alto (a > 0)" : "verso il basso (a < 0)"}</b>`
+      ])
+    };
+  }
+},
+
+/* ---------------- POTENZA ---------------- */
+{
+  id: "potenza", title: "Potenza",
+  params: [
+    { key: "a", label: "Coefficiente a", min: -3, max: 3, step: 0.1, value: 1, cls: "p1" },
+    { key: "n", label: "Esponente n", min: -3, max: 4, step: 0.5, value: 2, cls: "p2",
+      hint: "Prova anche esponenti non interi: n = 0,5 è la radice quadrata." }
+  ],
+  grid: ["-2", "2", "0.5"], view: ["4", "3"],
+  compute({ a, n }) {
+    const isInt = Math.abs(n - Math.round(n)) < 1e-9;
+    const N = isInt ? Math.round(n) : n;
+    const f = x => {
+      if (!isInt && x < 0) return NaN;
+      if (Math.abs(x) < EPS && N < 0) return NaN;
+      return a * Math.pow(x, N);
+    };
+    let formula;
+    if (Math.abs(a) < EPS) formula = "<i>y</i> = 0";
+    else if (N === 0) formula = `<i>y</i> = <span class="p1">${fmt(a)}</span>`;
+    else formula = `<i>y</i> = ${coefHTML(a, "p1")}<i>x</i>` + (N === 1 ? "" : `<sup class="p2">${fmt(N)}</sup>`);
+
+    let dom;
+    if (isInt) dom = N >= 0 ? "ℝ" : "ℝ \\ {0}";
+    else dom = N > 0 ? "x ≥ 0" : "x > 0";
+
+    let par;
+    if (!isInt) par = "né pari né dispari (è definita solo per x ≥ 0)";
+    else if (N === 0) par = "costante";
+    else if (N % 2 === 0) par = "pari: grafico simmetrico rispetto all'asse y";
+    else par = "dispari: grafico simmetrico rispetto all'origine";
+
+    const mono = Math.abs(a * N) < EPS ? "costante" : a * N > 0 ? "crescente" : "decrescente";
+    const markers = [{ x: 1, y: a, color: COL.other, label: pt(1, a) }];
+    if (N > 0) markers.push({ x: 0, y: 0, color: COL.intercept, label: "(0; 0)" });
+    else if (N === 0) markers.push({ x: 0, y: a, color: COL.intercept, label: pt(0, a) });
+
+    const info = [
+      `Dominio: <b>${dom}</b>`,
+      `Simmetria: ${par}`,
+      `Per x > 0 la funzione è <b>${mono}</b>`,
+      `${dot(COL.other)}Passa per (1; a) = ${pt(1, a)}`
+    ];
+    if (N < 0) info.push("Asintoti: x = 0 (verticale) e y = 0 (orizzontale)");
+    if (N === 0) info.push("Per convenzione x⁰ = 1 anche in x = 0");
+    return { f, formula, markers, info, breaks: N < 0 ? [0] : [] };
+  }
+},
+
+/* ---------------- ESPONENZIALE ---------------- */
+{
+  id: "esponenziale", title: "Esponenziale",
+  params: [
+    { key: "b", label: "Base b", min: 0.1, max: 5, step: 0.05, value: 2, cls: "p1",
+      hint: "Nel campo puoi scrivere e per la base naturale." },
+    { key: "k", label: "Coefficiente k", min: -3, max: 3, step: 0.1, value: 1, cls: "p2" }
+  ],
+  grid: ["-3", "3", "1"], view: ["4", "8"],
+  compute({ b, k }) {
+    if (!(b > 0)) return { error: "La base deve essere positiva (b > 0).", formula: "<i>y</i> = <i>k</i> · <i>b</i><sup><i>x</i></sup>" };
+    const f = x => k * Math.pow(b, x);
+    const isE = Math.abs(b - Math.E) < 1e-9;
+    const baseStr = isE ? "e" : (Number.isInteger(Math.round(b * 1e10) / 1e10) ? fmt(b) : `(${fmt(b)})`);
+    const formula = Math.abs(k) < EPS ? "<i>y</i> = 0"
+      : `<i>y</i> = ${coefHTML(k, "p2")}${Math.abs(Math.abs(k) - 1) < EPS ? "" : " · "}<span class="p1">${baseStr}</span><sup><i>x</i></sup>`;
+    const lnb = Math.log(b);
+    const mono = Math.abs(k * lnb) < EPS ? "costante" : k * lnb > 0 ? "crescente" : "decrescente";
+    const img = Math.abs(k) < EPS || Math.abs(b - 1) < EPS ? `{${fmt(k)}}` : k > 0 ? "(0; +∞)" : "(−∞; 0)";
+    const info = [
+      `${dot(COL.intercept)}Intercetta: (0; k) = (0; ${fmt(k)})`,
+      `${dot(COL.other)}Passa per (1; k·b) = ${pt(1, k * b)}`,
+      `Andamento: <b>${mono}</b>`,
+      `Dominio: ℝ, immagine: <b>${img}</b>`
+    ];
+    if (Math.abs(b - 1) > EPS && Math.abs(k) > EPS)
+      info.push(`Asintoto orizzontale y = 0 per x → ${b > 1 ? "−∞" : "+∞"}`);
+    if (Math.abs(b - 1) < EPS) info.push(`<span class="err">Con b = 1 la funzione è costante.</span>`);
+    return {
+      f, formula, info,
+      markers: [{ x: 0, y: k, color: COL.intercept, label: pt(0, k) }, { x: 1, y: k * b, color: COL.other, label: pt(1, k * b) }]
+    };
+  }
+},
+
+/* ---------------- LOGARITMO ---------------- */
+{
+  id: "logaritmo", title: "Logaritmo",
+  params: [
+    { key: "b", label: "Base b", min: 0.1, max: 5, step: 0.05, value: 2, cls: "p1",
+      hint: "Nel campo puoi scrivere e per il logaritmo naturale." },
+    { key: "inv", type: "check", label: "Mostra l'inversa y = bˣ e la bisettrice y = x", value: false }
+  ],
+  grid: ["0.5", "4", "0.5"], view: ["6", "4.5"],
+  compute({ b, inv }) {
+    if (!(b > 0) || Math.abs(b - 1) < EPS)
+      return { error: "La base deve essere positiva e diversa da 1.", formula: "<i>y</i> = log<sub><i>b</i></sub> <i>x</i>" };
+    const lb = Math.log(b);
+    const f = x => (x > 0 ? Math.log(x) / lb : NaN);
+    const isE = Math.abs(b - Math.E) < 1e-9;
+    const formula = isE ? `<i>y</i> = <span class="p1">ln</span> <i>x</i>`
+      : `<i>y</i> = log<sub class="p1">${fmt(b)}</sub> <i>x</i>`;
+    const info = [
+      "Dominio: <b>x > 0</b>, immagine: ℝ",
+      `Andamento: <b>${b > 1 ? "crescente (b > 1)" : "decrescente (0 < b < 1)"}</b>`,
+      `${dot(COL.zero)}Zero: x = 1, perché b⁰ = 1`,
+      `${dot(COL.other)}Passa per (b; 1) = ${pt(b, 1)}`,
+      "Asintoto verticale: x = 0"
+    ];
+    const extraCurves = [];
+    if (inv) {
+      extraCurves.push({ f: x => Math.pow(b, x), color: COL.point, width: 2, dash: [8, 5] });
+      extraCurves.push({ f: x => x, color: COL.guide, width: 1.5, dash: [2, 4] });
+      info.push(`${dot(COL.point)}Tratteggio: y = ${isE ? "e" : fmt(b)}ˣ, simmetrica rispetto alla bisettrice y = x`);
+    }
+    return {
+      f, formula, info, extraCurves,
+      markers: [{ x: 1, y: 0, color: COL.zero, label: "(1; 0)" }, { x: b, y: 1, color: COL.other, label: pt(b, 1) }]
+    };
+  }
+},
+
+/* ---------------- TRIGONOMETRICHE ---------------- */
+{
+  id: "trigonometriche", title: "Trigonometriche", piX: true,
+  params: [
+    { key: "tipo", type: "select", label: "Funzione", value: "sin",
+      options: [["sin", "seno"], ["cos", "coseno"], ["tan", "tangente"]] },
+    { key: "A", label: "Ampiezza A", min: -3, max: 3, step: 0.1, value: 1, cls: "p1" },
+    { key: "w", label: "Pulsazione ω", min: -4, max: 4, step: 0.1, value: 1, cls: "p2" },
+    { key: "phi", label: "Fase φ", min: -2 * Math.PI, max: 2 * Math.PI, step: Math.PI / 12, value: 0, cls: "p3", pi: true }
+  ],
+  grid: ["0", "2pi", "pi/6"], view: ["2pi", "2.5"],
+  compute({ tipo, A, w, phi }, win) {
+    const g = { sin: Math.sin, cos: Math.cos, tan: Math.tan }[tipo];
+    const f = x => {
+      const t = w * x + phi;
+      if (tipo === "tan" && Math.abs(Math.cos(t)) < 1e-8) return NaN;
+      return A * g(t);
+    };
+    // formula
+    const phiTxt = formatPi(Math.abs(phi)) ?? fmt(Math.abs(phi));
+    let inner = termsHTML([[w, "<i>x</i>", "p2"]]);
+    if (Math.abs(phi) > EPS) inner = (Math.abs(w) < EPS ? (phi < 0 ? "−" : "") : inner + (phi < 0 ? " − " : " + ")) + `<span class="p3">${phiTxt}</span>`;
+    const formula = Math.abs(A) < EPS ? "<i>y</i> = 0" : `<i>y</i> = ${coefHTML(A, "p1")} ${tipo}(${inner})`;
+
+    const info = [];
+    const vlines = [], breaks = [];
+    if (Math.abs(w) < EPS) info.push("Con ω = 0 la funzione è costante.");
+    else {
+      const T = (tipo === "tan" ? Math.PI : 2 * Math.PI) / Math.abs(w);
+      info.push(`Periodo: T = ${tipo === "tan" ? "π" : "2π"}/|ω| = <b>${formatPi(T) ?? fmt(T)}</b>`);
+      if (Math.abs(phi) > EPS) {
+        const sh = -phi / w;
+        info.push(`Traslazione orizzontale: ${formatPi(sh) ?? fmt(sh)} rispetto a ${tipo}(ωx)`);
+      }
+      if (tipo === "tan") {
+        const t1 = Math.min(w * win.xmin, w * win.xmax) + phi, t2 = Math.max(w * win.xmin, w * win.xmax) + phi;
+        const k1 = Math.ceil((t1 - Math.PI / 2) / Math.PI), k2 = Math.floor((t2 - Math.PI / 2) / Math.PI);
+        for (let k = k1; k <= k2 && k - k1 < 200; k++) {
+          const xa = (Math.PI / 2 + k * Math.PI - phi) / w;
+          vlines.push({ x: xa, color: COL.guide }); breaks.push(xa);
+        }
+        info.push("Asintoti verticali (tratteggiati) dove ωx + φ = π/2 + kπ");
+      }
+    }
+    if (tipo !== "tan") info.push(`Ampiezza |A| = <b>${fmt(Math.abs(A))}</b>, immagine [−${fmt(Math.abs(A))}; ${fmt(Math.abs(A))}]`);
+    else info.push("Immagine: ℝ" + (Math.abs(A) < EPS ? " (qui A = 0)" : ""));
+
+    const y0 = f(0);
+    const markers = isFinite(y0) ? [{ x: 0, y: y0, color: COL.intercept, label: pt(0, y0) }] : [];
+    info.unshift(`${dot(COL.intercept)}Intercetta: ${isFinite(y0) ? pt(0, y0) : "non definita"}`);
+    return { f, formula, info, markers, vlines, breaks };
+  }
+}
+];
+
+/* ================================================================
+   Costruzione delle schede (motore generico)
+   ================================================================ */
+const tabsEl = document.getElementById("tabs"), panelsEl = document.getElementById("panels");
+const redrawers = [];
+
+function buildTab(cfg, idx) {
+  const btn = document.createElement("button");
+  btn.textContent = cfg.title; btn.dataset.tab = cfg.id;
+  if (idx === 0) btn.classList.add("active");
+  tabsEl.appendChild(btn);
+
+  const sec = document.createElement("section");
+  sec.className = "panel" + (idx === 0 ? " active" : "");
+  sec.id = "tab-" + cfg.id;
+  const pid = k => `${cfg.id}-${k}`;
+
+  const paramHTML = cfg.params.map(p => {
+    if (p.type === "select")
+      return `<div class="param"><label for="${pid(p.key)}">${p.label}</label>
+        <select id="${pid(p.key)}">${p.options.map(([v, t]) => `<option value="${v}"${v === p.value ? " selected" : ""}>${t}</option>`).join("")}</select></div>`;
+    if (p.type === "check")
+      return `<div class="param check"><label><input type="checkbox" id="${pid(p.key)}"${p.value ? " checked" : ""}> ${p.label}</label></div>`;
+    return `<div class="param ${p.cls}"><label for="${pid(p.key)}-r">${p.label}</label>
+      <div class="row" title="Slider tra ${p.pi ? formatPi(p.min) : fmt(p.min)} e ${p.pi ? formatPi(p.max) : fmt(p.max)}"><input type="range" id="${pid(p.key)}-r" min="${p.min}" max="${p.max}" step="${p.step}" value="${p.value}">
+      <input type="text" class="val" id="${pid(p.key)}-n" inputmode="decimal"></div>
+      ${p.hint ? `<div class="hint">${p.hint}</div>` : ""}</div>`;
+  }).join("");
+
+  sec.innerHTML = `
+    <p class="formula" id="${pid("formula")}"></p>
+    <div class="layout">
+      <div class="card plot-card">
+        <div class="plot-wrap"><canvas id="${pid("canvas")}"></canvas></div>
+      </div>
+      <div class="card">
+        <h2>Parametri</h2>
+        <div class="controls">${paramHTML}</div>
+        <div class="hint" style="margin-top:0.6rem">Gli slider coprono un intervallo limitato: nei campi puoi scrivere qualsiasi valore${cfg.piX ? ", anche con π (es. pi/3)" : ""}.</div>
+        <h2 class="sub">Proprietà</h2>
+        <div class="info" id="${pid("info")}"></div>
+        <h2 class="sub">Finestra del grafico</h2>
+        <div class="view-row">
+          <label><span>L<sub>x</sub> =</span><input type="text" id="${pid("lx")}" value="${cfg.view[0]}"></label>
+          <label><span>L<sub>y</sub> =</span><input type="text" id="${pid("ly")}" value="${cfg.view[1]}"></label>
+        </div>
+        <div class="hint">x ∈ [−L<sub>x</sub>; L<sub>x</sub>], y ∈ [−L<sub>y</sub>; L<sub>y</sub>]</div>
+        <button class="btn reset" id="${pid("reset")}">Valori iniziali</button>
+      </div>
+      <div class="card">
+        <h2>Tabella dei valori</h2>
+        <div class="grid-set">
+          <div><label for="${pid("xa")}">x iniziale</label><input type="text" id="${pid("xa")}" value="${cfg.grid[0]}"></div>
+          <div><label for="${pid("xb")}">x finale</label><input type="text" id="${pid("xb")}" value="${cfg.grid[1]}"></div>
+          <div><label for="${pid("xh")}">passo</label><input type="text" id="${pid("xh")}" value="${cfg.grid[2]}"></div>
+        </div>
+        <div class="hint" style="margin-bottom:0.4rem">${cfg.piX ? "Puoi usare π, ad esempio pi/6 o 2pi." : "Valori decimali con la virgola o con il punto."}</div>
+        <div class="msg" id="${pid("msg")}"></div>
+        <div class="table-wrap">
+          <table><thead><tr><th>x</th><th>y</th></tr></thead><tbody id="${pid("tbody")}"></tbody></table>
+        </div>
+      </div>
+    </div>`;
+  panelsEl.appendChild(sec);
+
+  const $ = k => document.getElementById(pid(k));
+  const state = {};
+  const showVal = p => (p.pi ? (formatPi(state[p.key]) ?? fmt(state[p.key])) : fmt(state[p.key]));
+
+  function setDefaults() {
+    cfg.params.forEach(p => {
+      state[p.key] = p.value;
+      if (p.type === "select") $(p.key).value = p.value;
+      else if (p.type === "check") $(p.key).checked = p.value;
+      else { $(p.key + "-r").value = p.value; $(p.key + "-n").value = showVal(p); $(p.key + "-n").classList.remove("bad"); }
+    });
+  }
+
+  cfg.params.forEach(p => {
+    if (p.type === "select") $(p.key).addEventListener("change", e => { state[p.key] = e.target.value; update(); });
+    else if (p.type === "check") $(p.key).addEventListener("change", e => { state[p.key] = e.target.checked; update(); });
+    else {
+      const r = $(p.key + "-r"), n = $(p.key + "-n");
+      r.addEventListener("input", () => { state[p.key] = parseFloat(r.value); n.value = showVal(p); n.classList.remove("bad"); update(); });
+      n.addEventListener("input", () => {
+        const v = parseExpr(n.value);
+        n.classList.toggle("bad", !isFinite(v));
+        if (!isFinite(v)) return;
+        state[p.key] = v;
+        r.value = Math.min(Math.max(v, p.min), p.max);
+        update();
+      });
+    }
+  });
+
+  function readWindow() {
+    const lx = parseExpr($("lx").value), ly = parseExpr($("ly").value);
+    $("lx").classList.toggle("bad", !(lx > 0)); $("ly").classList.toggle("bad", !(ly > 0));
+    return { xmin: -(lx > 0 ? lx : 10), xmax: lx > 0 ? lx : 10, ymin: -(ly > 0 ? ly : 10), ymax: ly > 0 ? ly : 10 };
+  }
+
+  function gridValues() {
+    const a = parseExpr($("xa").value), b = parseExpr($("xb").value), h = parseExpr($("xh").value);
+    const msg = $("msg");
+    if (![a, b, h].every(isFinite)) { msg.textContent = "Inserisci valori numerici."; return []; }
+    if (h <= 0) { msg.textContent = "Il passo deve essere positivo."; return []; }
+    if (b < a) { msg.textContent = "x finale deve essere ≥ x iniziale."; return []; }
+    const n = Math.floor((b - a) / h + 1e-9) + 1;
+    if (n > 201) { msg.textContent = "Troppi valori (max 201): aumenta il passo."; return []; }
+    msg.textContent = "";
+    return Array.from({ length: n }, (_, i) => Math.round((a + i * h) * 1e10) / 1e10);
+  }
+
+  function update() {
+    const win = readWindow();
+    const r = cfg.compute(state, win);
+    $("formula").innerHTML = r.formula;
+    const xs = gridValues();
+    const fx = r.f || (() => NaN);
+    const fmtX = x => (cfg.piX ? (formatPi(x) ?? fmt(x)) : fmt(x));
+
+    $("tbody").innerHTML = xs.map(x => {
+      const y = fx(x), ok = isFinite(y);
+      const cls = ok && Math.abs(y) < 1e-10 ? "hl-z" : ok && Math.abs(x) < EPS ? "hl-q" : "";
+      return `<tr class="${cls}"><td>${fmtX(x)}</td>${ok ? `<td>${fmt(y)}</td>` : `<td class="nd">non definita</td>`}</tr>`;
+    }).join("");
+
+    const info = r.error ? [`<span class="err">${r.error}</span>`] : r.info;
+    $("info").innerHTML = info.map(s => `<span>${s}</span>`).join("") +
+      (r.error ? "" : `<span>${dot(COL.point)}Punti della tabella</span>`);
+
+    drawPlot($("canvas"), {
+      ...win, piX: cfg.piX,
+      curves: r.error ? [] : [...(r.extraCurves || []), { f: fx, color: COL.curve, width: 3 }],
+      points: r.error ? [] : xs.map(x => ({ x, y: fx(x) })).filter(p => isFinite(p.y)),
+      markers: r.markers || [], vlines: r.vlines || [], breaks: r.breaks || []
+    });
+  }
+
+  ["xa", "xb", "xh", "lx", "ly"].forEach(k => $(k).addEventListener("input", update));
+  $("reset").addEventListener("click", () => { setDefaults(); update(); });
+  setDefaults();
+  new ResizeObserver(update).observe($("canvas"));
+  redrawers.push(update);
+  update();
+}
+
+FUNCS.forEach(buildTab);
+
+/* schede */
+tabsEl.addEventListener("click", e => {
+  const btn = e.target.closest("button[data-tab]");
+  if (!btn) return;
+  tabsEl.querySelectorAll("button").forEach(b => b.classList.toggle("active", b === btn));
+  panelsEl.querySelectorAll(".panel").forEach(p => p.classList.toggle("active", p.id === "tab-" + btn.dataset.tab));
+});
+
+/* modalità proiezione */
+document.getElementById("btnPresent").addEventListener("click", e => {
+  const on = e.currentTarget.classList.toggle("on");
+  document.documentElement.style.setProperty("--scale", on ? 1.3 : 1);
+  redrawers.forEach(u => u());
+});
+</script>
+</body>
+</html>
