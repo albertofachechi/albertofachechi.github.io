@@ -1,15 +1,15 @@
 [0] Config.pm:307> INFO - This is Biber 2.17
 [0] Config.pm:310> INFO - Logfile is 'CV_Fachechi.blg'
-[27] biber:340> INFO - === mar ott  6, 2026, 18:12:13
-[33] Biber.pm:418> INFO - Reading 'CV_Fachechi.bcf'
-[57] Biber.pm:969> INFO - Using all citekeys in bib section 0
-[62] Biber.pm:4383> INFO - Processing section 0
-[66] Biber.pm:4574> INFO - Looking for bibtex file 'publications.bib' for section 0
-[67] bibtex.pm:1713> INFO - LaTeX decoding ...
-[82] bibtex.pm:1518> INFO - Found BibTeX data source 'publications.bib'
-[207] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[28] biber:340> INFO - === mar ott  6, 2026, 18:25:55
+[34] Biber.pm:418> INFO - Reading 'CV_Fachechi.bcf'
+[58] Biber.pm:969> INFO - Using all citekeys in bib section 0
+[63] Biber.pm:4383> INFO - Processing section 0
+[67] Biber.pm:4574> INFO - Looking for bibtex file 'publications.bib' for section 0
+[68] bibtex.pm:1713> INFO - LaTeX decoding ...
+[83] bibtex.pm:1518> INFO - Found BibTeX data source 'publications.bib'
 [207] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[207] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
 [207] Biber.pm:4203> INFO - Sorting list 'ydnt/global//global/global' of type 'entry' with template 'ydnt' and locale 'en-US'
 [207] Biber.pm:4209> INFO - No sort tailoring available for locale 'en-US'
-[225] bbl.pm:654> INFO - Writing 'CV_Fachechi.bbl' with encoding 'UTF-8'
-[239] bbl.pm:757> INFO - Output to CV_Fachechi.bbl
+[224] bbl.pm:654> INFO - Writing 'CV_Fachechi.bbl' with encoding 'UTF-8'
+[238] bbl.pm:757> INFO - Output to CV_Fachechi.bbl

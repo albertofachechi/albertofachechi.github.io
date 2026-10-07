@@ -59,9 +59,8 @@ RUBRICS = {
                      [("cv.html", "Positions")]),
     "education":    ("Education",
                      [("cv.html", "Education")]),
-    "groups":       ("Research groups and collaborations",
-                     [("cv.html", "Communities", "Scientific communities"),
-                      ("cv.html", "Collaborations")]),
+    "groups":       ("Scientific communities",
+                     [("cv.html", "Communities")]),
     "teaching":     ("Teaching",
                      [("teaching.html", "Courses")]),
     "supervising":  ("Supervising",
@@ -79,6 +78,12 @@ RUBRICS = {
 }
 
 ACTIVITY_TITLE = "Activity and research interests"
+# Il cappello viene dal box della home con questo titolo.
+ACTIVITY_BOX = "My research interests"
+# Punti da includere, per etichetta (es. ("Contents",)); None = tutti.
+ACTIVITY_ITEMS = None
+# Mostra le etichette ("Contents:", "Methods:", ...) in grassetto.
+ACTIVITY_LABELS = True
 SUMMARY_TITLE = "Summary of scientific production"
 # Righe della tabella metriche (testo normalizzato: solo a-z0-9) che ricevono
 # il rimando ^1 alla nota "Source: GoogleScholar" del template.
@@ -91,7 +96,7 @@ DISABLED_RUBRICS = ("recognitions",)
 # Righe da omettere, per rubrica: righe il cui testo inizia con questi prefissi.
 DROP_LINES = {
     "education": ("Ref",),                     # "Ref:" / "Refs:"
-    "teaching": ("Course shared with", "Ref"),
+    "teaching": ("Course shared with", "Ref", "Other lecturer"),
 }
 
 # Voci da omettere, per rubrica: la riga in grassetto (position) contiene
@@ -104,6 +109,11 @@ DROP_ENTRIES = {
 
 # Rubriche sostituite da un riepilogo invece della lista delle voci.
 SUMMARIZE = {"supervising"}
+
+# Rinomina della riga in grassetto (position), per rubrica: corrispondenza esatta.
+RENAME_POSITIONS = {
+    "teaching": {"Supervisor": "Teaching Assistant (exercise sessions)"},  # esercitatore
+}
 
 # Impaginazione compatta: righe brevi della stessa voce unite con virgole.
 COMPACT = True
@@ -268,6 +278,12 @@ def apply_filters(fname, entries):
             continue
         e = dict(e, lines=[l for l in e["lines"]
                            if not clean(l.get_text()).startswith(drop_lines)])
+        renames = RENAME_POSITIONS.get(fname, {})
+        e["position"] = [
+            BeautifulSoup(f"<span>{renames[clean(p.get_text())]}</span>",
+                          "html.parser").span
+            if clean(p.get_text()) in renames else p
+            for p in e["position"]]
         out.append(e)
     return out
 
@@ -328,19 +344,29 @@ def write_rubric(fname, title, sections):
 # ---------------------------------------------------------------------------
 
 def build_activity(index_soup):
-    for c in index_soup.find_all(string=lambda t: isinstance(t, Comment)):
-        if "FOR CV" in c:
-            text = c.replace("FOR CV", "")
-            paras = [escape_text(p) for p in re.split(r"\n\s*\n", text) if p.strip()]
-            body = "\n\n".join(clean(p) for p in paras)
-            with open("activity.tex", "w", encoding="utf-8") as f:
-                # \text{...} di curve: riga a tutta larghezza (niente colonna
-                # della chiave né pallino).
-                f.write("% Generato da build_cv.py — non modificare a mano\n"
-                        f"\\begin{{rubric}}{{{ACTIVITY_TITLE}}}\n"
-                        f"\\text{{{body}}}\n\\end{{rubric}}\n")
-            return
-    raise KeyError("Commento 'FOR CV' non trovato in index.html")
+    """Cappello del CV: i punti del box ACTIVITY_BOX della home (Contents,
+    Methods, ...), uno per paragrafo con l'etichetta in grassetto."""
+    box = find_box(index_soup, ACTIVITY_BOX)
+    paras = []
+    for li in box.select("ul.bulleted-list > li"):
+        label = li.find("b")
+        label_txt = clean(label.get_text()).rstrip(":") if label else ""
+        if ACTIVITY_ITEMS and label_txt not in ACTIVITY_ITEMS:
+            continue
+        txt = clean(to_latex(li))
+        if not ACTIVITY_LABELS and label:
+            txt = clean(txt.replace(r"\textbf{" + clean(label.get_text()) + "}", "", 1))
+            txt = txt[:1].upper() + txt[1:]
+        paras.append(txt)
+    if not paras:
+        raise KeyError(f"Nessun punto trovato nel box '{ACTIVITY_BOX}' di index.html")
+    body = "\\par\\smallskip\n".join(paras)
+    with open("activity.tex", "w", encoding="utf-8") as f:
+        # \text{...} di curve: riga a tutta larghezza (niente colonna
+        # della chiave né pallino).
+        f.write("% Generato da build_cv.py — non modificare a mano\n"
+                f"\\begin{{rubric}}{{{ACTIVITY_TITLE}}}\n"
+                f"\\text{{{body}}}\n\\end{{rubric}}\n")
 
 
 def build_summary(pub_soup):
